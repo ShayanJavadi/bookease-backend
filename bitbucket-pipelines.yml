@@ -3,12 +3,16 @@ image: node:6.11.2
 pipelines:
   default:
     - step:
+        caches:
+          - node
         script:
           - npm install
           - npm run lint
   branches:
     master:
       - step:
-          script:
+        caches:
+          - node
+        script:
             - npm install
             - npm run lint
