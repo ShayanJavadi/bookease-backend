@@ -77,7 +77,7 @@ app.start = () => {
   const HOST = getHost();
 
   app.listen(PORT, HOST, () => {
-    console.log(`Server is listening at ${HOST}:${PORT}`);
+    console.log(`Server is listening at ${HOST}:${PORT}`); // eslint-disable-line
   });
 };
 
