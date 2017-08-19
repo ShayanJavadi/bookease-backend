@@ -1,0 +1,14 @@
+image: node:6.11.2
+
+pipelines:
+  default:
+    - step:
+        script:
+          - npm install
+          - npm run lint
+  branches:
+    master:
+      - step:
+          script:
+            - npm install
+            - npm run lint
