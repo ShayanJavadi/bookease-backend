@@ -2,23 +2,70 @@
   "name": "@textbook-trading/backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "./node_modules/.bin/babel-node server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "web": "./node_modules/.bin/nodemon --config ./nodemon.web.json --debug=5858 --expose_debug_as=v8debug src/start.js",
+    "start": "./node_modules/.bin/babel-node src/start",
+    "lint": "./node_modules/.bin/eslint src",
+    "lint:fix": "./node_modules/.bin/eslint --fix src",
+    "docker:postgres": "docker run -p 5432:5432 -v `pwd`/tmp/postgres:/var/lib/postgresql/data -e POSTGRES_PASSWORD=mysecretpassword postgres:9.6",
+    "docker:redis": "docker run -p 6379:6379 -v `pwd`/tmp/redis:/data redis:3.2.9",
+    "docker:es": "docker run -p 9200:9200 -p 9300:9300 elasticsearch:2.4.5"
   },
   "repository": {
     "type": "git",
     "url": "git+https://aduyng@bitbucket.org/textbook-trading/backend.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "UNLICENSED",
   "homepage": "https://bitbucket.org/textbook-trading/backend#readme",
   "dependencies": {
     "apollo-server-express": "^1.1.0",
-    "graphql": "^0.10.5"
+    "bluebird": "^2.10.2",
+    "body-parser": "^1.17.2",
+    "compression": "^1.6.0",
+    "connect": "^3.4.0",
+    "connect-redis": "^3.0.0",
+    "cookie-parser": "^1.4.0",
+    "express": "^4.13.3",
+    "express-session": "^1.11.3",
+    "express-sslify": "^1.2.0",
+    "graphql": "^0.10.5",
+    "lodash": "^4.6.1",
+    "method-override": "^2.3.9",
+    "redis": "^2.1.0",
+    "throng": "^4.0.0",
+    "underscore.string": "^3.2.2",
+    "winston": "^1.1.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1"
+    "babel-cli": "^6.24.1",
+    "babel-preset-es2015": "6.14.0",
+    "babel-preset-stage-0": "6.5.0",
+    "eslint": "^4.5.0",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.2.1",
+    "nodemon": "^1.11.0"
+  },
+  "config": {
+    "PORT": 5000,
+    "HOST": "0.0.0.0",
+    "NODE_ENV": "development",
+    "BODY_PARSER_LIMIT": "2mb",
+    "SESSION_SECRET": "rWUf76SsYhj9",
+    "SESSION_MAX_AGE": 86400000,
+    "REDIS_URL": "redis://localhost:6379",
+    "WEB_CONCURRENCY": 1
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-0"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "airbnb"
   }
 }

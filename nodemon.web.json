@@ -1,0 +1,15 @@
+{
+  "restartable": "rsw",
+  "execMap": {
+    "js": "babel-node"
+  },
+  "ignore": [
+    ".git",
+    "node_module*node_modules"
+  ],
+  "verbose": true,
+  "watch": [
+    "src",
+    "package.json"
+  ]
+}
