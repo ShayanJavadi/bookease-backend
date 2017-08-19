@@ -1,7 +1,7 @@
 {
   "name": "@textbook-trading/backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "The backend of textbook trading application using GraphQL",
   "main": "src/index.js",
   "scripts": {
     "web": "./node_modules/.bin/nodemon --config ./nodemon.web.json --debug=5858 --expose_debug_as=v8debug src/start.js",
