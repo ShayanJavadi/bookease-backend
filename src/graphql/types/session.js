@@ -1,7 +1,7 @@
-import { GraphQLID, GraphQLNonNull, GraphQLObjectType } from 'graphql';
+import {GraphQLID, GraphQLNonNull, GraphQLObjectType} from "graphql";
 
 export default new GraphQLObjectType({
-  name: 'Session',
+  name: "Session",
   fields: {
     userId: {
       type: new GraphQLNonNull(GraphQLID),

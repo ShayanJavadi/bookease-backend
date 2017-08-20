@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import {HTTPS} from "express-sslify";
 import session from "express-session";
 import redis from "connect-redis";
+import cors from "cors";
 import getVariable from "./config/getVariable";
 import getAppName from "./config/getAppName";
 import getAppVersion from "./config/getAppVersion";
@@ -15,7 +16,8 @@ import getHost from "./config/getHost";
 import schema from "./graphql/schema";
 import isDevelopment from "./config/isDevelopment";
 import L from "./logger/logger";
-import cors from "cors";
+import db from "./db";
+import initializeDb from "./db/initialize";
 
 const SessionStore = redis(session);
 const store = new SessionStore({
@@ -74,13 +76,13 @@ app.get("/graphiql", graphiqlExpress({
 }));
 
 
-app.start = () => {
+app.start = () => initializeDb({db, sync: true}).then(() => {
   const PORT = getPort();
   const HOST = getHost();
 
   app.listen(PORT, HOST, () => {
     L.info(`Server is listening at ${HOST}:${PORT}`); // eslint-disable-line
   });
-};
+});
 
 export default app;
