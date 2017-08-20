@@ -1,23 +1,25 @@
-import express from 'express';
-import { json, urlencoded } from 'body-parser';
-import { graphiqlExpress, graphqlExpress } from 'apollo-server-express';
-import compression from 'compression';
-import methodOverride from 'method-override';
-import cookieParser from 'cookie-parser';
-import { HTTPS } from 'express-sslify';
-import session from 'express-session';
-import redis from 'connect-redis';
-import getVariable from './config/getVariable';
-import getAppName from './config/getAppName';
-import getAppVersion from './config/getAppVersion';
-import getPort from './config/getPort';
-import getHost from './config/getHost';
-import schema from './graphql/schema';
-import isDevelopment from './config/isDevelopment';
+import express from "express";
+import {json, urlencoded} from "body-parser";
+import {graphiqlExpress, graphqlExpress} from "apollo-server-express";
+import compression from "compression";
+import methodOverride from "method-override";
+import cookieParser from "cookie-parser";
+import {HTTPS} from "express-sslify";
+import session from "express-session";
+import redis from "connect-redis";
+import getVariable from "./config/getVariable";
+import getAppName from "./config/getAppName";
+import getAppVersion from "./config/getAppVersion";
+import getPort from "./config/getPort";
+import getHost from "./config/getHost";
+import schema from "./graphql/schema";
+import isDevelopment from "./config/isDevelopment";
+import L from "./logger/logger";
+import cors from "cors";
 
 const SessionStore = redis(session);
 const store = new SessionStore({
-  url: getVariable('REDIS_URL'),
+  url: getVariable("REDIS_URL"),
 });
 
 const isDev = isDevelopment();
@@ -32,33 +34,33 @@ if (!isDev) {
 
 app.use(compression());
 app.use(json({
-  limit: getVariable('BODY_PARSER_LIMIT'),
+  limit: getVariable("BODY_PARSER_LIMIT"),
 }));
-app.use(urlencoded({ extended: true }));
-app.use(methodOverride('X-HTTP-Method-Override'));
+app.use(urlencoded({extended: true}));
+app.use(methodOverride("X-HTTP-Method-Override"));
 app.use(cookieParser());
-app.disable('etag');
+app.disable("etag");
 
 const sessionOptions = {
-  name: [getAppName(), getAppVersion(), 'sid'].join('.'),
-  secret: getVariable('SESSION_SECRET'),
+  name: [getAppName(), getAppVersion(), "sid"].join("."),
+  secret: getVariable("SESSION_SECRET"),
   store,
   saveUninitialized: false,
   resave: true,
   cookie: {
     httpOnly: true,
-    maxAge: getVariable('SESSION_MAX_AGE'),
+    maxAge: getVariable("SESSION_MAX_AGE"),
   },
 };
 
 if (!isDev) {
-  app.set('trust proxy', 1);
+  app.set("trust proxy", 1);
   sessionOptions.cookie.secure = true;
 }
 
 app.use(session(sessionOptions));
 
-app.use('/graphql', graphqlExpress(request => ({
+app.use("/graphql", cors(), graphqlExpress(request => ({
   schema,
   rootValue: {
     session: request.session,
@@ -66,8 +68,8 @@ app.use('/graphql', graphqlExpress(request => ({
   },
 })));
 
-app.get('/graphiql', graphiqlExpress({
-  endpointURL: '/graphql',
+app.get("/graphiql", graphiqlExpress({
+  endpointURL: "/graphql",
   pretty: true,
 }));
 
@@ -77,7 +79,7 @@ app.start = () => {
   const HOST = getHost();
 
   app.listen(PORT, HOST, () => {
-    console.log(`Server is listening at ${HOST}:${PORT}`); // eslint-disable-line
+    L.info(`Server is listening at ${HOST}:${PORT}`); // eslint-disable-line
   });
 };
 
