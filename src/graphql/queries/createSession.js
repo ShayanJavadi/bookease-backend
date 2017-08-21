@@ -1,9 +1,10 @@
-import {GraphQLID, GraphQLInt, GraphQLNonNull, GraphQLString} from "graphql";
+import {GraphQLID, GraphQLNonNull, GraphQLString} from "graphql";
 import isEmpty from "lodash/isEmpty";
 import db from "../../db";
+import SessionType from "../types/Session";
 
 export default {
-  type: GraphQLInt,
+  type: SessionType,
   args: {
     displayName: {
       type: new GraphQLNonNull(GraphQLString),
@@ -44,15 +45,18 @@ export default {
     }
 
     return User.findOne({
-      $or: or,
+      where: {
+        $or: or,
+      },
     }).then((existingUser) => {
       if (isEmpty(existingUser)) {
         return User.create(args);
       }
 
-      return User.save(args);
+      return existingUser.save(args);
     }).then((user) => {
       session.userId = user.id; // eslint-disable-line
+      return {user};
     });
   },
 };

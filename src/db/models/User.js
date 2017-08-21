@@ -1,4 +1,4 @@
-import {BIGINT, STRING, TEXT} from "sequelize";
+import {BIGINT, BOOLEAN, STRING, TEXT} from "sequelize";
 
 export default {
   id: {
@@ -26,5 +26,9 @@ export default {
   },
   accessToken: {
     type: TEXT,
+  },
+  setupCompleted: {
+    type: BOOLEAN,
+    defaultValue: false,
   },
 };

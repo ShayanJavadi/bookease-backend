@@ -1,8 +1,11 @@
-import {GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLString} from "graphql";
+import {GraphQLBoolean, GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLString} from "graphql";
 
 export default new GraphQLObjectType({
   name: "User",
   fields: {
+    id: {
+      type: GraphQLID,
+    },
     displayName: {
       type: new GraphQLNonNull(GraphQLString),
     },
@@ -23,6 +26,9 @@ export default new GraphQLObjectType({
     },
     accessToken: {
       type: new GraphQLNonNull(GraphQLString),
+    },
+    setupCompleted: {
+      type: GraphQLBoolean
     },
   },
 });
