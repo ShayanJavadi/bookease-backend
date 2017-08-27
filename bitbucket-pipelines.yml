@@ -19,6 +19,8 @@ pipelines:
             - npm run build
             - cd build && ls -la
             - git add --all || true
+            - git config user.email "aduyng@gmail.com"
+            - git config user.name "Dewey Nguyen"
             - git commit -m "pushed by bitbucket pipelines" || true
             - git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_DEVELOPMENT_APP_NAME.git master --force
     master:
