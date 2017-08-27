@@ -27,6 +27,10 @@ export default {
   accessToken: {
     type: TEXT,
   },
+  schoolId: {
+    type: BIGINT,
+    required: true,
+  },
   setupCompleted: {
     type: BOOLEAN,
     defaultValue: false,
