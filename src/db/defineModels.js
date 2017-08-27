@@ -1,7 +1,9 @@
 import {readdirSync} from "fs";
 import path from "path";
 import reduce from "lodash/reduce";
-import forEach from "lodash/forEach";
+import B from "bluebird";
+import map from "lodash/map";
+import defineAssociations from "./defineAssociations";
 
 const files = readdirSync(path.join(__dirname, "models"));
 const models = reduce(files, (memo, file) => {
@@ -16,8 +18,11 @@ export default ({db, sync = false}) => {
     return memo;
   }, {});
 
+  defineAssociations(db.models);
+
   if (sync) {
-    forEach(db.models, model => model.sync({force: true}));
+    return B.all(map(db.models, model => model.sync({force: true})))
+      .then(() => db);
   }
 
   return db;

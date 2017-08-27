@@ -6,6 +6,8 @@
   "scripts": {
     "web": "./node_modules/.bin/nodemon --config ./nodemon.web.json --debug=5858 --expose_debug_as=v8debug src/start.js",
     "start": "npm run web",
+    "init:db": "./node_modules/.bin/babel-node src/tools/initDb.js",
+    "init:run-dataloader": "./node_modules/.bin/babel-node src/tools/runDataLoader.js",
     "lint": "./node_modules/.bin/eslint src",
     "lint:fix": "./node_modules/.bin/eslint --fix src",
     "build": "./node_modules/.bin/babel src --out-dir build",
@@ -29,6 +31,7 @@
     "connect-redis": "^3.0.0",
     "cookie-parser": "^1.4.0",
     "cors": "^2.8.4",
+    "csv": "^1.1.1",
     "express": "^4.13.3",
     "express-session": "^1.11.3",
     "express-sslify": "^1.2.0",
@@ -63,7 +66,7 @@
     "SESSION_MAX_AGE": 86400000,
     "REDIS_URL": "redis://h:p78ead1d7ed981e115d64ee1f95d5b607c1edba8e58af804557ab5bdf532de847@ec2-34-232-55-169.compute-1.amazonaws.com:23949",
     "WEB_CONCURRENCY": 1,
-    "DATABASE_URL": "postgres://mkfkosafejcdon:49d5c55489c8bf1e257e67f4b6898cca647ff2082c9e4411a5cb82e682bd9f26@ec2-23-21-227-73.compute-1.amazonaws.com:5432/dfg2skvfl5prud"
+    "DATABASE_URL": "postgres://mkkefzogfwbgrq:26f4bf2a6fe451e9cc9c93120e6c354d8da825402c733c62073b26c9b58aba19@ec2-54-227-252-202.compute-1.amazonaws.com:5432/dd81ikff8jda5i"
   },
   "babel": {
     "presets": [

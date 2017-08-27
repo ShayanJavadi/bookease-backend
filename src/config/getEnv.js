@@ -1,3 +1,3 @@
-import getVariable from './getVariable';
+import getVariable from "./getVariable";
 
-export default () => getVariable('NODE_ENV');
+export default () => getVariable("NODE_ENV");
