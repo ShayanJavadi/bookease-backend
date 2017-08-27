@@ -15,11 +15,13 @@ pipelines:
             - node
           script:
             - npm install
-            - git clone -b master https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_DEVELOPMENT_APP_NAME.git build
+            - git clone -b master https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_DEVELOPMENT_APP_NAME.git heroku
             - npm run build
-            - cp -f Procfile build
-            - cp -f package.json build
-            - cd build && ls -la
+            - mkdir -p heroku/src
+            - cp -rf build/* heroku/src
+            - cp -f Procfile heroku
+            - cp -f package.json heroku
+            - cd heroku && ls -la
             - git add --all || true
             - git config user.email HEROKU_USER_EMAIL
             - git config user.name $HEROKU_USER_NAME
