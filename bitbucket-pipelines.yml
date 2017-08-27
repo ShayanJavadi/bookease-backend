@@ -22,6 +22,7 @@ pipelines:
             - mv -f build heroku/src
             - cp -f Procfile heroku
             - cp -f package.json heroku
+            - cp -f yarn.lock heroku
             - cd heroku && ls -la
             - git add --all || true
             - git config user.email HEROKU_USER_EMAIL
