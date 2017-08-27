@@ -17,10 +17,10 @@ pipelines:
             - node
           script:
             - npm install
-            - git clone https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_DEVELOPMENT_APP_NAME.git build
+            - git clone -b master https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_DEVELOPMENT_APP_NAME.git build
             - npm run build
             - cd build
-            - git push heroku master
+            - git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_DEVELOPMENT_APP_NAME.git master
     master:
       - step:
           caches:
