@@ -17,7 +17,7 @@ pipelines:
             - npm install
             - git clone -b master https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_DEVELOPMENT_APP_NAME.git build
             - npm run build
-            - cd build
+            - cd build && ls -la
             - git add --all || true
             - git commit -m "pushed by bitbucket pipelines" || true
             - git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_DEVELOPMENT_APP_NAME.git master --force
