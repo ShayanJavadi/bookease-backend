@@ -1,3 +1,3 @@
-import getVariable from './getVariable';
+import getVariable from "./getVariable";
 
-export default () => getVariable('WEB_CONCURRENCY') || 1;
+export default () => getVariable("WEB_CONCURRENCY") || 1;

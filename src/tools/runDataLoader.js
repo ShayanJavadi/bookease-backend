@@ -5,7 +5,7 @@ import runDataLoader from "../db/runDataLoader";
 initializeDb({db})
   .then(() => runDataLoader(db.models))
   .then(() => {
-    console.log("Database has been reloaded.");
+    console.log("Database has been reloaded."); // eslint-disable-line
     process.exit(0);
   })
   .catch(e => process.exit(e.code || e));
