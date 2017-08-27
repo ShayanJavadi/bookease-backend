@@ -82,7 +82,7 @@ app.start = () => initializeDb({db})
     const HOST = getHost();
 
     app.listen(PORT, HOST, () => {
-      L.info(`Server is listening at ${HOST}:${PORT}`); // eslint-disable-line
+      L.info(`Server is listening at ${HOST}:${PORT}`);
     });
   });
 
