@@ -76,13 +76,14 @@ app.get("/graphiql", graphiqlExpress({
 }));
 
 
-app.start = () => initializeDb({db, sync: true}).then(() => {
-  const PORT = getPort();
-  const HOST = getHost();
+app.start = () => initializeDb({db})
+  .then(() => {
+    const PORT = getPort();
+    const HOST = getHost();
 
-  app.listen(PORT, HOST, () => {
-    L.info(`Server is listening at ${HOST}:${PORT}`); // eslint-disable-line
+    app.listen(PORT, HOST, () => {
+      L.info(`Server is listening at ${HOST}:${PORT}`);
+    });
   });
-});
 
 export default app;

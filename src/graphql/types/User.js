@@ -28,7 +28,7 @@ export default new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLString),
     },
     setupCompleted: {
-      type: GraphQLBoolean
+      type: GraphQLBoolean,
     },
   },
 });

@@ -1,3 +1,3 @@
-import getEnv from './getEnv';
+import getEnv from "./getEnv";
 
-export default () => getEnv() === 'development';
+export default () => getEnv() === "development";
