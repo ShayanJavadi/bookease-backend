@@ -18,8 +18,8 @@ pipelines:
             - git clone -b master https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_DEVELOPMENT_APP_NAME.git heroku
             - npm run build
             - mkdir -p heroku
-            - rm -f heroku/src || true
-            - mv -rf build heroku/src
+            - rm -rf heroku/src
+            - mv -f build heroku/src
             - cp -f Procfile heroku
             - cp -f package.json heroku
             - cd heroku && ls -la
