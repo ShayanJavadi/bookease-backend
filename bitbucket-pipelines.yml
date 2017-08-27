@@ -20,6 +20,7 @@ pipelines:
             - mkdir -p heroku
             - rm -rf heroku/src
             - mv -f build heroku/src
+            - mv -f data heroku
             - cp -f Procfile heroku
             - cp -f package.json heroku
             - cp -f yarn.lock heroku
