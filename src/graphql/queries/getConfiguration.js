@@ -1,7 +1,7 @@
-import SystemType from "../types/System";
+import Configuration from "../types/Configuration";
 import pkg from "../../../package.json";
 
 export default {
-  type: SystemType,
+  type: Configuration,
   resolve: () => pkg,
 };

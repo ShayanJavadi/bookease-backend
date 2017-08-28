@@ -69,7 +69,13 @@
     "SESSION_MAX_AGE": 86400000,
     "REDIS_URL": "redis://h:p78ead1d7ed981e115d64ee1f95d5b607c1edba8e58af804557ab5bdf532de847@ec2-34-232-55-169.compute-1.amazonaws.com:23949",
     "WEB_CONCURRENCY": 1,
-    "DATABASE_URL": "postgres://mkkefzogfwbgrq:26f4bf2a6fe451e9cc9c93120e6c354d8da825402c733c62073b26c9b58aba19@ec2-54-227-252-202.compute-1.amazonaws.com:5432/dd81ikff8jda5i"
+    "DATABASE_URL": "postgres://mkkefzogfwbgrq:26f4bf2a6fe451e9cc9c93120e6c354d8da825402c733c62073b26c9b58aba19@ec2-54-227-252-202.compute-1.amazonaws.com:5432/dd81ikff8jda5i",
+    "FIREBASE_API_KEY": "AIzaSyCTMdaZXY8nW1qxBY1MYJX0MiLm_r2TT3A",
+    "FIREBASE_AUTH_DOMAIN": "textbook-trading-workspace.firebaseapp.com",
+    "FIREBASE_DATABASE_URL": "https://textbook-trading-workspace.firebaseio.com",
+    "FIREBASE_PROJECT_ID": "textbook-trading-workspace",
+    "FIREBASE_STORAGE_BUCKET": "textbook-trading-workspace.appspot.com",
+    "FIREBASE_MESSAGING_SENDER_ID": "578576372809"
   },
   "babel": {
     "presets": [
