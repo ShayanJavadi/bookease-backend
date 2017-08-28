@@ -23,7 +23,7 @@ pipelines:
             - cp -f package.json heroku
             - cp -f yarn.lock heroku
             - cd heroku && ls -la
-            - npm run heroku:update-version --buildNumber=$BITBUCKET_BUILD_NUMBER
+            - node src/tools/updateVersion.js --buildNumber=$BITBUCKET_BUILD_NUMBER
             - git add --all || true
             - git config user.email HEROKU_USER_EMAIL
             - git config user.name $HEROKU_USER_NAME
@@ -43,7 +43,7 @@ pipelines:
               - cp -f package.json heroku
               - cp -f yarn.lock heroku
               - cd heroku && ls -la
-              - npm run heroku:update-version --buildNumber=$BITBUCKET_BUILD_NUMBER
+              - node src/tools/updateVersion.js --buildNumber=$BITBUCKET_BUILD_NUMBER
               - git add --all || true
               - git config user.email HEROKU_USER_EMAIL
               - git config user.name $HEROKU_USER_NAME
