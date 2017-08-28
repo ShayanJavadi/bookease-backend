@@ -30,6 +30,27 @@ pipelines:
             - git config user.name $HEROKU_USER_NAME
             - git commit -m "pushed by bitbucket pipelines" || true
             - git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_DEVELOPMENT_APP_NAME.git master --force
+    staging:
+        - step:
+            caches:
+              - node
+            script:
+              - npm install
+              - git clone -b master https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_STAGING_APP_NAME.git heroku
+              - npm run build
+              - mkdir -p heroku
+              - rm -rf heroku/src
+              - mv -f build heroku/src
+              - mv -f data heroku
+              - cp -f Procfile heroku
+              - cp -f package.json heroku
+              - cp -f yarn.lock heroku
+              - cd heroku && ls -la
+              - git add --all || true
+              - git config user.email HEROKU_USER_EMAIL
+              - git config user.name $HEROKU_USER_NAME
+              - git commit -m "pushed by bitbucket pipelines" || true
+              - git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_STAGING_APP_NAME.git master --force
     master:
       - step:
           caches:
