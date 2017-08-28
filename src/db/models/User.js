@@ -31,8 +31,4 @@ export default {
     type: BIGINT,
     required: true,
   },
-  setupCompleted: {
-    type: BOOLEAN,
-    defaultValue: false,
-  },
 };
