@@ -1,9 +1,7 @@
-import isEmpty from "lodash/isEmpty";
-import {GraphQLBoolean, GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLString} from "graphql";
-import School from "./School";
+import {GraphQLID, GraphQLInputObjectType, GraphQLNonNull, GraphQLString} from "graphql";
 
-export default new GraphQLObjectType({
-  name: "User",
+export default new GraphQLInputObjectType({
+  name: "UserInput",
   fields: {
     id: {
       type: GraphQLID,
@@ -29,16 +27,8 @@ export default new GraphQLObjectType({
     accessToken: {
       type: GraphQLString,
     },
-    setupCompleted: {
-      type: GraphQLBoolean,
-      resolve: source => !isEmpty(source.schoolId),
-    },
     schoolId: {
       type: GraphQLID,
-    },
-    school: {
-      type: School,
-      resolve: source => source.getSchool(),
     },
   },
 });

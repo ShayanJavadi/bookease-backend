@@ -1,7 +1,7 @@
 import Configuration from "../types/Configuration";
-import pkg from "../../../package.json";
+import config from "../../../config.json";
 
 export default {
   type: Configuration,
-  resolve: () => pkg,
+  resolve: () => config,
 };

@@ -1,4 +1,5 @@
 import {GraphQLNonNull, GraphQLObjectType, GraphQLString} from "graphql";
+import pkg from "../../../package.json";
 import getVariable from "../../config/getVariable";
 
 export default new GraphQLObjectType({
@@ -6,11 +7,11 @@ export default new GraphQLObjectType({
   fields: {
     NAME: {
       type: new GraphQLNonNull(GraphQLString),
-      resolve: source => source.name,
+      resolve: () => pkg.name,
     },
     VERSION: {
       type: new GraphQLNonNull(GraphQLString),
-      resolve: source => source.version,
+      resolve: () => pkg.version,
     },
     FIREBASE_API_KEY: {
       type: new GraphQLNonNull(GraphQLString),

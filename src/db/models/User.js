@@ -1,4 +1,4 @@
-import {BIGINT, BOOLEAN, STRING, TEXT} from "sequelize";
+import {BIGINT, STRING, TEXT} from "sequelize";
 
 export default {
   id: {
@@ -30,9 +30,5 @@ export default {
   schoolId: {
     type: BIGINT,
     required: true,
-  },
-  setupCompleted: {
-    type: BOOLEAN,
-    defaultValue: false,
   },
 };

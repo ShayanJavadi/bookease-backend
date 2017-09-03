@@ -9,7 +9,6 @@ import session from "express-session";
 import redis from "connect-redis";
 import cors from "cors";
 import getVariable from "./config/getVariable";
-import getAppName from "./config/getAppName";
 import getAppVersion from "./config/getAppVersion";
 import getPort from "./config/getPort";
 import getHost from "./config/getHost";
@@ -44,9 +43,9 @@ app.use(cookieParser());
 app.disable("etag");
 
 const sessionOptions = {
-  name: [getAppName(), getAppVersion(), "sid"].join("."),
-  secret: getVariable("SESSION_SECRET"),
   store,
+  name: [getAppVersion(), "sid"].join("."),
+  secret: getVariable("SESSION_SECRET"),
   saveUninitialized: false,
   resave: true,
   cookie: {
@@ -60,9 +59,20 @@ if (!isDev) {
   sessionOptions.cookie.secure = true;
 }
 
-app.use(session(sessionOptions));
+const whitelist = getVariable("CORS_ALLOWED_ORIGINS").split(",");
+const corsOptions = {
+  credentials: true,
+  origin(origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
 
-app.use("/graphql", cors(), graphqlExpress(request => ({
+app.use(session(sessionOptions));
+app.use("/graphql", cors(corsOptions), graphqlExpress(request => ({
   schema,
   rootValue: {
     session: request.session,
@@ -82,7 +92,7 @@ app.start = () => initializeDb({db})
     const HOST = getHost();
 
     app.listen(PORT, HOST, () => {
-      L.info(`Server is listening at ${HOST}:${PORT}`);
+      L.info(`Server is listening at ${HOST}:${PORT} allowing requests from ${whitelist.join(" OR ")}`);
     });
   });
 

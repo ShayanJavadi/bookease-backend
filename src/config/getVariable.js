@@ -1,3 +1,3 @@
-import {config} from "../../package.json";
+import config from "../../config.json";
 
 export default name => process.env[name] || config[name];

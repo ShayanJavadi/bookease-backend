@@ -17,7 +17,7 @@ export default {
     return School.findAll({
       where: {
         name: {
-          $ilike: `${name}%`,
+          $ilike: `%${name}%`,
         },
       },
       limit,
