@@ -1,5 +1,5 @@
 {
-  "name": "@textbook-trading/backend",
+  "name": "@bookease/backend",
   "version": "1.0.16",
   "description": "The backend of textbook trading application using GraphQL",
   "main": "src/index.js",
@@ -18,11 +18,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://aduyng@bitbucket.org/textbook-trading/backend.git"
+    "url": "git+https://aduyng@bitbucket.org/bookease/backend.git"
   },
   "author": "",
   "license": "UNLICENSED",
-  "homepage": "https://bitbucket.org/textbook-trading/backend#readme",
+  "homepage": "https://bitbucket.org/bookease/backend#readme",
   "dependencies": {
     "apollo-server-express": "^1.1.0",
     "bluebird": "^2.10.2",
