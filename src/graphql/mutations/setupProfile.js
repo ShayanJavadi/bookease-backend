@@ -17,25 +17,25 @@ export default {
     const {schoolId} = args;
 
     return acl(req, args, requireAuthenticated)
-    .then(() => User.findOne({
-      where: {
-        id: session.userId,
-      },
-      attributes: ['id', 'schoolId'],
-    }))
-    .then((user) => {
-      if (isEmpty(user)) {
-        throw new Error("The requested user is not found!", 404);
-      }
+      .then(() => User.findOne({
+        where: {
+          id: session.userId,
+        },
+        attributes: ["id", "schoolId"],
+      }))
+      .then((user) => {
+        if (isEmpty(user)) {
+          throw new Error("The requested user is not found!", 404);
+        }
 
-      if (user.schoolId) {
-        throw new Error("The requested user has already completed the profile set up step!", 409);
-      }
+        if (user.schoolId) {
+          throw new Error("The requested user has already completed the profile set up step!", 409);
+        }
 
-      user.schoolId = schoolId;
-
-      return user.save();
-    })
-    .then((user) => 200);
+        return user.update({
+          schoolId,
+        });
+      })
+      .then(() => 200);
   },
 };

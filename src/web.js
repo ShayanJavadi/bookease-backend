@@ -59,16 +59,16 @@ if (!isDev) {
   sessionOptions.cookie.secure = true;
 }
 
-const whitelist = getVariable("CORS_ALLOWED_ORIGINS").split(',');
+const whitelist = getVariable("CORS_ALLOWED_ORIGINS").split(",");
 const corsOptions = {
   credentials: true,
-  origin: function(origin, callback) {
+  origin(origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
+      callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'))
+      callback(new Error("Not allowed by CORS"));
     }
-  }
+  },
 };
 
 app.use(session(sessionOptions));
@@ -87,13 +87,13 @@ app.get("/graphiql", graphiqlExpress({
 
 
 app.start = () => initializeDb({db})
-.then(() => {
-  const PORT = getPort();
-  const HOST = getHost();
+  .then(() => {
+    const PORT = getPort();
+    const HOST = getHost();
 
-  app.listen(PORT, HOST, () => {
-    L.info(`Server is listening at ${HOST}:${PORT} allowing requests from ${whitelist.join(' OR ')}`);
+    app.listen(PORT, HOST, () => {
+      L.info(`Server is listening at ${HOST}:${PORT} allowing requests from ${whitelist.join(" OR ")}`);
+    });
   });
-});
 
 export default app;
