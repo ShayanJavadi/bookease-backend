@@ -2,7 +2,7 @@ import {GraphQLID, GraphQLNonNull, GraphQLString} from "graphql";
 import isEmpty from "lodash/isEmpty";
 import db from "../../db";
 import UserType from "../types/User";
-import acl from "../acl/acl";
+import acl from "../acl";
 import requireAuthenticated from "../acl/requireAuthenticated";
 
 export default {

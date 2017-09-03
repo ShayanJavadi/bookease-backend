@@ -1,6 +1,8 @@
 import {GraphQLID, GraphQLInt, GraphQLNonNull} from "graphql";
 import isEmpty from "lodash/isEmpty";
 import db from "../../db";
+import acl from "../acl";
+import requireAuthenticated from "../acl/requireAuthenticated";
 
 export default {
   type: GraphQLInt,
@@ -9,15 +11,18 @@ export default {
       type: new GraphQLNonNull(GraphQLID),
     },
   },
-  resolve: ({session}, {schoolId}) => {
+  resolve: (req, args) => {
     const {models: {User}} = db;
+    const {session} = req;
+    const {schoolId} = args;
 
-    return User.findOne({
+    return acl(req, args, requireAuthenticated)
+    .then(() => User.findOne({
       where: {
         id: session.userId,
       },
       attributes: ['id', 'schoolId'],
-    })
+    }))
     .then((user) => {
       if (isEmpty(user)) {
         throw new Error("The requested user is not found!", 404);
