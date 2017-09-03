@@ -16,19 +16,18 @@ export default {
       where: {
         id: session.userId
       },
-      attributes: ['id', 'setupCompleted']
+      attributes: ['id', 'schoolId']
     })
     .then((user) => {
       if (isEmpty(user)) {
         throw new Error("The requested user is not found!", 404);
       }
 
-      if (user.setupCompleted) {
+      if (user.schoolId) {
         throw new Error("The requested user has already completed the profile set up step!", 409);
       }
 
       user.schoolId = schoolId;
-      user.setupCompleted = true;
 
       return user.save();
     })
