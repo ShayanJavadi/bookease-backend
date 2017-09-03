@@ -8,6 +8,8 @@ import {HTTPS} from "express-sslify";
 import session from "express-session";
 import redis from "connect-redis";
 import cors from "cors";
+import basicAuth from "express-basic-auth";
+import reduce from "lodash/reduce";
 import getVariable from "./config/getVariable";
 import getAppVersion from "./config/getAppVersion";
 import getPort from "./config/getPort";
@@ -32,7 +34,15 @@ if (!isDev) {
     trustProtoHeader: true,
   }));
 }
-
+app.use(basicAuth({
+  users: reduce(getVariable("BASIC_AUTH_USERS").split(","), (memo, credential) => {
+    const [user, password] = credential.split(":");
+    memo[user] = password;
+    return memo;
+  }, {}),
+  challenge: true,
+  realm: getVariable("BASIC_AUTH_REALM")
+}));
 app.use(compression());
 app.use(json({
   limit: getVariable("BODY_PARSER_LIMIT"),
