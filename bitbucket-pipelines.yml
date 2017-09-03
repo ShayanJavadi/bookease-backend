@@ -20,6 +20,7 @@ pipelines:
             - rm -rf heroku/src && mv -f build heroku/src
             - rm -rf heroku/data && mv -f data heroku
             - cp -f Procfile heroku
+            - cp -f config.json heroku
             - cp -f package.json heroku
             - cp -f yarn.lock heroku
             - cd heroku && ls -la
@@ -40,6 +41,7 @@ pipelines:
               - rm -rf heroku/src && mv -f build heroku/src
               - rm -rf heroku/data && mv -f data heroku
               - cp -f Procfile heroku
+              - cp -f config.json heroku
               - cp -f package.json heroku
               - cp -f yarn.lock heroku
               - cd heroku && ls -la
