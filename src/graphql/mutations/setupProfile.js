@@ -7,16 +7,16 @@ export default {
   args: {
     schoolId: {
       type: new GraphQLNonNull(GraphQLID),
-    }
+    },
   },
   resolve: ({session}, {schoolId}) => {
     const {models: {User}} = db;
 
     return User.findOne({
       where: {
-        id: session.userId
+        id: session.userId,
       },
-      attributes: ['id', 'schoolId']
+      attributes: ['id', 'schoolId'],
     })
     .then((user) => {
       if (isEmpty(user)) {

@@ -1,4 +1,4 @@
-import {BIGINT, BOOLEAN, STRING, TEXT} from "sequelize";
+import {BIGINT, STRING, TEXT} from "sequelize";
 
 export default {
   id: {
