@@ -11,7 +11,7 @@ export default (app) => {
 
   if (!isEmpty(whitelist)) {
     corsOptions.origin = (origin, callback) => {
-      L.info(`origin: ${origin}, whitelist: ${whitelist.join(',')}`);
+      console.log(`origin: ${origin}, whitelist: ${whitelist.join(',')}`);
       if (whitelist.indexOf(origin) !== -1) {
         callback(null, true);
       } else {
