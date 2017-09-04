@@ -1,23 +1,24 @@
 import cors from "cors";
 import isEmpty from "lodash/isEmpty";
 import getVariable from "../config/getVariable";
-import L from "../logger/logger";
 
 export default (app) => {
-  const whitelist = getVariable("CORS_ALLOWED_ORIGINS").split(",");
+  const allowedOrigins = getVariable("CORS_ALLOWED_ORIGINS");
   const corsOptions = {
     credentials: true
   };
 
-  if (!isEmpty(whitelist)) {
-    corsOptions.origin = (origin, callback) => {
-      console.log(`origin: ${origin}, whitelist: ${whitelist.join(',')}`);
-      if (whitelist.indexOf(origin) !== -1) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    };
+  if( allowedOrigins !== "all") {
+    const whitelist = allowedOrigins.split(",");
+    if (!isEmpty(whitelist)) {
+      corsOptions.origin = (origin, callback) => {
+        if (whitelist.indexOf(origin) !== -1) {
+          callback(null, true);
+        } else {
+          callback(new Error("Not allowed by CORS"));
+        }
+      };
+    }
   }
 
   app.use(cors(corsOptions));
