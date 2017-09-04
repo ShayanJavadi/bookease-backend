@@ -5,13 +5,7 @@ import compression from "compression";
 import methodOverride from "method-override";
 import cookieParser from "cookie-parser";
 import {HTTPS} from "express-sslify";
-import session from "express-session";
-import redis from "connect-redis";
-import cors from "cors";
-import basicAuth from "express-basic-auth";
-import reduce from "lodash/reduce";
 import getVariable from "./config/getVariable";
-import getAppVersion from "./config/getAppVersion";
 import getPort from "./config/getPort";
 import getHost from "./config/getHost";
 import schema from "./graphql/schema";
@@ -19,11 +13,9 @@ import isDevelopment from "./config/isDevelopment";
 import L from "./logger/logger";
 import db from "./db";
 import initializeDb from "./db/initialize";
-
-const SessionStore = redis(session);
-const store = new SessionStore({
-  url: getVariable("REDIS_URL"),
-});
+import configureSession from "./libs/configureSession";
+import configureCors from "./libs/configureCors";
+import configureAuth from "./libs/configureAuth";
 
 const isDev = isDevelopment();
 
@@ -34,15 +26,7 @@ if (!isDev) {
     trustProtoHeader: true,
   }));
 }
-app.use(basicAuth({
-  users: reduce(getVariable("BASIC_AUTH_USERS").split(","), (memo, credential) => {
-    const [user, password] = credential.split(":");
-    memo[user] = password;
-    return memo;
-  }, {}),
-  challenge: true,
-  realm: getVariable("BASIC_AUTH_REALM")
-}));
+
 app.use(compression());
 app.use(json({
   limit: getVariable("BODY_PARSER_LIMIT"),
@@ -52,37 +36,11 @@ app.use(methodOverride("X-HTTP-Method-Override"));
 app.use(cookieParser());
 app.disable("etag");
 
-const sessionOptions = {
-  store,
-  name: [getAppVersion(), "sid"].join("."),
-  secret: getVariable("SESSION_SECRET"),
-  saveUninitialized: false,
-  resave: true,
-  cookie: {
-    httpOnly: true,
-    maxAge: getVariable("SESSION_MAX_AGE"),
-  },
-};
+configureSession(app);
+configureCors(app);
+configureAuth(app);
 
-if (!isDev) {
-  app.set("trust proxy", 1);
-  sessionOptions.cookie.secure = true;
-}
-
-const whitelist = getVariable("CORS_ALLOWED_ORIGINS").split(",");
-const corsOptions = {
-  credentials: true,
-  origin(origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-};
-
-app.use(session(sessionOptions));
-app.use("/graphql", cors(corsOptions), graphqlExpress(request => ({
+app.use("/graphql", graphqlExpress(request => ({
   schema,
   rootValue: {
     session: request.session,
@@ -95,14 +53,13 @@ app.get("/graphiql", graphiqlExpress({
   pretty: true,
 }));
 
-
 app.start = () => initializeDb({db})
   .then(() => {
     const PORT = getPort();
     const HOST = getHost();
 
     app.listen(PORT, HOST, () => {
-      L.info(`Server is listening at ${HOST}:${PORT} allowing requests from ${whitelist.join(" OR ")}`);
+      L.info(`Server is listening at ${HOST}:${PORT} allowing requests from ${getVariable("CORS_ALLOWED_ORIGINS")}`);
     });
   });
 
