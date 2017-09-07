@@ -29,4 +29,4 @@ export default (app) => {
 
   app.use(session(sessionOptions));
   return app;
-}
+};

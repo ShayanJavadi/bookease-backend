@@ -14,7 +14,7 @@ export default (app) => {
         return memo;
       }, {}),
       challenge: true,
-      realm: getVariable("BASIC_AUTH_REALM")
+      realm: getVariable("BASIC_AUTH_REALM"),
     }));
   }
 

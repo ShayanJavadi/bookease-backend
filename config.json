@@ -16,5 +16,6 @@
   "FIREBASE_DATABASE_URL": "https://bookease-workspace.firebaseio.com",
   "FIREBASE_PROJECT_ID": "bookease-workspace",
   "FIREBASE_STORAGE_BUCKET": "bookease-workspace.appspot.com",
-  "FIREBASE_MESSAGING_SENDER_ID": "612404533802"
+  "FIREBASE_MESSAGING_SENDER_ID": "612404533802",
+  "GOOGLE_API_KEY": "AIzaSyCQtmA41oBHvJqA6pQj8O3mn1zNub_3WxQ"
 }
