@@ -8,6 +8,6 @@ export default new GraphQLObjectType({
     },
     thumbnail: {
       type: GraphQLString,
-    }
+    },
   },
 });

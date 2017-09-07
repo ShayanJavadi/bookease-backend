@@ -11,6 +11,6 @@ export default new GraphQLObjectType({
     },
     identifier: {
       type: new GraphQLNonNull(GraphQLString),
-    }
+    },
   },
 });

@@ -79,6 +79,17 @@
       "quotes": [
         "error",
         "double"
+      ],
+      "no-param-reassign": [
+        "error",
+        {
+          "props": true,
+          "ignorePropertyModificationsFor": [
+            "memo",
+            "keep",
+            "remember"
+          ]
+        }
       ]
     }
   }

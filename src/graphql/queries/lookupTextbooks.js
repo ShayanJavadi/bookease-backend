@@ -1,9 +1,9 @@
 import {GraphQLInt, GraphQLString} from "graphql";
-import TextbookLookupResult from "../types/TextbookLookupResult";
 import google from "googleapis";
 import B from "bluebird";
 import {get, map} from "lodash";
 import isISBN from "validator/lib/isISBN";
+import TextbookLookupResult from "../types/TextbookLookupResult";
 
 export default {
   type: TextbookLookupResult,
@@ -17,7 +17,7 @@ export default {
     },
     offset: {
       type: GraphQLInt,
-    }
+    },
   },
   resolve: (req, {query, limit = 10, offset = 0}) => {
     const books = google.books("v1");
@@ -28,22 +28,18 @@ export default {
       q,
       maxResults: limit,
       startIndex: offset,
-      orderBy: "relevance"
+      orderBy: "relevance",
     })
-      .spread((response) => {
-        return {
-          totalItems: get(response, "totalItems", 0),
-          textbooks: map(get(response, "items", []), (item) => {
-            return {
-              id: get(item, "id"),
-              uid: get(item, "id"),
-              title: get(item, "volumeInfo.title"),
-              authors: get(item, "volumeInfo.authors", []),
-              industryIdentifiers: get(item, "volumeInfo.industryIdentifiers", []),
-              imageLinks: get(item, "volumeInfo.imageLinks", []),
-            };
-          })
-        };
-      });
+      .spread(response => ({
+        totalItems: get(response, "totalItems", 0),
+        textbooks: map(get(response, "items", []), item => ({
+          id: get(item, "id"),
+          uid: get(item, "id"),
+          title: get(item, "volumeInfo.title"),
+          authors: get(item, "volumeInfo.authors", []),
+          industryIdentifiers: get(item, "volumeInfo.industryIdentifiers", []),
+          imageLinks: get(item, "volumeInfo.imageLinks", []),
+        })),
+      }));
   },
 };

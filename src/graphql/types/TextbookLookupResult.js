@@ -8,7 +8,7 @@ export default new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLInt),
     },
     textbooks: {
-      type: new GraphQLList(Textbook)
-    }
+      type: new GraphQLList(Textbook),
+    },
   },
 });
