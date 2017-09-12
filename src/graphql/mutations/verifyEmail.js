@@ -19,7 +19,7 @@ export default {
     return User.findOne({
       where: {
         email,
-        verificationCode
+        verificationCode,
       },
     })
       .then((user) => {
@@ -33,7 +33,7 @@ export default {
 
         return user.update({
           isVerified: true,
-          verificationCode: null
+          verificationCode: null,
         });
       })
       .then(() => 200);
