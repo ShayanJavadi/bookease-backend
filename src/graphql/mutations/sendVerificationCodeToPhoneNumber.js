@@ -33,7 +33,7 @@ export default {
       })
       .then((user) => {
         if (user.isVerified) {
-          throw new Error("The phoneNumber has already been verified!");
+          throw new Error("The phone number has already been verified!", 400);
         }
 
         return generateRandomVerificationCode(user);
