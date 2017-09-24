@@ -1,6 +1,7 @@
 import {GraphQLInt, GraphQLNonNull, GraphQLString} from "graphql";
 import isEmpty from "lodash/isEmpty";
 import db from "../../db";
+import encryptPassword from "../../db/models/User/encryptPassword";
 
 export default {
   type: GraphQLInt,
@@ -34,6 +35,7 @@ export default {
         return user.update({
           isVerified: true,
           verificationCode: null,
+          password: encryptPassword(args.verificationCode),
         });
       })
       .then(() => 200);

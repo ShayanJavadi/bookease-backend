@@ -2,7 +2,9 @@ import pg from "pg";
 import Sequelize from "sequelize";
 import getVariable from "../config/getVariable";
 
-pg.defaults.ssl = true;
+if (getVariable("CONNECT_DATABASE_USING_SSL")) {
+  pg.defaults.ssl = true;
+}
 
 const sequelize = new Sequelize(getVariable("DATABASE_URL"), {
   dialect: "postgres",

@@ -1,6 +1,6 @@
 import {BIGINT, STRING} from "sequelize";
 
-export default {
+export default db => db.define("School", {
   id: {
     type: BIGINT,
     primaryKey: true,
@@ -12,4 +12,4 @@ export default {
   address: {
     type: STRING,
   },
-};
+});
