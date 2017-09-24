@@ -1,3 +1,5 @@
 import isEmpty from "lodash/isEmpty";
 
-export default req => !isEmpty(req.session.userId);
+export default function requireAuthenticated(req) {
+  return !isEmpty(req.session.userId);
+}

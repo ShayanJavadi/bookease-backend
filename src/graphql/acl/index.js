@@ -1,4 +1,9 @@
 import B from "bluebird";
 
 export default (req, args, ...checkers) =>
-  B.reduce(checkers, (memo, checker) => memo || checker(req, args), true);
+  B.each(checkers, checker => B.resolve(checker(req, args)).then((valid) => {
+    if (!valid) {
+      throw new Error(`The request does not pass ${checker.name} rule!`, 403);
+    }
+    return valid;
+  }));

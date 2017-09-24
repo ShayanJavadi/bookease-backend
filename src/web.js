@@ -44,6 +44,7 @@ app.use("/graphql", graphqlExpress(request => ({
   schema,
   rootValue: {
     session: request.session,
+    db,
     request,
   },
 })));

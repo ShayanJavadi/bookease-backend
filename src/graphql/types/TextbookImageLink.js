@@ -1,10 +1,10 @@
-import {GraphQLID, GraphQLObjectType, GraphQLString} from "graphql";
+import {GraphQLObjectType, GraphQLString} from "graphql";
 
 export default new GraphQLObjectType({
   name: "TextbookImageLink",
   fields: {
     smallThumbnail: {
-      type: GraphQLID,
+      type: GraphQLString,
     },
     thumbnail: {
       type: GraphQLString,
