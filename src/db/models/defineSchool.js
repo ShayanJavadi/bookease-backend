@@ -1,10 +1,9 @@
-import {BIGINT, STRING} from "sequelize";
+import {STRING} from "sequelize";
 
 export default db => db.define("School", {
   id: {
-    type: BIGINT,
+    type: STRING,
     primaryKey: true,
-    autoIncrement: true,
   },
   name: {
     type: STRING,

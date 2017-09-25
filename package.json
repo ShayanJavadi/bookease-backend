@@ -24,6 +24,7 @@
   "license": "UNLICENSED",
   "homepage": "https://bitbucket.org/bookease/backend#readme",
   "dependencies": {
+    "@google/maps": "^0.4.3",
     "apollo-server-express": "^1.1.0",
     "bluebird": "^2.10.2",
     "body-parser": "^1.17.2",
