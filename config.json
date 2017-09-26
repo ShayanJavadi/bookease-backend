@@ -3,6 +3,7 @@
   "HOST": "0.0.0.0",
   "NODE_ENV": "development",
   "APP_NAME": "Bookease",
+  "LOG_LEVEL": "info",
   "WWW_URL": "https://www.bookeaseapp.com",
   "BODY_PARSER_LIMIT": "2mb",
   "BASIC_AUTH_USERS": "bookease:bpkFGW4W",
