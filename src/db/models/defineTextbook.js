@@ -3,9 +3,8 @@ import {BIGINT, STRING} from "sequelize";
 export default (db) => {
   const Textbook = db.define("Textbook", {
     id: {
-      type: BIGINT,
+      type: STRING,
       primaryKey: true,
-      autoIncrement: true,
     },
     title: {
       type: STRING,
