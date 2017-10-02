@@ -20,6 +20,7 @@ export default {
       const {models: {Textbook, TextbookAuthor,
         TextbookImageLink, TextbookIndustryIdentifier}} = db;
       return db.transaction(transaction => Textbook.build(extend({
+        id: generateRandomUID(),
         uid: generateRandomUID(),
       }, args.textbook, {userId: req.session.userId}))
         .save({transaction})
@@ -30,6 +31,7 @@ export default {
 
           return TextbookAuthor.bulkCreate(map(args.textbook.authors, author => ({
             textbookId: textbook.id,
+            userId: req.session.userId,
             name: author,
           })), {transaction})
             .then(() => textbook);
@@ -39,10 +41,13 @@ export default {
             return textbook;
           }
 
-          return TextbookIndustryIdentifier.bulkCreate(map(args.textbook.industryIdentifiers,
+          const industryIdentifiers = map(args.textbook.industryIdentifiers,
             industryIdentifier => (extend({}, industryIdentifier, {
               textbookId: textbook.id,
-            }))), {transaction})
+              userId: req.session.userId,
+            })));
+
+          return TextbookIndustryIdentifier.bulkCreate(industryIdentifiers, {transaction})
             .then(() => textbook);
         })
 
@@ -53,6 +58,7 @@ export default {
 
           return TextbookImageLink.build(extend({}, args.textbook.imageLinks, {
             textbookId: textbook.id,
+            userId: req.session.userId,
           }))
             .save({transaction})
             .then(() => textbook);

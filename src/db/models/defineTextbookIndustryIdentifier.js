@@ -8,6 +8,10 @@ export default (db) => {
       autoIncrement: true,
     },
     textbookId: {
+      type: STRING,
+      required: true,
+    },
+    userId: {
       type: BIGINT,
       required: true,
     },
@@ -22,15 +26,23 @@ export default (db) => {
   }, {
     indexes: [{
       unique: true,
-      fields: ["textbookId", "type"],
+      fields: ["textbookId", "userId", "type"],
     }],
   });
 
-  const {models: {Textbook}} = db;
+  const {models: {Textbook, User}} = db;
 
   TextbookIndustryIdentifier.belongsTo(Textbook, {
     as: "Textbook",
     foreignKey: "textbookId",
+    targetKey: "id",
+    onUpdate: "CASCADE",
+    onDelete: "CASCADE",
+  });
+
+  TextbookIndustryIdentifier.belongsTo(User, {
+    as: "User",
+    foreignKey: "userId",
     targetKey: "id",
     onUpdate: "CASCADE",
     onDelete: "CASCADE",

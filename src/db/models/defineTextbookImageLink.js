@@ -1,4 +1,4 @@
-import {BIGINT, STRING} from "sequelize";
+import {BIGINT, TEXT, STRING} from "sequelize";
 
 export default (db) => {
   const TextbookImageLink = db.define("TextbookImageLink", {
@@ -8,22 +8,39 @@ export default (db) => {
       autoIncrement: true,
     },
     textbookId: {
+      type: STRING,
+      required: true,
+    },
+    userId: {
       type: BIGINT,
       required: true,
     },
     smallThumbnail: {
-      type: STRING,
+      type: TEXT,
     },
     thumbnail: {
-      type: STRING,
+      type: TEXT,
       required: true,
     },
+  }, {
+    indexes: [{
+      unique: true,
+      fields: ["textbookId", "userId"],
+    }],
   });
 
-  const {models: {Textbook}} = db;
+  const {models: {Textbook, User}} = db;
   TextbookImageLink.belongsTo(Textbook, {
     as: "Textbook",
     foreignKey: "textbookId",
+    targetKey: "id",
+    onUpdate: "CASCADE",
+    onDelete: "CASCADE",
+  });
+
+  TextbookImageLink.belongsTo(User, {
+    as: "User",
+    foreignKey: "userId",
     targetKey: "id",
     onUpdate: "CASCADE",
     onDelete: "CASCADE",

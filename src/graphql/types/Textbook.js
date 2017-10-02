@@ -4,6 +4,7 @@ import TextbookIndustryIdentifier from "./TextbookIndustryIdentifier";
 import TextbookImageLink from "./TextbookImageLink";
 import getImageLinks from "../../db/models/Textbook/getImageLinks";
 import getAuthors from "../../db/models/Textbook/getAuthors";
+import getIndustryIdentifiers from "../../db/models/Textbook/getIndustryIdentifiers";
 
 export default new GraphQLObjectType({
   name: "Textbook",
@@ -22,10 +23,11 @@ export default new GraphQLObjectType({
     },
     industryIdentifiers: {
       type: new GraphQLList(TextbookIndustryIdentifier),
+      resolve: textbook => textbook.industryIdentifiers || getIndustryIdentifiers({textbook}),
     },
     authors: {
       type: new GraphQLNonNull(new GraphQLList(GraphQLString)),
-      resolve: (textbook, ignored, ignored1, {rootValue: {db}}) => getAuthors({db, textbook})
+      resolve: textbook => textbook.authors || getAuthors({textbook})
         .then(authors => map(authors, "name")),
 
     },
@@ -34,7 +36,7 @@ export default new GraphQLObjectType({
     },
     imageLinks: {
       type: new GraphQLNonNull(TextbookImageLink),
-      resolve: (textbook, ignored, ignored1, {rootValue: {db}}) => getImageLinks({db, textbook}),
+      resolve: textbook => textbook.imageLinks || getImageLinks({textbook}),
     },
     userId: {
       type: new GraphQLNonNull(GraphQLID),
