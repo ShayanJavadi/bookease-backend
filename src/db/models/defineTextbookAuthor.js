@@ -8,6 +8,10 @@ export default (db) => {
       autoIncrement: true,
     },
     textbookId: {
+      type: STRING,
+      required: true,
+    },
+    userId: {
       type: BIGINT,
       required: true,
     },
@@ -18,14 +22,22 @@ export default (db) => {
   }, {
     indexes: [{
       unique: true,
-      fields: ["textbookId", "name"],
+      fields: ["textbookId", "userId", "name"],
     }],
   });
 
-  const {models: {Textbook}} = db;
+  const {models: {Textbook, User}} = db;
   TextbookAuthor.belongsTo(Textbook, {
     as: "Textbook",
     foreignKey: "textbookId",
+    targetKey: "id",
+    onUpdate: "CASCADE",
+    onDelete: "CASCADE",
+  });
+
+  TextbookAuthor.belongsTo(User, {
+    as: "User",
+    foreignKey: "userId",
     targetKey: "id",
     onUpdate: "CASCADE",
     onDelete: "CASCADE",
