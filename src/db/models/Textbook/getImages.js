@@ -1,9 +1,9 @@
 import db from "../../connection";
 
 export default ({textbook}) => {
-  const {models: {TextbookImageLink}} = db;
+  const {models: {TextbookImage}} = db;
 
-  return TextbookImageLink.find({
+  return TextbookImage.findAll({
     where: {
       textbookId: textbook.id,
       userId: textbook.userId,

@@ -1,8 +1,8 @@
 import {GraphQLID, GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLString} from "graphql";
 import map from "lodash/map";
 import TextbookIndustryIdentifier from "./TextbookIndustryIdentifier";
-import TextbookImageLink from "./TextbookImageLink";
-import getImageLinks from "../../db/models/Textbook/getImageLinks";
+import TextbookImage from "./TextbookImage";
+import getImages from "../../db/models/Textbook/getImages";
 import getAuthors from "../../db/models/Textbook/getAuthors";
 import getIndustryIdentifiers from "../../db/models/Textbook/getIndustryIdentifiers";
 
@@ -34,9 +34,9 @@ export default new GraphQLObjectType({
     edition: {
       type: GraphQLString,
     },
-    imageLinks: {
-      type: new GraphQLNonNull(TextbookImageLink),
-      resolve: textbook => textbook.imageLinks || getImageLinks({textbook}),
+    images: {
+      type: new GraphQLNonNull(new GraphQLList(TextbookImage)),
+      resolve: textbook => textbook.images || getImages({textbook}),
     },
     userId: {
       type: new GraphQLNonNull(GraphQLID),

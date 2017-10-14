@@ -1,6 +1,6 @@
 import {GraphQLID, GraphQLList, GraphQLNonNull, GraphQLInputObjectType, GraphQLString} from "graphql";
 import TextbookIndustryIdentifier from "./TextbookIndustryIdentifierInput";
-import TextbookImageLink from "./TextbookImageLinkInput";
+import TextbookImage from "./TextbookImageInput";
 
 export default new GraphQLInputObjectType({
   name: "TextbookInput",
@@ -26,8 +26,8 @@ export default new GraphQLInputObjectType({
     edition: {
       type: GraphQLString,
     },
-    imageLinks: {
-      type: new GraphQLNonNull(TextbookImageLink),
+    images: {
+      type: new GraphQLNonNull(new GraphQLList(TextbookImage)),
     },
   },
 });

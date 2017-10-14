@@ -17,8 +17,14 @@ export default {
   },
   resolve: (req, args) => acl(req, args, requireAuthenticated)
     .then(() => {
-      const {models: {Textbook, TextbookAuthor,
-        TextbookImageLink, TextbookIndustryIdentifier}} = db;
+      const {
+        models: {
+          Textbook,
+          TextbookAuthor,
+          TextbookImage,
+          TextbookIndustryIdentifier,
+        },
+      } = db;
       return db.transaction(transaction => Textbook.build(extend({
         id: generateRandomUID(),
         uid: generateRandomUID(),
@@ -42,25 +48,27 @@ export default {
           }
 
           const industryIdentifiers = map(args.textbook.industryIdentifiers,
-            industryIdentifier => (extend({}, industryIdentifier, {
+            industryIdentifier => extend({}, industryIdentifier, {
               textbookId: textbook.id,
               userId: req.session.userId,
-            })));
+            }));
 
           return TextbookIndustryIdentifier.bulkCreate(industryIdentifiers, {transaction})
             .then(() => textbook);
         })
 
         .then((textbook) => {
-          if (isEmpty(args.textbook.imageLinks)) {
+          if (isEmpty(args.textbook.images)) {
             return textbook;
           }
 
-          return TextbookImageLink.build(extend({}, args.textbook.imageLinks, {
+          const images = map(args.textbook.images, (image, index) => extend({}, image, {
             textbookId: textbook.id,
             userId: req.session.userId,
-          }))
-            .save({transaction})
+            priority: image.priority || index,
+          }));
+
+          return TextbookImage.bulkCreate(images, {transaction})
             .then(() => textbook);
         }));
     }),
