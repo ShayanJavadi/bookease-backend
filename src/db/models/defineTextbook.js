@@ -26,8 +26,8 @@ export default (db) => {
       required: true,
     },
     publishedAt: {
-      type: DATE
-    }
+      type: DATE,
+    },
   });
 
   const {models: {User}} = db;

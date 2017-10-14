@@ -9,12 +9,12 @@ export default {
   description: "get one textbook of the current user",
   args: {
     textbookId: {
-      type: new GraphQLNonNull(GraphQLID)
+      type: new GraphQLNonNull(GraphQLID),
     },
   },
   resolve: (req, args) => acl(req, args, requireAuthenticated)
     .then(() => {
-      const { models: { Textbook } } = db;
+      const {models: {Textbook}} = db;
       return Textbook.find({
         where: {
           id: args.textbookId,

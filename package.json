@@ -7,7 +7,7 @@
     "web": "./node_modules/.bin/nodemon --config ./nodemon.web.json --debug=5858 --expose_debug_as=v8debug src/start.js",
     "start": "npm run web",
     "test": "jest --runInBand",
-    "test:watch": "jest  --runInBand --watchAll tests/**/*.test.js",
+    "test:watch": "jest  --runInBand --onlyChanged --watch tests/**/*.test.js",
     "init:db": "./node_modules/.bin/babel-node src/tools/initDb.js",
     "lint": "./node_modules/.bin/eslint src",
     "lint:fix": "./node_modules/.bin/eslint --fix src",

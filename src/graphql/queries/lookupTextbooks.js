@@ -40,7 +40,7 @@ export default {
           industryIdentifiers: get(item, "volumeInfo.industryIdentifiers", []),
           images: [extend({priority: 0}, get(item, "volumeInfo.imageLinks", {}))],
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         })),
       }));
   },

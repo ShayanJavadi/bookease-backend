@@ -79,6 +79,8 @@ export default {
         where: {
           userId: req.session.userId,
         },
+        limit,
+        offset,
       });
     }),
 };

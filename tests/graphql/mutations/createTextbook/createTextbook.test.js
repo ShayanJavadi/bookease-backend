@@ -1,9 +1,9 @@
 import Chance from "chance";
-import db from "../../../src/db";
-import initializeDb from "../../../src/db/initialize";
-import registerAndSignInWithEmail from "../common/registerAndSignInWithEmail";
-import gql from "../../libs/gql";
-import CREATE_TEXTBOOK from "./createTextbook/createTextbook.graphql";
+import db from "../../../../src/db/index";
+import initializeDb from "../../../../src/db/initialize";
+import registerAndSignInWithEmail from "../../common/registerAndSignInWithEmail";
+import gql from "../../../libs/gql";
+import CREATE_TEXTBOOK from "./createTextbook.graphql";
 
 beforeAll((done) => initializeDb({ db })
   .then(() => done()));

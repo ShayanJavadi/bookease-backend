@@ -47,11 +47,13 @@ export default {
             return textbook;
           }
 
-          const industryIdentifiers = map(args.textbook.industryIdentifiers,
+          const industryIdentifiers = map(
+            args.textbook.industryIdentifiers,
             industryIdentifier => extend({}, industryIdentifier, {
               textbookId: textbook.id,
               userId: req.session.userId,
-            }));
+            }),
+          );
 
           return TextbookIndustryIdentifier.bulkCreate(industryIdentifiers, {transaction})
             .then(() => textbook);
