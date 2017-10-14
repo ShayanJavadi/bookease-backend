@@ -31,7 +31,7 @@ app.use(compression());
 app.use(json({
   limit: getVariable("BODY_PARSER_LIMIT"),
 }));
-app.use(urlencoded({extended: true}));
+app.use(urlencoded({ extended: true }));
 app.use(methodOverride("X-HTTP-Method-Override"));
 app.use(cookieParser());
 app.disable("etag");
@@ -54,14 +54,17 @@ app.get("/graphiql", graphiqlExpress({
   pretty: true,
 }));
 
-app.start = () => initializeDb({db})
+let server;
+app.start = () => initializeDb({ db })
   .then(() => {
     const PORT = getPort();
     const HOST = getHost();
 
-    app.listen(PORT, HOST, () => {
+    server = app.listen(PORT, HOST, () => {
       L.info(`Server is listening at ${HOST}:${PORT} allowing requests from ${getVariable("CORS_ALLOWED_ORIGINS")}`);
     });
   });
+
+app.stop = () => server.close();
 
 export default app;
