@@ -6,6 +6,8 @@
   "scripts": {
     "web": "./node_modules/.bin/nodemon --config ./nodemon.web.json --debug=5858 --expose_debug_as=v8debug src/start.js",
     "start": "npm run web",
+    "test": "jest",
+    "test:watch": "jest --watchAll tests/**/*.test.js",
     "init:db": "./node_modules/.bin/babel-node src/tools/initDb.js",
     "lint": "./node_modules/.bin/eslint src",
     "lint:fix": "./node_modules/.bin/eslint --fix src",
@@ -56,7 +58,9 @@
     "yargs": "^8.0.2"
   },
   "devDependencies": {
+    "apollo-client-preset": "^0.1.0-1",
     "babel-cli": "^6.24.1",
+    "babel-jest": "^21.2.0",
     "babel-preset-es2015": "6.14.0",
     "babel-preset-stage-0": "6.5.0",
     "eslint": "^4.5.0",
@@ -64,7 +68,10 @@
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.2.1",
-    "nodemon": "^1.11.0"
+    "graphql-tag": "^2.4.2",
+    "jest": "^21.2.1",
+    "nodemon": "^1.11.0",
+    "regenerator-runtime": "^0.11.0"
   },
   "babel": {
     "presets": [
@@ -95,5 +102,17 @@
         }
       ]
     }
+  },
+  "jest": {
+    "bail": true,
+    "cacheDirectory": "./tmp/jest",
+    "collectCoverage": false,
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ],
+    "coverageDirectory": "./tmp/coverage",
+    "coverageReporters": [
+      "lcov"
+    ]
   }
 }
