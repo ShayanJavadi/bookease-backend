@@ -7,6 +7,7 @@ import acl from "../acl";
 
 export default {
   type: TextbookType,
+  description: "get one selling textbook",
   args: {
     textbookId: {
       type: new GraphQLNonNull(GraphQLID)
