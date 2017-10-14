@@ -3,6 +3,7 @@ import difference from "lodash/difference";
 import isEmpty from "lodash/isEmpty";
 import filter from "lodash/filter";
 import includes from "lodash/includes";
+import {Op} from "sequelize";
 import db from "../../../db";
 
 export default ({schools}) => {
@@ -11,7 +12,7 @@ export default ({schools}) => {
 
   return School.findAll({
     where: {
-      id: {$in: ids},
+      id: {[Op.in]: ids},
     },
     attributes: ["id"],
   })

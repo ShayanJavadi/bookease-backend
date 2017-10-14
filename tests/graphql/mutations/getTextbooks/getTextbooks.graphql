@@ -1,0 +1,21 @@
+query getTextbooks($query: String, $limit: Int, $offset: Int){
+    getTextbooks(query: $query, limit: $limit, offset: $offset){
+        id,
+        title,
+        uid,
+        description,
+        edition,
+        industryIdentifiers{
+            type,
+            identifier
+        },
+        images{
+            thumbnail
+        },
+        authors,
+        userId,
+        createdAt,
+        updatedAt,
+        publishedAt
+    }
+}

@@ -54,14 +54,17 @@ app.get("/graphiql", graphiqlExpress({
   pretty: true,
 }));
 
+let server;
 app.start = () => initializeDb({db})
   .then(() => {
     const PORT = getPort();
     const HOST = getHost();
 
-    app.listen(PORT, HOST, () => {
+    server = app.listen(PORT, HOST, () => {
       L.info(`Server is listening at ${HOST}:${PORT} allowing requests from ${getVariable("CORS_ALLOWED_ORIGINS")}`);
     });
   });
+
+app.stop = () => server.close();
 
 export default app;

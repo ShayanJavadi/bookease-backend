@@ -11,7 +11,7 @@ import acl from "../acl";
 
 export default {
   type: new GraphQLList(TextbookType),
-  description: "get all selling textbooks of the current user",
+  description: "get all selling textbooks",
   args: {
     query: {
       type: GraphQLString,
@@ -33,7 +33,6 @@ export default {
         if (isISBN(query)) {
           return TextbookIndustryIdentifier.findAll({
             where: {
-              userId: req.session.userId,
               identifier: query,
             },
             attributes: [[db.fn("DISTINCT", db.col("textbookId")), "textbookId"]],
@@ -49,8 +48,8 @@ export default {
               }
 
               const where = {
-                userId: req.session.userId,
                 id: {[Op.in]: textbookIds},
+                publishedAt: {[Op.ne]: null},
               };
 
               return Textbook.findAll({
@@ -62,10 +61,10 @@ export default {
         }
 
         const where = {
-          userId: req.session.userId,
           title: {
             $ilike: `%${trim(query)}%`,
           },
+          publishedAt: {[Op.ne]: null},
         };
 
         return Textbook.findAll({
@@ -77,10 +76,8 @@ export default {
 
       return Textbook.findAll({
         where: {
-          userId: req.session.userId,
+          publishedAt: {[Op.ne]: null},
         },
-        limit,
-        offset,
       });
     }),
 };

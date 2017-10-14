@@ -35,7 +35,6 @@ export default {
         if (user.isVerified) {
           throw new Error("The email address has already been verified!", 400);
         }
-
         return generateRandomVerificationCode(user);
       })
       .then(saved => sendVerificationCodeToEmail(saved))

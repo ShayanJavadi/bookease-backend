@@ -39,6 +39,8 @@ export default {
           authors: get(item, "volumeInfo.authors", []),
           industryIdentifiers: get(item, "volumeInfo.industryIdentifiers", []),
           images: [extend({priority: 0}, get(item, "volumeInfo.imageLinks", {}))],
+          createdAt: new Date(),
+          updatedAt: new Date(),
         })),
       }));
   },
