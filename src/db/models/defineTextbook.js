@@ -1,4 +1,4 @@
-import {BIGINT, STRING} from "sequelize";
+import {BIGINT, STRING, DATE} from "sequelize";
 
 export default (db) => {
   const Textbook = db.define("Textbook", {
@@ -25,6 +25,9 @@ export default (db) => {
       type: BIGINT,
       required: true,
     },
+    publishedAt: {
+      type: DATE
+    }
   });
 
   const {models: {User}} = db;

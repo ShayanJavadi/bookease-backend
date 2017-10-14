@@ -1,4 +1,5 @@
 import {GraphQLID, GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLString} from "graphql";
+import GraphQLDate from "graphql-date";
 import map from "lodash/map";
 import TextbookIndustryIdentifier from "./TextbookIndustryIdentifier";
 import TextbookImage from "./TextbookImage";
@@ -23,11 +24,11 @@ export default new GraphQLObjectType({
     },
     industryIdentifiers: {
       type: new GraphQLList(TextbookIndustryIdentifier),
-      resolve: textbook => textbook.industryIdentifiers || getIndustryIdentifiers({textbook}),
+      resolve: textbook => textbook.industryIdentifiers || getIndustryIdentifiers({ textbook }),
     },
     authors: {
       type: new GraphQLNonNull(new GraphQLList(GraphQLString)),
-      resolve: textbook => textbook.authors || getAuthors({textbook})
+      resolve: textbook => textbook.authors || getAuthors({ textbook })
         .then(authors => map(authors, "name")),
 
     },
@@ -36,10 +37,19 @@ export default new GraphQLObjectType({
     },
     images: {
       type: new GraphQLNonNull(new GraphQLList(TextbookImage)),
-      resolve: textbook => textbook.images || getImages({textbook}),
+      resolve: textbook => textbook.images || getImages({ textbook }),
     },
     userId: {
       type: new GraphQLNonNull(GraphQLID),
     },
+    createdAt: {
+      type: new GraphQLNonNull(GraphQLDate),
+    },
+    updatedAt: {
+      type: new GraphQLNonNull(GraphQLDate),
+    },
+    publishedAt: {
+      type: GraphQLDate,
+    }
   },
 });
