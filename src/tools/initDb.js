@@ -8,4 +8,7 @@ initializeDb({db, sync: true})
     L.info("Database structure has been initialized.");
     process.exit(0);
   })
-  .catch(e => process.exit(e.code || e));
+  .catch((e) => {
+    L.error(e);
+    process.exit(e.code || e);
+  });

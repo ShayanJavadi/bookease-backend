@@ -5,7 +5,7 @@ import defineSchool from "./models/defineSchool";
 import defineTextbook from "./models/defineTextbook";
 import defineTextbookIndustryIdentifier from "./models/defineTextbookIndustryIdentifier";
 import defineTextbookAuthor from "./models/defineTextbookAuthor";
-import defineTextbookImageLink from "./models/defineTextbookImageLink";
+import defineTextbookImage from "./models/defineTextbookImage";
 
 export default ({db, sync = false}) => {
   /* eslint-disable */
@@ -14,7 +14,7 @@ export default ({db, sync = false}) => {
   db.models.User = defineUser(db);
   db.models.Textbook = defineTextbook(db);
   db.models.TextbookAuthor = defineTextbookAuthor(db);
-  db.models.TextbookImageLink = defineTextbookImageLink(db);
+  db.models.TextbookImage = defineTextbookImage(db);
   db.models.TextbookIndustryIdentifier = defineTextbookIndustryIdentifier(db);
 
   if (sync) {

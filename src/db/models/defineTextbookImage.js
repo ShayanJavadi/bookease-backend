@@ -1,7 +1,7 @@
-import {BIGINT, TEXT, STRING} from "sequelize";
+import {BIGINT, TEXT, STRING, INTEGER} from "sequelize";
 
 export default (db) => {
-  const TextbookImageLink = db.define("TextbookImageLink", {
+  const TextbookImage = db.define("TextbookImage", {
     id: {
       type: BIGINT,
       primaryKey: true,
@@ -22,15 +22,14 @@ export default (db) => {
       type: TEXT,
       required: true,
     },
-  }, {
-    indexes: [{
-      unique: true,
-      fields: ["textbookId", "userId"],
-    }],
+    priority: {
+      type: INTEGER,
+      required: true,
+    },
   });
 
   const {models: {Textbook, User}} = db;
-  TextbookImageLink.belongsTo(Textbook, {
+  Textbook.hasMany(TextbookImage, {
     as: "Textbook",
     foreignKey: "textbookId",
     targetKey: "id",
@@ -38,7 +37,7 @@ export default (db) => {
     onDelete: "CASCADE",
   });
 
-  TextbookImageLink.belongsTo(User, {
+  TextbookImage.belongsTo(User, {
     as: "User",
     foreignKey: "userId",
     targetKey: "id",
@@ -46,5 +45,5 @@ export default (db) => {
     onDelete: "CASCADE",
   });
 
-  return TextbookImageLink;
+  return TextbookImage;
 };

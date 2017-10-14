@@ -1,13 +1,16 @@
-import {GraphQLID, GraphQLInputObjectType, GraphQLString} from "graphql";
+import {GraphQLID, GraphQLInputObjectType, GraphQLString, GraphQLInt} from "graphql";
 
 export default new GraphQLInputObjectType({
-  name: "TextbookImageLinkInput",
+  name: "TextbookImageInput",
   fields: {
     smallThumbnail: {
       type: GraphQLID,
     },
     thumbnail: {
       type: GraphQLString,
+    },
+    priority: {
+      type: GraphQLInt,
     },
   },
 });

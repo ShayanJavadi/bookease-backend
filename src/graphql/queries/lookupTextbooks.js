@@ -1,7 +1,7 @@
 import {GraphQLInt, GraphQLString} from "graphql";
 import google from "googleapis";
 import B from "bluebird";
-import {get, map} from "lodash";
+import {extend, get, map} from "lodash";
 import isISBN from "validator/lib/isISBN";
 import TextbookLookupResult from "../types/TextbookLookupResult";
 
@@ -38,7 +38,7 @@ export default {
           title: get(item, "volumeInfo.title"),
           authors: get(item, "volumeInfo.authors", []),
           industryIdentifiers: get(item, "volumeInfo.industryIdentifiers", []),
-          imageLinks: get(item, "volumeInfo.imageLinks", []),
+          images: [extend({priority: 0}, get(item, "volumeInfo.imageLinks", {}))],
         })),
       }));
   },
