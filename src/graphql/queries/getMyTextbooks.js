@@ -2,6 +2,7 @@ import {GraphQLInt, GraphQLList, GraphQLString} from "graphql";
 import reduce from "lodash/reduce";
 import isEmpty from "lodash/isEmpty";
 import trim from "lodash/trim";
+import {Op} from "sequelize";
 import isISBN from "validator/lib/isISBN";
 import TextbookType from "../types/Textbook";
 import requireAuthenticated from "../acl/requireAuthenticated";
@@ -48,7 +49,7 @@ export default {
 
               const where = {
                 userId: req.session.userId,
-                id: {$in: textbookIds},
+                id: {[Op.in]: textbookIds},
               };
 
               return Textbook.findAll({

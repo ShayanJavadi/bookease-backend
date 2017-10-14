@@ -1,12 +1,9 @@
 import {GraphQLID, GraphQLNonNull} from "graphql";
-import Sequelize from "sequelize";
+import {Op} from "sequelize";
 import TextbookType from "../types/Textbook";
 import requireAuthenticated from "../acl/requireAuthenticated";
 import db from "../../db";
 import acl from "../acl";
-
-console.log(Sequelize.Op, "<-- ");
-
 
 export default {
   type: TextbookType,
@@ -21,7 +18,7 @@ export default {
       return Textbook.find({
         where: {
           id: args.textbookId,
-          publishedAt: { [Sequelize.Op.ne]: null }
+          publishedAt: { [Op.ne]: null }
         },
       });
     }),
