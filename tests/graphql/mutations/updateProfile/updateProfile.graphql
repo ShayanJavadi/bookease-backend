@@ -1,0 +1,7 @@
+mutation updateProfile($schoolId: ID!, $name: String!, $password: String){
+    updateProfile(schoolId: $schoolId, name: $name, password: $password) {
+        id,
+        schoolId,
+        displayName
+    }
+}
