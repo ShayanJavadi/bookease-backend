@@ -1,4 +1,4 @@
-import {GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLString} from "graphql";
+import {GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLString, GraphQLInt} from "graphql";
 
 export default new GraphQLObjectType({
   name: "School",
@@ -12,5 +12,8 @@ export default new GraphQLObjectType({
     address: {
       type: new GraphQLNonNull(GraphQLString),
     },
+    enrollmentCount: {
+      type: GraphQLInt,
+    }
   },
 });
