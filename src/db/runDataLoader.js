@@ -9,7 +9,7 @@ import B from "bluebird";
 import values from "lodash/values";
 import L from "../logger/logger";
 
-export default ({ School }) => {
+export default ({School}) => {
   L.info("Start loading schools...");
 
   return School.destroy({
@@ -43,16 +43,16 @@ export default ({ School }) => {
             address: compact([
               data[8],
               data[9],
-              trim(data[10] + " " + data[11].split("-").shift())
+              trim(`${data[10]} ${data[11].split("-").shift()}`),
             ]).join(", "),
-            terms: compact(uniq([data[1], data[6], data[7], data[12]])).join(" ").toLowerCase()
+            terms: compact(uniq([data[1], data[6], data[7], data[12]])).join(" ").toLowerCase(),
           };
         }
       });
 
       parser.on("end", () => resolve(rows));
     }))
-    .then((rows) => new B((resolve) => {
+    .then(rows => new B((resolve) => {
       const readStream = fs.createReadStream(path.resolve(__dirname, "../../data/school-enrollment-count.csv"));
       const parser = csv.parse();
       let firstRowRead = false;
@@ -72,11 +72,11 @@ export default ({ School }) => {
           }
 
           if (data[3] !== "All students total") {
-            continue;
+            continue; // eslint-disable-line
           }
 
           const id = parseInt(data[0], 10);
-          rows[id].enrollmentCount = parseInt(data[4], 10) || 0;
+          rows[id].enrollmentCount = parseInt(data[4], 10) || 0; // eslint-disable-line
         }
       });
 

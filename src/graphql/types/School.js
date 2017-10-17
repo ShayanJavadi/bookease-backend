@@ -14,6 +14,6 @@ export default new GraphQLObjectType({
     },
     enrollmentCount: {
       type: GraphQLInt,
-    }
+    },
   },
 });

@@ -17,6 +17,6 @@ export default db => db.define("School", {
   },
   enrollmentCount: {
     type: INTEGER,
-    defaultValue: 0
-  }
+    defaultValue: 0,
+  },
 });
