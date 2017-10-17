@@ -1,4 +1,5 @@
 import {GraphQLInt, GraphQLList, GraphQLNonNull, GraphQLString} from "graphql";
+import trim from "lodash/trim";
 import SchoolType from "../types/School";
 import db from "../../db";
 
@@ -17,7 +18,7 @@ export default {
     return School.findAll({
       where: {
         terms: {
-          $like: `%${name}%`,
+          $like: `%${trim(name.toLowerCase())}%`,
         },
       },
       limit,

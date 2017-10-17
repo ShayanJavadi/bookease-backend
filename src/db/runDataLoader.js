@@ -42,9 +42,10 @@ export default ({ School }) => {
             name: data[1],
             address: compact([
               data[8],
-              trim(data[9] + " " + data[10].split("-").shift()) // eslint-disable-line
+              data[9],
+              trim(data[10] + " " + data[11].split("-").shift())
             ]).join(", "),
-            terms: compact(uniq([data[1], data[6], data[7], data[11]])).join(" ").toLowerCase()
+            terms: compact(uniq([data[1], data[6], data[7], data[12]])).join(" ").toLowerCase()
           };
         }
       });
