@@ -33,7 +33,7 @@ export default (db) => {
       type: TEXT,
     },
     schoolId: {
-      type: STRING,
+      type: BIGINT,
       required: true,
     },
     verificationCode: {
