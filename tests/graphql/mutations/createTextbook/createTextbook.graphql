@@ -1,5 +1,5 @@
 mutation createTextbook($textbook: TextbookInput){
-    createTexbook(textbook: $textbook) {
+    createTextbook(textbook: $textbook) {
         id,
         title,
         uid,
