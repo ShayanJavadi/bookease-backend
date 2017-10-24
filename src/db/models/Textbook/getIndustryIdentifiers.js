@@ -9,7 +9,7 @@ export default ({textbook}) => {
       userId: textbook.userId,
     },
     order: {
-      type: 'DESC'
-    }
+      type: "DESC",
+    },
   });
 };

@@ -9,7 +9,7 @@ export default new GraphQLObjectType({
     user: {
       type: UserType,
       resolve: (source) => {
-        const { models: { User } } = db;
+        const {models: {User}} = db;
 
         if (isEmpty(source.userId)) {
           return null;
@@ -17,10 +17,10 @@ export default new GraphQLObjectType({
 
         return User.find({
           where: {
-            id: source.userId
-          }
+            id: source.userId,
+          },
         });
-      }
+      },
     },
   },
 });
