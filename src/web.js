@@ -37,7 +37,7 @@ app.use(compression());
 app.use(json({
   limit: getVariable("BODY_PARSER_LIMIT"),
 }));
-app.use(urlencoded({ extended: true }));
+app.use(urlencoded({extended: true}));
 app.use(methodOverride("X-HTTP-Method-Override"));
 app.use(cookieParser());
 app.disable("etag");
@@ -81,7 +81,7 @@ app.post(
 );
 
 let server;
-app.start = () => initializeDb({ db })
+app.start = () => initializeDb({db})
   .then(() => {
     const PORT = getPort();
     const HOST = getHost();
