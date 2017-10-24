@@ -19,6 +19,7 @@ import configureCors from "./libs/configureCors";
 import configureAuth from "./libs/configureAuth";
 import sendUploadedFileToGCS from "./libs/sendUploadedFileToGCS";
 import configureMulter from "./libs/configureMulter";
+import requireAuthenticated from "./libs/requireAuthenticated";
 
 const multer = configureMulter();
 
@@ -36,7 +37,7 @@ app.use(compression());
 app.use(json({
   limit: getVariable("BODY_PARSER_LIMIT"),
 }));
-app.use(urlencoded({extended: true}));
+app.use(urlencoded({ extended: true }));
 app.use(methodOverride("X-HTTP-Method-Override"));
 app.use(cookieParser());
 app.disable("etag");
@@ -67,6 +68,7 @@ app.get("/graphiql", graphiqlExpress({
 // TODO: need a job to clean up file that are not associated with any book
 app.post(
   "/upload",
+  requireAuthenticated,
   multer.single("image"),
   sendUploadedFileToGCS,
   (req, res) => {
@@ -79,7 +81,7 @@ app.post(
 );
 
 let server;
-app.start = () => initializeDb({db})
+app.start = () => initializeDb({ db })
   .then(() => {
     const PORT = getPort();
     const HOST = getHost();
