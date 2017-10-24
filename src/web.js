@@ -5,6 +5,7 @@ import compression from "compression";
 import methodOverride from "method-override";
 import cookieParser from "cookie-parser";
 import {HTTPS} from "express-sslify";
+import path from "path";
 import getVariable from "./config/getVariable";
 import getPort from "./config/getPort";
 import getHost from "./config/getHost";
@@ -16,6 +17,10 @@ import initializeDb from "./db/initialize";
 import configureSession from "./libs/configureSession";
 import configureCors from "./libs/configureCors";
 import configureAuth from "./libs/configureAuth";
+import sendUploadedFileToGCS from "./libs/sendUploadedFileToGCS";
+import configureMulter from "./libs/configureMulter";
+
+const multer = configureMulter();
 
 const isDev = isDevelopment();
 
@@ -40,6 +45,10 @@ configureSession(app);
 configureCors(app);
 configureAuth(app);
 
+if (isDev) {
+  app.use("/", express.static(path.join(__dirname, "public")));
+}
+
 app.use("/graphql", graphqlExpress(request => ({
   schema,
   rootValue: {
@@ -53,6 +62,21 @@ app.get("/graphiql", graphiqlExpress({
   endpointURL: "/graphql",
   pretty: true,
 }));
+
+// TODO: need a job to clean up files when a post is deleted
+// TODO: need a job to clean up file that are not associated with any book
+app.post(
+  "/upload",
+  multer.single("image"),
+  sendUploadedFileToGCS,
+  (req, res) => {
+    res.status(200).send({
+      mimetype: req.file.mimetype,
+      size: req.file.size,
+      url: req.file.cloudStoragePublicUrl,
+    });
+  },
+);
 
 let server;
 app.start = () => initializeDb({db})
