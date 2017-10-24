@@ -18,6 +18,7 @@ export default {
     return School.findAll({
       where: {
         terms: {
+          // TODO: search for UNT should show UNT first
           $like: `%${trim(name.toLowerCase())}%`,
         },
       },

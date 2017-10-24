@@ -9,7 +9,7 @@ export default new GraphQLObjectType({
       type: GraphQLID,
     },
     displayName: {
-      type: new GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
     },
     email: {
       type: new GraphQLNonNull(GraphQLString),
