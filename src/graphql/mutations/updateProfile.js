@@ -1,28 +1,46 @@
-import {GraphQLID, GraphQLNonNull, GraphQLString} from "graphql";
+import {GraphQLID, GraphQLString} from "graphql";
 import isEmpty from "lodash/isEmpty";
+import extend from "lodash/extend";
+import B from "bluebird";
 import db from "../../db";
 import acl from "../acl";
-import requireAuthenticated from "../acl/requireAuthenticated";
 import UserType from "../types/User";
+import requireAuthenticated from "../acl/requireAuthenticated";
+import UserFacebookInput from "../inputs/UserFacebookInput";
+import UserGoogleInput from "../inputs/UserGoogleInput";
 import encryptPassword from "../../db/models/User/encryptPassword";
 
 export default {
   type: UserType,
   args: {
-    schoolId: {
-      type: new GraphQLNonNull(GraphQLID),
+    email: {
+      type: GraphQLString,
     },
-    name: {
-      type: new GraphQLNonNull(GraphQLString),
+    phoneNumber: {
+      type: GraphQLString,
+    },
+    displayName: {
+      type: GraphQLString,
     },
     password: {
       type: GraphQLString,
     },
+    schoolId: {
+      type: GraphQLID,
+    },
+    facebook: {
+      type: UserFacebookInput,
+    },
+    google: {
+      type: UserGoogleInput,
+    },
   },
   resolve: (req, args) => {
-    const {models: {User}} = db;
+    const {models: {User, UserFacebook, UserGoogle}} = db;
     const {session} = req;
-    const {schoolId, name} = args;
+    const {
+      schoolId, email, displayName, phoneNumber, password, facebook, google,
+    } = args;
 
     return acl(req, args, requireAuthenticated)
       .then(() => User.findOne({
@@ -31,27 +49,84 @@ export default {
         },
       }))
       .then((user) => {
-        console.log(user, "<-- ");
-
-
         if (isEmpty(user)) {
           throw new Error("The requested user is not found!", 404);
         }
 
-        const values = {
-          schoolId,
-          name,
-        };
+        return db.transaction((transaction) => {
+          const values = {};
 
-        if (!isEmpty(args.password)) {
-          values.password = encryptPassword(args.password);
-        }
+          if (!isEmpty(email)) {
+            values.email = email;
+          }
 
-        return user.update(values)
-          .then((updatedUser) => {
-            console.log(updatedUser);
-            return user;
-          });
+          if (!isEmpty(password)) {
+            values.password = encryptPassword(password);
+          }
+
+          if (!isEmpty(phoneNumber)) {
+            values.phoneNumber = phoneNumber;
+          }
+
+          if (!isEmpty(displayName)) {
+            values.displayName = displayName;
+          }
+
+          if (!isEmpty(schoolId)) {
+            values.schoolId = schoolId;
+          }
+
+          return user.update(values, {transaction})
+            .then(() => {
+              const promises = [];
+              if (!isEmpty(facebook)) {
+                promises.push(UserFacebook.find({
+                  where: {
+                    userId: user.id,
+                  },
+                })
+                  .then((userFacebook) => {
+                    const valuesToUpdate = extend({}, facebook, {
+                      userId: user.id,
+                    });
+
+                    if (isEmpty(userFacebook)) {
+                      return UserFacebook.build(valuesToUpdate)
+                        .save({transaction});
+                    }
+
+                    return userFacebook.update(valuesToUpdate, {transaction});
+                  }));
+              }
+
+              if (!isEmpty(google)) {
+                promises.push(UserGoogle.find({
+                  where: {
+                    userId: user.id,
+                  },
+                })
+                  .then((userGoogle) => {
+                    const valuesToUpdate = extend({}, google, {
+                      userId: user.id,
+                    });
+
+                    if (isEmpty(userGoogle)) {
+                      return UserGoogle.build(valuesToUpdate)
+                        .save({transaction});
+                    }
+
+                    return userGoogle.update(valuesToUpdate, {transaction});
+                  }));
+              }
+
+              return B.all(promises);
+            });
+        })
+          .then(() => User.find({
+            where: {
+              id: session.userId,
+            },
+          }));
       });
   },
 };

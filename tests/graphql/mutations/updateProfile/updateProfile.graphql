@@ -1,7 +1,17 @@
-mutation updateProfile($schoolId: ID!, $name: String!, $password: String){
-    updateProfile(schoolId: $schoolId, name: $name, password: $password) {
+mutation updateProfile($email: String, $phoneNumber: String, $displayName: String, $password: String, $schoolId: ID, $facebook: UserFacebookInput, $google: UserGoogleInput){
+    updateProfile(email: $email, phoneNumber: $phoneNumber, displayName: $displayName, password: $password, schoolId: $schoolId, facebook: $facebook, google: $google){
         id,
+        displayName,
+        email,
+        photoURL,
+        phoneNumber,
+        setupCompleted,
         schoolId,
-        displayName
+        facebook{
+            uid
+        },
+        google{
+            uid
+        }
     }
 }

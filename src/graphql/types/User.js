@@ -1,6 +1,9 @@
 import isEmpty from "lodash/isEmpty";
 import {GraphQLBoolean, GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLString} from "graphql";
-import School from "./School";
+import getFacebook from "../../db/models/User/getFacebook";
+import getGoogle from "../../db/models/User/getGoogle";
+import UserFacebook from "../types/UserFacebook";
+import UserGoogle from "../types/UserGoogle";
 
 export default new GraphQLObjectType({
   name: "User",
@@ -17,16 +20,7 @@ export default new GraphQLObjectType({
     photoURL: {
       type: GraphQLString,
     },
-    uid: {
-      type: GraphQLID,
-    },
     phoneNumber: {
-      type: GraphQLString,
-    },
-    refreshToken: {
-      type: GraphQLString,
-    },
-    accessToken: {
       type: GraphQLString,
     },
     setupCompleted: {
@@ -36,9 +30,13 @@ export default new GraphQLObjectType({
     schoolId: {
       type: GraphQLID,
     },
-    school: {
-      type: School,
-      resolve: source => source.getSchool(),
+    facebook: {
+      type: UserFacebook,
+      resolve: user => getFacebook({user}),
+    },
+    google: {
+      type: UserGoogle,
+      resolve: user => getGoogle({user}),
     },
   },
 });
