@@ -1,0 +1,8 @@
+query searchScools($name: String!, $limit: Int){
+    searchSchools(name: $name, limit: $limit){
+        id,
+        name,
+        address,
+        enrollmentCount
+    }
+}

@@ -8,5 +8,8 @@ export default ({textbook}) => {
       textbookId: textbook.id,
       userId: textbook.userId,
     },
+    order: {
+      type: "DESC",
+    },
   });
 };

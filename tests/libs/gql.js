@@ -2,6 +2,7 @@ import request from "request-promise";
 import first from "lodash/first";
 import keys from "lodash/keys";
 import get from "lodash/get";
+import isEmpty from "lodash/isEmpty";
 import getPort from "../../src/config/getPort";
 import getHost from "../../src/config/getHost";
 import getVariable from "../../src/config/getVariable";
@@ -31,6 +32,11 @@ export default ({ query, variables, returnFirstKey = true, jar }) => {
     jar: jar || cookieJar
   })
     .then(({ body }) => {
+
+      if (!isEmpty(body.errors)) {
+        throw new Error(first(body.errors).message);
+      }
+
       return returnFirstKey ? get(body.data, first(keys(body.data))) : body;
     });
 };
