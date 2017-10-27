@@ -19,7 +19,6 @@ import configureCors from "./libs/configureCors";
 import configureAuth from "./libs/configureAuth";
 import sendUploadedFileToGCS from "./libs/sendUploadedFileToGCS";
 import configureMulter from "./libs/configureMulter";
-import requireAuthenticated from "./libs/requireAuthenticated";
 
 const multer = configureMulter();
 
