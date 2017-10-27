@@ -68,7 +68,6 @@ app.get("/graphiql", graphiqlExpress({
 // TODO: need a job to clean up file that are not associated with any book
 app.post(
   "/upload",
-  requireAuthenticated,
   multer.single("image"),
   sendUploadedFileToGCS,
   (req, res) => {
