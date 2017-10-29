@@ -19,6 +19,7 @@ import configureCors from "./libs/configureCors";
 import configureAuth from "./libs/configureAuth";
 import sendUploadedFileToGCS from "./libs/sendUploadedFileToGCS";
 import configureMulter from "./libs/configureMulter";
+import requireAuthenticated from "./libs/requireAuthenticated";
 
 const multer = configureMulter();
 
@@ -67,6 +68,7 @@ app.get("/graphiql", graphiqlExpress({
 // TODO: need a job to clean up file that are not associated with any book
 app.post(
   "/upload",
+  requireAuthenticated,
   multer.single("image"),
   sendUploadedFileToGCS,
   (req, res) => {
