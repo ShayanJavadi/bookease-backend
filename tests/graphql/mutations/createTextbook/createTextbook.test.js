@@ -4,6 +4,7 @@ import initializeDb from "../../../../src/db/initialize";
 import registerAndSignInWithEmail from "../../common/registerAndSignInWithEmail";
 import gql from "../../../libs/gql";
 import CREATE_TEXTBOOK from "./createTextbook.graphql";
+import {FAIR} from "../../../../src/db/models/Textbook/TextbookConditionConsts";
 
 beforeAll((done) => initializeDb({ db })
   .then(() => done()));
@@ -24,7 +25,9 @@ test("should created textbook correctly", (done) => {
         authors: ["John Smith"],
         images: [{
           thumbnail: "https://abc/def"
-        }]
+        }],
+        condition: FAIR,
+        price: 10.99
       };
 
       return gql({
@@ -43,6 +46,8 @@ test("should created textbook correctly", (done) => {
           expect(createdTextbook.createdAt).not.toBeNull();
           expect(createdTextbook.updatedAt).not.toBeNull();
           expect(createdTextbook.publishedAt).toBeNull();
+          expect(createdTextbook.condition).toBe(textbook.condition);
+          expect(createdTextbook.price).toBe(textbook.price);
         });
     })
     .then(() => done())

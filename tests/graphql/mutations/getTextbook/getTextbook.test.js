@@ -5,6 +5,7 @@ import registerAndSignInWithEmail from "../../common/registerAndSignInWithEmail"
 import gql from "../../../libs/gql";
 import CREATE_TEXTBOOK from "../createTextbook/createTextbook.graphql";
 import GET_TEXTBOOK from "./getTextbook.graphql";
+import {GOOD} from "../../../../src/db/models/Textbook/TextbookConditionConsts";
 
 beforeAll((done) => initializeDb({ db })
   .then(() => done()));
@@ -25,7 +26,9 @@ test("should NOT return the created textbook since it is not published", (done) 
         authors: ["John Smith"],
         images: [{
           thumbnail: "https://abc/def"
-        }]
+        }],
+        condition: GOOD,
+        price: 0
       };
 
       return gql({

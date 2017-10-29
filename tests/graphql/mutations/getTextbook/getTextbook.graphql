@@ -16,6 +16,8 @@ query getTextbook($textbookId: ID!){
         userId,
         createdAt,
         updatedAt,
-        publishedAt
+        publishedAt,
+        condition,
+        price
     }
 }

@@ -1,4 +1,12 @@
-import {GraphQLID, GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLString} from "graphql";
+import {
+  GraphQLFloat,
+  GraphQLID,
+  GraphQLInt,
+  GraphQLList,
+  GraphQLNonNull,
+  GraphQLObjectType,
+  GraphQLString,
+} from "graphql";
 import GraphQLDate from "graphql-date";
 import map from "lodash/map";
 import TextbookIndustryIdentifier from "./TextbookIndustryIdentifier";
@@ -50,6 +58,12 @@ export default new GraphQLObjectType({
     },
     publishedAt: {
       type: GraphQLDate,
+    },
+    condition: {
+      type: new GraphQLNonNull(GraphQLInt),
+    },
+    price: {
+      type: new GraphQLNonNull(GraphQLFloat),
     },
   },
 });

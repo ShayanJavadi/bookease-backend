@@ -1,4 +1,12 @@
-import {GraphQLID, GraphQLList, GraphQLNonNull, GraphQLInputObjectType, GraphQLString} from "graphql";
+import {
+  GraphQLFloat,
+  GraphQLID,
+  GraphQLInputObjectType,
+  GraphQLInt,
+  GraphQLList,
+  GraphQLNonNull,
+  GraphQLString,
+} from "graphql";
 import TextbookIndustryIdentifier from "./TextbookIndustryIdentifierInput";
 import TextbookImage from "./TextbookImageInput";
 
@@ -28,6 +36,12 @@ export default new GraphQLInputObjectType({
     },
     images: {
       type: new GraphQLNonNull(new GraphQLList(TextbookImage)),
+    },
+    condition: {
+      type: new GraphQLNonNull(GraphQLInt),
+    },
+    price: {
+      type: new GraphQLNonNull(GraphQLFloat),
     },
   },
 });

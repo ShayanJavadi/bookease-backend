@@ -16,6 +16,8 @@ mutation createTextbook($textbook: TextbookInput){
         userId,
         createdAt,
         updatedAt,
-        publishedAt
+        publishedAt,
+        condition,
+        price
     }
 }

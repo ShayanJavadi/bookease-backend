@@ -1,4 +1,5 @@
-import {BIGINT, STRING, DATE} from "sequelize";
+import {BIGINT, DATE, DECIMAL, INTEGER, STRING} from "sequelize";
+import {GOOD} from "./Textbook/TextbookConditionConsts";
 
 export default (db) => {
   const Textbook = db.define("Textbook", {
@@ -27,6 +28,16 @@ export default (db) => {
     },
     publishedAt: {
       type: DATE,
+    },
+    condition: {
+      type: INTEGER,
+      required: true,
+      defaultValue: GOOD,
+    },
+    price: {
+      type: DECIMAL(10, 2),
+      required: true,
+      defaultValue: 0,
     },
   });
 

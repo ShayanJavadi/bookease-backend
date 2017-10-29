@@ -24,6 +24,7 @@ export default {
           TextbookIndustryIdentifier,
         },
       } = db;
+
       return db.transaction(transaction => Textbook.build(extend({
         id: generateRandomUID(),
         uid: generateRandomUID(),

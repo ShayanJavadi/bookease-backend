@@ -16,6 +16,8 @@ query getTextbooks($query: String, $limit: Int, $offset: Int){
         userId,
         createdAt,
         updatedAt,
-        publishedAt
+        publishedAt,
+        condition,
+        price
     }
 }

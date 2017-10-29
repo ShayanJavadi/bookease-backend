@@ -6,6 +6,7 @@ import registerAndSignInWithEmail from "../../common/registerAndSignInWithEmail"
 import gql from "../../../libs/gql";
 import CREATE_TEXTBOOK from "../createTextbook/createTextbook.graphql";
 import GET_MY_TEXTBOOKS from "./getTextbooks.graphql";
+import {EXCELLENT, FAIR} from "../../../../src/db/models/Textbook/TextbookConditionConsts";
 
 const textbookWithISBN10 = {
   title: "Algorithm with ISBN10",
@@ -18,7 +19,9 @@ const textbookWithISBN10 = {
   authors: ["John Smith"],
   images: [{
     thumbnail: "https://abc/def"
-  }]
+  }],
+  condition: FAIR,
+  price: 0
 };
 
 const textbookWithISBN13 = {
@@ -32,7 +35,9 @@ const textbookWithISBN13 = {
   authors: ["Joe Doe"],
   images: [{
     thumbnail: "https://abc/def"
-  }]
+  }],
+  condition: EXCELLENT,
+  price: 1009
 };
 
 const textbooks = [textbookWithISBN10, textbookWithISBN13];
