@@ -12,7 +12,7 @@ export default (req, res, next) => {
     type: "service_account",
     project_id: getVariable("FIREBASE_PROJECT_ID"),
     private_key_id: getVariable("FIREBASE_PRIVATE_KEY_ID"),
-    private_key: getVariable("FIREBASE_PRIVATE_KEY").replace(/(?:\\[rn])/g, '\n'),
+    private_key: getVariable("FIREBASE_PRIVATE_KEY").replace(/(?:\\[rn])/g, "\n"),
     client_email: getVariable("FIREBASE_CLIENT_EMAIL"),
     client_id: getVariable("FIREBASE_CILENT_ID"),
     auth_uri: getVariable("FIREBASE_AUTH_URI"),
