@@ -5,7 +5,6 @@ import db from "../../db";
 import TextbookType from "../types/Textbook";
 import TextbookInput from "../inputs/TextbookInput";
 import acl from "../acl";
-import requireAuthenticated from "../acl/requireAuthenticated";
 import generateRandomUID from "../../db/models/Textbook/generateRandomUID";
 
 export default {
@@ -15,7 +14,7 @@ export default {
       type: TextbookInput,
     },
   },
-  resolve: (req, args) => acl(req, args, requireAuthenticated)
+  resolve: (req, args) => acl(req, args)
     .then(() => {
       const {
         models: {
