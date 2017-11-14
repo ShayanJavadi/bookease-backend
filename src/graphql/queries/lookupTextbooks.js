@@ -24,7 +24,7 @@ export default {
     const {volumes: {list}} = books;
     const q = isISBN(query) ? `isbn:${query}` : query;
 
-    return B.promisify(list, books)({
+    return B.promisify(list, {context: books, multiArgs:true})({
       q,
       maxResults: limit,
       startIndex: offset,
