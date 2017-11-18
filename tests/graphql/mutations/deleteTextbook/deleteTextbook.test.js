@@ -41,9 +41,6 @@ test("Should delete textbook correctly", (done) => {
         }
       })
         .then((createdTextbook) => {
-          console.log("\n\n\n");
-          console.log(createdTextbook);
-          console.log("\n\n\n");
           return gql({
             query: DELETE_TEXTBOOK,
             variables: {
