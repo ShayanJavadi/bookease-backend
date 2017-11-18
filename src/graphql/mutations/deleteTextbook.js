@@ -24,42 +24,22 @@ export default {
       } = db;
 
       const {id} = args;
+      const {session} = req;
+      console.log("\n\n\n\n\n");
+      console.log(session);
 
+      console.log("\n\n\n\n\n");
       return Textbook.findOne({
         where: {
           id,
+          userId: req.session.userId,
         },
       })
         .then((textbookToDelete) => {
           if (isEmpty(textbookToDelete)) {
             throw new Error("The requested textbook was not found!", 404);
           }
-
-          return db.transaction(() => {
-            const promises = [];
-
-            promises.push(textbookToDelete.destroy());
-
-            promises.push(TextbookAuthor.destroy({
-              where: {
-                textbookId: id,
-              },
-            }));
-
-            promises.push(TextbookImage.destroy({
-              where: {
-                textbookId: id,
-              },
-            }));
-
-            promises.push(TextbookIndustryIdentifier.destroy({
-              where: {
-                textbookId: id,
-              },
-            }));
-
-            return B.all(promises);
-          });
+          return textbookToDelete.destroy();
         })
         .then(() => 200);
     }),
