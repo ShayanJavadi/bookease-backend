@@ -25,10 +25,7 @@ export default {
 
       const {id} = args;
       const {session} = req;
-      console.log("\n\n\n\n\n");
-      console.log(session);
 
-      console.log("\n\n\n\n\n");
       return Textbook.findOne({
         where: {
           id,
