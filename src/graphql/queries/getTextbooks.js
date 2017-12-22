@@ -49,7 +49,6 @@ export default {
 
               const where = {
                 id: {[Op.in]: textbookIds},
-                publishedAt: {[Op.ne]: null},
               };
 
               return Textbook.findAll({
@@ -64,7 +63,6 @@ export default {
           title: {
             $ilike: `%${trim(query)}%`,
           },
-          publishedAt: {[Op.ne]: null},
         };
 
         return Textbook.findAll({
