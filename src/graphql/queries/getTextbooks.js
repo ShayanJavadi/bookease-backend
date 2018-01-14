@@ -72,8 +72,6 @@ export default {
 
         const getOrder = () => {
           switch (orderBy) {
-            case "relevance":
-              return [];
             case "condition":
               return [["condition", "DESC"]];
             case "price-high-to-low":
