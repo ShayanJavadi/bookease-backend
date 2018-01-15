@@ -23,10 +23,15 @@ export default {
     offset: {
       type: GraphQLInt,
     },
+    orderBy: {
+      type: GraphQLString,
+    },
   },
   resolve: (req, args) => acl(req, args, requireAuthenticated)
     .then(() => {
-      const {query, limit = 10, offset = 0} = args;
+      const {
+        query, limit = 10, offset = 0, orderBy = "relevance",
+      } = args;
       const {models: {Textbook, TextbookIndustryIdentifier}} = db;
 
       if (!isEmpty(query)) {
@@ -65,10 +70,26 @@ export default {
           },
         };
 
+        const getOrder = () => {
+          switch (orderBy) {
+            case "condition":
+              return [["condition", "DESC"]];
+            case "price-high-to-low":
+              return [["price", "DESC"]];
+            case "price-low-to-high":
+              return [["price", "ASC"]];
+            default:
+              return [];
+          }
+        };
+
+        const order = getOrder();
+
         return Textbook.findAll({
           where,
           limit,
           offset,
+          order,
         });
       }
 
