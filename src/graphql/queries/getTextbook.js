@@ -19,7 +19,6 @@ export default {
       return Textbook.find({
         where: {
           id: args.textbookId,
-          publishedAt: {[Op.ne]: null},
         },
       });
     }),
