@@ -1,5 +1,4 @@
 import {GraphQLID, GraphQLNonNull} from "graphql";
-import {Op} from "sequelize";
 import TextbookType from "../types/Textbook";
 import requireAuthenticated from "../acl/requireAuthenticated";
 import db from "../../db";
