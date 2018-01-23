@@ -38,18 +38,24 @@ export default (req, res, next) => {
     },
   });
 
-  const createThumbnail = (buffer, callback) => {
+  const createThumbnail = (buffer, gcsBucket) => new Promise((resolve, reject) => {
     jimp.read(buffer, (readError, image) => {
       const thumbnail = image.resize(10, 10);
       thumbnail.getBuffer("image/png", (bufferError, base64) => {
-        const base64File = bucket.file(`${fileNameInGCS.replace(/(\.[\w\d_-]+)$/i, "-thumbnail$1")}`);
+        const base64File = gcsBucket.file(`${fileNameInGCS.replace(/(\.[\w\d_-]+)$/i, "-thumbnail$1")}`);
         base64File.save(base64, {
           public: true,
           validation: "md5",
-        }).then(callback);
+        }, (err) => {
+          if (err) {
+            return reject();
+          }
+
+          return resolve();
+        });
       });
     });
-  };
+  });
 
   stream.on("error", (err) => {
     req.file.cloudStorageError = err; // eslint-disable-line
@@ -59,7 +65,7 @@ export default (req, res, next) => {
   stream.on("finish", () => {
     req.file.cloudStorageObject = fileNameInGCS; // eslint-disable-line
     file.makePublic().then(() => {
-      createThumbnail(req.file.buffer, () => {
+      createThumbnail(req.file.buffer, bucket).then(() => {
         req.file.cloudStoragePublicUrl = `https://storage.googleapis.com/${bucketName}/${fileNameInGCS}`; // eslint-disable-line
         next();
       });
