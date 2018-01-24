@@ -48,7 +48,7 @@ export default (req, res, next) => {
           validation: "md5",
         }, (err) => {
           if (err) {
-            return reject();
+            return reject(err);
           }
 
           return resolve();
