@@ -21,7 +21,7 @@ export default ({db, sync = false}) => {
   db.models.TextbookAuthor = defineTextbookAuthor(db);
   db.models.TextbookImage = defineTextbookImage(db);
   db.models.TextbookIndustryIdentifier = defineTextbookIndustryIdentifier(db);
-  db.models.defineBuyRequest = defineBuyRequest(db);
+  db.models.BuyRequest = defineBuyRequest(db);
 
   if (sync) {
     return B.each(values(db.models), model => model.sync({ force: true }))
