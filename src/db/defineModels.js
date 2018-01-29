@@ -8,6 +8,7 @@ import defineTextbook from "./models/defineTextbook";
 import defineTextbookIndustryIdentifier from "./models/defineTextbookIndustryIdentifier";
 import defineTextbookAuthor from "./models/defineTextbookAuthor";
 import defineTextbookImage from "./models/defineTextbookImage";
+import defineBuyRequest from "./models/defineBuyRequest";
 
 export default ({db, sync = false}) => {
   /* eslint-disable */
@@ -20,6 +21,7 @@ export default ({db, sync = false}) => {
   db.models.TextbookAuthor = defineTextbookAuthor(db);
   db.models.TextbookImage = defineTextbookImage(db);
   db.models.TextbookIndustryIdentifier = defineTextbookIndustryIdentifier(db);
+  db.models.BuyRequest = defineBuyRequest(db);
 
   if (sync) {
     return B.each(values(db.models), model => model.sync({ force: true }))
@@ -29,4 +31,3 @@ export default ({db, sync = false}) => {
 
   return db;
 };
-

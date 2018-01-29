@@ -1,4 +1,4 @@
-import {GraphQLInt, GraphQLList, GraphQLNonNull, GraphQLString} from "graphql";
+import {GraphQLInt, GraphQLList, GraphQLString, GraphQLID} from "graphql";
 import trim from "lodash/trim";
 import SchoolType from "../types/School";
 import db from "../../db";
@@ -7,14 +7,26 @@ export default {
   type: new GraphQLList(SchoolType),
   args: {
     name: {
-      type: new GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
     },
     limit: {
       type: GraphQLInt,
     },
+    id: {
+      type: GraphQLID,
+    },
   },
-  resolve: (req, {name, limit = 10}) => {
+  resolve: (req, {name, limit = 10, id}) => {
     const {models: {School}} = db;
+
+    if (id) {
+      return School.findAll({
+        where: {
+          id,
+        },
+      });
+    }
+
     return School.findAll({
       where: {
         terms: {
