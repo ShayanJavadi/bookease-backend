@@ -1,7 +1,7 @@
-import {BIGINT, STRING, INTEGER, ENUM, BOOLEAN} from "sequelize";
+import {BIGINT, STRING, BOOLEAN} from "sequelize";
 
-export default db => {
-  const BuyRequest = db.define("BuyRequest",{
+export default (db) => {
+  const BuyRequest = db.define("BuyRequest", {
     id: {
       type: BIGINT,
       primaryKey: true,
@@ -23,7 +23,7 @@ export default db => {
       type: BOOLEAN,
       required: true,
       defaultValue: false,
-    }
+    },
   });
 
   const {models: {User, Textbook}} = db;
