@@ -1,11 +1,7 @@
 import {
-  GraphQLFloat,
   GraphQLID,
   GraphQLObjectType,
-  GraphQLInt,
-  GraphQLList,
   GraphQLNonNull,
-  GraphQLString,
   GraphQLBoolean,
 } from "graphql";
 

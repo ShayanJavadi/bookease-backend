@@ -29,7 +29,7 @@ export default {
           textbookId: textbookId,
           recipientId: recipientId,
           isAccepted: false,
-        }))
+        })
       .then(buyRequest => {
         return buyRequest;
       }));
