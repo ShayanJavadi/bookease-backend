@@ -24,14 +24,13 @@ export default {
       } = db;
 
       const {textbookId, recipientId} = args.buyRequest;
-      return db.transaction(transaction => BuyRequest.create(extend({
+      return db.transaction(transaction => BuyRequest.create({
           userId: req.session.userId,
           textbookId: textbookId,
           recipientId: recipientId,
           isAccepted: false,
         }))
       .then(buyRequest => {
-        console.log(buyRequest);
         return buyRequest;
       }));
     }),
