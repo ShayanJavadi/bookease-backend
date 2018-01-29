@@ -8,10 +8,9 @@ import defineTextbook from "./models/defineTextbook";
 import defineTextbookIndustryIdentifier from "./models/defineTextbookIndustryIdentifier";
 import defineTextbookAuthor from "./models/defineTextbookAuthor";
 import defineTextbookImage from "./models/defineTextbookImage";
-import defineNotification from "./models/defineNotification";
 import defineBuyRequest from "./models/defineBuyRequest";
 
-export default ({db, sync = true}) => {
+export default ({db, sync = false}) => {
   /* eslint-disable */
   db.models = {};
   db.models.School = defineSchool(db);
