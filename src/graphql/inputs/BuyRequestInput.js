@@ -3,6 +3,7 @@ import {
   GraphQLInputObjectType,
   GraphQLNonNull,
   GraphQLBoolean,
+  GraphQLString,
 } from "graphql";
 
 export default new GraphQLInputObjectType({
@@ -22,6 +23,9 @@ export default new GraphQLInputObjectType({
     },
     isAccepted: {
       type: GraphQLBoolean,
+    },
+    message: {
+      type: new GraphQLNonNull(GraphQLString),
     },
   },
 });

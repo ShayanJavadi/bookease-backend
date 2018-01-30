@@ -24,6 +24,10 @@ export default (db) => {
       required: true,
       defaultValue: false,
     },
+    message: {
+      type: STRING,
+      required: true,
+    },
   });
 
   const {models: {User, Textbook}} = db;

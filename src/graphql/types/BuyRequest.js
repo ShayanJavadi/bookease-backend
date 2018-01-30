@@ -3,13 +3,14 @@ import {
   GraphQLObjectType,
   GraphQLNonNull,
   GraphQLBoolean,
+  GraphQLString,
 } from "graphql";
 
 export default new GraphQLObjectType({
   name: "BuyRequest",
   fields: {
     id: {
-      type: GraphQLID,
+      type: new GraphQLNonNull(GraphQLID),
     },
     userId: {
       type: new GraphQLNonNull(GraphQLID),
@@ -21,7 +22,10 @@ export default new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLID),
     },
     isAccepted: {
-      type: GraphQLBoolean,
+      type: new GraphQLNonNull(GraphQLBoolean),
+    },
+    message: {
+      type: new GraphQLNonNull(GraphQLString),
     },
   },
 });

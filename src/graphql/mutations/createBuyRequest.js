@@ -19,12 +19,13 @@ export default {
         },
       } = db;
 
-      const {textbookId, recipientId} = args.buyRequest;
+      const {textbookId, recipientId, message} = args.buyRequest;
       return db.transaction(transaction => BuyRequest.create({ // eslint-disable-line
         userId: req.session.userId,
         textbookId,
         recipientId,
         isAccepted: false,
+        message,
       })
         .then(buyRequest => buyRequest));
     }),
