@@ -34,8 +34,8 @@ export default {
 
           return db.transaction((transaction) => {
             const values = reduce(buyRequest, (result, value, key) => {
-              if (value) {
-                result[`${key}`] = value; // eslint-disable-line no-param-reassign
+              if (!isEmpty(value)) {
+                result[key] = value; // eslint-disable-line no-param-reassign
               }
               return result;
             }, {});
