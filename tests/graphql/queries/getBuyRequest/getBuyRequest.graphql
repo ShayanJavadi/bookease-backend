@@ -1,0 +1,10 @@
+query getBuyRequest($id: ID!){
+    getBuyRequest(id: $id) {
+      id
+      isAccepted
+    	recipientId
+    	textbookId
+   	  userId
+      message
+    }
+}

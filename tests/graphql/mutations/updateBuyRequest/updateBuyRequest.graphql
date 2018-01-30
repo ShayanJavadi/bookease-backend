@@ -1,0 +1,10 @@
+mutation updateBuyRequest($buyRequest:BuyRequestInput){
+    updateBuyRequest(buyRequest: $buyRequest) {
+      id
+      isAccepted
+    	recipientId
+    	textbookId
+   	  userId
+      message
+    }
+}
