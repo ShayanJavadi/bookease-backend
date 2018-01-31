@@ -1,0 +1,10 @@
+mutation createBuyRequest($buyRequest:BuyRequestInput){
+    createBuyRequest(buyRequest: $buyRequest) {
+      id
+      isAccepted
+    	recipientId
+    	textbookId
+   	  userId
+      message
+    }
+}
