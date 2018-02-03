@@ -6,7 +6,7 @@ import acl from "../acl";
 
 export default {
   type: new GraphQLList(NotificationType),
-  description: "get one buy request",
+  description: "Get the user's notifications.",
   args: {
     limit: {
       type: GraphQLInt,

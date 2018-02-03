@@ -6,7 +6,7 @@ import acl from "../acl";
 
 export default {
   type: NotificationType,
-  description: "get one buy request",
+  description: "Get one notification.",
   args: {
     id: {
       type: new GraphQLNonNull(GraphQLID),
@@ -15,7 +15,7 @@ export default {
   resolve: (req, args) => acl(req, args, requireAuthenticated)
     .then(() => {
       const {models: {Notification}} = db;
-      return Notification.find({
+      return Notification.findOne({
         where: {
           id: args.id,
         },

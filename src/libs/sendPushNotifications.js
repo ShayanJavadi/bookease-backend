@@ -1,11 +1,9 @@
 import Expo from "expo-server-sdk";
+import B from "bluebird";
 
 export default (messages) => {
   const expo = new Expo();
   const chunks = expo.chunkPushNotifications(messages);
 
-  return Promise.all(chunks.reduce((promises, chunk) => {
-    promises.push(expo.sendPushNotificationsAsync(chunk));
-    return promises;
-  }, []));
+  return B.mapSeries(chunks, chunk => expo.sendPushNotificationsAsync(chunk));
 };
