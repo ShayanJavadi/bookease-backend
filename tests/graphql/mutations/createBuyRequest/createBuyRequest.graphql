@@ -6,5 +6,6 @@ mutation createBuyRequest($buyRequest:BuyRequestInput){
     	textbookId
    	  userId
       message
+      notificationId
     }
 }

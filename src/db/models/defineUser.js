@@ -46,6 +46,9 @@ export default (db) => {
     password: {
       type: TEXT,
     },
+    pushNotificationToken: {
+      type: TEXT,
+    },
   });
 
   User.belongsTo(School, {
