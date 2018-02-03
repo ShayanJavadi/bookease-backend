@@ -44,11 +44,12 @@ export default {
             if (req.session.pushNotificationToken) {
               // TODO: handle sending data for routing
               // TODO: create message template for buy request
-              sendPushNotifications([{
+              return sendPushNotifications([{
                 to: req.session.pushNotificationToken,
                 sound: "default",
                 body: message,
-              }]);
+              }])
+                .then(() => buyRequest);
             }
 
             return buyRequest;

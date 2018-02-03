@@ -25,7 +25,6 @@ export default ({db, sync = false}) => {
   db.models.Notification = defineNotification(db);
   db.models.BuyRequest = defineBuyRequest(db);
 
-
   if (sync) {
     return B.each(values(db.models), model => model.sync({ force: true }))
       .then(() => db);
