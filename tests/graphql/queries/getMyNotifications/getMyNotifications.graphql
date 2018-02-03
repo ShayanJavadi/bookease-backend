@@ -1,9 +1,9 @@
 query getMyNotifications($limit:Int){
     getMyNotifications(limit:$limit){
         userId,
-    		textbookId,
-  		  senderId
-  		  message
-    		type
+    	textbookId,
+  		senderId
+  		message
+        type
     }
 }
