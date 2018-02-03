@@ -9,6 +9,7 @@ import defineTextbookIndustryIdentifier from "./models/defineTextbookIndustryIde
 import defineTextbookAuthor from "./models/defineTextbookAuthor";
 import defineTextbookImage from "./models/defineTextbookImage";
 import defineBuyRequest from "./models/defineBuyRequest";
+import defineNotification from "./models/defineNotification";
 
 export default ({db, sync = false}) => {
   /* eslint-disable */
@@ -21,6 +22,7 @@ export default ({db, sync = false}) => {
   db.models.TextbookAuthor = defineTextbookAuthor(db);
   db.models.TextbookImage = defineTextbookImage(db);
   db.models.TextbookIndustryIdentifier = defineTextbookIndustryIdentifier(db);
+  db.models.Notification = defineNotification(db);
   db.models.BuyRequest = defineBuyRequest(db);
 
   if (sync) {

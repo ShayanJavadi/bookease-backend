@@ -7,28 +7,28 @@ import {
 } from "graphql";
 
 export default new GraphQLInputObjectType({
-  name: "BuyRequestInput",
+  name: "NotificationInput",
   fields: {
     id: {
-      type: GraphQLID,
+      type: new GraphQLNonNull(GraphQLID),
     },
     userId: {
-      type: GraphQLID,
+      type: new GraphQLNonNull(GraphQLID),
     },
     textbookId: {
-      type: new GraphQLNonNull(GraphQLID),
-    },
-    notificationId: {
       type: GraphQLID,
-    },
-    recipientId: {
-      type: new GraphQLNonNull(GraphQLID),
-    },
-    isAccepted: {
-      type: GraphQLBoolean,
     },
     message: {
       type: new GraphQLNonNull(GraphQLString),
+    },
+    isRead: {
+      type: GraphQLBoolean,
+    },
+    type: {
+      type: new GraphQLNonNull(GraphQLString),
+    },
+    senderId: {
+      type: GraphQLID,
     },
   },
 });
