@@ -1,4 +1,4 @@
-import {GraphQLID, GraphQLNonNull} from "graphql";
+import {GraphQLID} from "graphql";
 import BuyRequestType from "../types/BuyRequest";
 import requireAuthenticated from "../acl/requireAuthenticated";
 import db from "../../db";
@@ -9,15 +9,28 @@ export default {
   description: "get one buy request",
   args: {
     id: {
-      type: new GraphQLNonNull(GraphQLID),
+      type: GraphQLID,
+    },
+    notificationId: {
+      type: GraphQLID,
     },
   },
   resolve: (req, args) => acl(req, args, requireAuthenticated)
     .then(() => {
       const {models: {BuyRequest}} = db;
+      const {id, notificationId} = args;
+
+      if (notificationId) {
+        return BuyRequest.find({
+          where: {
+            notificationId,
+          },
+        });
+      }
+
       return BuyRequest.find({
         where: {
-          id: args.id,
+          id,
         },
       });
     }),

@@ -34,12 +34,15 @@ export default {
     google: {
       type: UserGoogleInput,
     },
+    pushNotificationToken: {
+      type: GraphQLString,
+    },
   },
   resolve: (req, args) => {
     const {models: {User, UserFacebook, UserGoogle}} = db;
     const {session} = req;
     const {
-      schoolId, email, displayName, phoneNumber, password, facebook, google,
+      schoolId, email, displayName, phoneNumber, password, facebook, google, pushNotificationToken,
     } = args;
 
     return acl(req, args, requireAuthenticated)
@@ -74,6 +77,10 @@ export default {
 
           if (!isEmpty(schoolId)) {
             values.schoolId = schoolId;
+          }
+
+          if (!isEmpty(pushNotificationToken)) {
+            values.pushNotificationToken = pushNotificationToken;
           }
 
           return user.update(values, {transaction})

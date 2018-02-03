@@ -11,6 +11,10 @@ export default (db) => {
       type: STRING,
       required: true,
     },
+    notificationId: {
+      type: STRING,
+      required: true,
+    },
     userId: {
       type: BIGINT,
       required: true,
@@ -30,8 +34,7 @@ export default (db) => {
     },
   });
 
-  const {models: {User, Textbook}} = db;
-
+  const {models: {User, Textbook, Notification}} = db;
 
   Textbook.hasMany(BuyRequest, {
     as: "BuyRequest",
@@ -49,6 +52,13 @@ export default (db) => {
     onDelete: "CASCADE",
   });
 
+  BuyRequest.hasOne(Notification, {
+    as: "Notification",
+    foreignKey: "notificationId",
+    targetKey: "id",
+    onUpdate: "CASCADE",
+    onDelete: "CASCADE",
+  });
 
   return BuyRequest;
 };

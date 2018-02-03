@@ -5,4 +5,7 @@ import signInWithEmail from "./signInWithEmail";
 export default ({ email }) => sendVerificationCodeToEmail({ email })
   .then((registeredUser) => verifyEmail(registeredUser)
     .then((verifiedUser) => signInWithEmail({ id: verifiedUser.id, email: email, password: registeredUser.verificationCode })
-      .then(() => verifiedUser)));
+      .then(() => {
+        verifiedUser.verificationCode = registeredUser.verificationCode;
+        return verifiedUser;
+      })));
