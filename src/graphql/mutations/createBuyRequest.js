@@ -19,6 +19,7 @@ export default {
         models: {
           BuyRequest,
           Notification,
+          User,
         },
       } = db;
 
@@ -40,19 +41,24 @@ export default {
           message,
           notificationId: notification.id,
         })
-          .then((buyRequest) => {
-            if (req.session.pushNotificationToken) {
-              // TODO: handle sending data for routing
-              // TODO: create message template for buy request
-              return sendPushNotifications([{
-                to: req.session.pushNotificationToken,
-                sound: "default",
-                body: message,
-              }])
-                .then(() => buyRequest);
-            }
+          .then(buyRequest => User.findOne({
+            where: {
+              id: recipientId,
+            },
+          })
+            .then((recipient) => {
+              if (recipient.pushNotificationToken) {
+                // TODO: handle sending data for routing
+                // TODO: create message template for buy request
+                return sendPushNotifications([{
+                  to: recipient.pushNotificationToken,
+                  sound: "default",
+                  body: message,
+                }])
+                  .then(() => buyRequest);
+              }
 
-            return buyRequest;
-          }));
+              return buyRequest;
+            })));
     }),
 };
