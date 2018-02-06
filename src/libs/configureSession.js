@@ -18,7 +18,7 @@ export default (app) => {
     resave: true,
     cookie: {
       httpOnly: true,
-      maxAge: getVariable("SESSION_MAX_AGE"),
+      maxAge: parseInt(getVariable("SESSION_MAX_AGE"), 10),
     },
   };
 
