@@ -31,10 +31,6 @@ export default {
 
         session.userId = user.id; // eslint-disable-line
         return user;
-      })
-      .catch(e => {
-        console.error(e);
-        return null;
       });
   },
 };
