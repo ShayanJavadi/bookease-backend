@@ -30,7 +30,7 @@ export default {
       })
         .then((notificationToUpdate) => {
           if (isEmpty(notificationToUpdate)) {
-            throw new Error("The requested buy request was not found!", 404);
+            throw new Error("The requested notification was not found!", 404);
           }
 
           return db.transaction((transaction) => {
