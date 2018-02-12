@@ -20,45 +20,54 @@ export default {
           BuyRequest,
           Notification,
           User,
+          Textbook,
         },
       } = db;
 
       const {textbookId, recipientId, message} = args.buyRequest;
 
-      return Notification.create({
-        userId: recipientId,
-        senderId: req.session.userId,
-        textbookId,
-        message,
-        isRead: false,
-        type: BUY_REQUEST,
+      return Textbook.findOne({
+        where: {
+          id: textbookId,
+        },
       })
-        .then((notification) => BuyRequest.create({ // eslint-disable-line
-          userId: req.session.userId,
-          textbookId,
-          recipientId,
-          isAccepted: false,
-          message,
-          notificationId: notification.id,
-        })
-          .then(buyRequest => User.findOne({
-            where: {
-              id: recipientId,
-            },
+        .then((textbook) => {
+          Notification.create({
+            userId: recipientId,
+            senderId: req.session.userId,
+            textbookId,
+            message,
+            isRead: false,
+            type: BUY_REQUEST,
           })
-            .then((recipient) => {
-              if (recipient.pushNotificationToken) {
-                // TODO: handle sending data for routing
-                // TODO: create message template for buy request
-                return sendPushNotifications([{
-                  to: recipient.pushNotificationToken,
-                  sound: "default",
-                  body: message,
-                }])
-                  .then(() => buyRequest);
-              }
+          .then((notification) => BuyRequest.create({ // eslint-disable-line
+              userId: req.session.userId,
+              textbookId,
+              textbookTitle: textbook.title,
+              recipientId,
+              isAccepted: false,
+              message,
+              notificationId: notification.id,
+            })
+              .then(buyRequest => User.findOne({
+                where: {
+                  id: recipientId,
+                },
+              })
+                .then((recipient) => {
+                  if (recipient.pushNotificationToken) {
+                  // TODO: handle sending data for routing
+                  // TODO: create message template for buy request
+                    return sendPushNotifications([{
+                      to: recipient.pushNotificationToken,
+                      sound: "default",
+                      body: message,
+                    }])
+                      .then(() => buyRequest);
+                  }
 
-              return buyRequest;
-            })));
+                  return buyRequest;
+                })));
+        });
     }),
 };
