@@ -5,6 +5,7 @@ import {
   GraphQLBoolean,
   GraphQLString,
 } from "graphql";
+import GraphQLDate from "graphql-date";
 
 export default new GraphQLObjectType({
   name: "BuyRequest",
@@ -18,6 +19,9 @@ export default new GraphQLObjectType({
     textbookId: {
       type: new GraphQLNonNull(GraphQLID),
     },
+    textbookTitle: {
+      type: new GraphQLNonNull(GraphQLString),
+    },
     notificationId: {
       type: new GraphQLNonNull(GraphQLID),
     },
@@ -29,6 +33,12 @@ export default new GraphQLObjectType({
     },
     message: {
       type: new GraphQLNonNull(GraphQLString),
+    },
+    createdAt: {
+      type: new GraphQLNonNull(GraphQLDate),
+    },
+    updatedAt: {
+      type: new GraphQLNonNull(GraphQLDate),
     },
   },
 });

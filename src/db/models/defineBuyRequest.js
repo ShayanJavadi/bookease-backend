@@ -11,6 +11,10 @@ export default (db) => {
       type: STRING,
       required: true,
     },
+    textbookTitle: {
+      type: STRING,
+      required: true,
+    },
     notificationId: {
       type: STRING,
       required: true,

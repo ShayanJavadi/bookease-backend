@@ -5,6 +5,8 @@ import {
   GraphQLBoolean,
   GraphQLString,
 } from "graphql";
+import GraphQLDate from "graphql-date";
+import BuyRequest from "./BuyRequest";
 
 export default new GraphQLObjectType({
   name: "Notification",
@@ -29,6 +31,15 @@ export default new GraphQLObjectType({
     },
     type: {
       type: new GraphQLNonNull(GraphQLString),
+    },
+    buyRequest: {
+      type: BuyRequest,
+    },
+    createdAt: {
+      type: new GraphQLNonNull(GraphQLDate),
+    },
+    updatedAt: {
+      type: new GraphQLNonNull(GraphQLDate),
     },
   },
 });
