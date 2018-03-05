@@ -42,8 +42,7 @@ export default {
           })
           .then((notification) => BuyRequest.create({ // eslint-disable-line
               userId: req.session.userId,
-              textbookId,
-              textbookTitle: textbook.title,
+              textbookId: textbook.id,
               recipientId,
               isAccepted: false,
               message,

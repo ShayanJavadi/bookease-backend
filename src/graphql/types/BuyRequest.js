@@ -6,6 +6,8 @@ import {
   GraphQLString,
 } from "graphql";
 import GraphQLDate from "graphql-date";
+import Textbook from "./Textbook";
+import getBuyRequestTextbook from "../../db/models/BuyRequest/getBuyRequestTextbook";
 
 export default new GraphQLObjectType({
   name: "BuyRequest",
@@ -19,8 +21,9 @@ export default new GraphQLObjectType({
     textbookId: {
       type: new GraphQLNonNull(GraphQLID),
     },
-    textbookTitle: {
-      type: new GraphQLNonNull(GraphQLString),
+    textbook: {
+      type: new GraphQLNonNull(Textbook),
+      resolve: buyRequest => buyRequest.textbook || getBuyRequestTextbook({buyRequest}),
     },
     notificationId: {
       type: new GraphQLNonNull(GraphQLID),
