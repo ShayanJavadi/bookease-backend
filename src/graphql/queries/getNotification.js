@@ -13,14 +13,12 @@ export default {
     },
   },
   resolve: (req, args) => acl(req, args, requireAuthenticated)
-    .then(async () => {
+    .then(() => {
       const {models: {Notification}} = db;
-      const notification = await Notification.findOne({
+      return Notification.findOne({
         where: {
           id: args.id,
         },
       });
-
-      return notification;
     }),
 };
