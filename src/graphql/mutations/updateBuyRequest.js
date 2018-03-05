@@ -4,6 +4,7 @@ import acl from "../acl";
 import requireAuthenticated from "../acl/requireAuthenticated";
 import BuyRequestType from "../types/BuyRequest";
 import BuyRequestInput from "../inputs/BuyRequestInput";
+import isValueEmpty from "../../libs/isValueEmpty";
 
 export default {
   type: BuyRequestType,
@@ -34,7 +35,7 @@ export default {
 
           return db.transaction((transaction) => {
             const values = reduce(buyRequest, (result, value, key) => {
-              if (!isEmpty(value)) {
+              if (!isValueEmpty(value)) {
                 result[key] = value; // eslint-disable-line no-param-reassign
               }
               return result;
