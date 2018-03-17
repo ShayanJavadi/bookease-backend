@@ -7,7 +7,9 @@ import {
 } from "graphql";
 import GraphQLDate from "graphql-date";
 import BuyRequest from "./BuyRequest";
+import User from "./User";
 import getBuyRequest from "../../db/models/Notification/getBuyRequest";
+import getNotificationUser from "../../db/models/Notification/getNotificationUser";
 
 export default new GraphQLObjectType({
   name: "Notification",
@@ -42,6 +44,10 @@ export default new GraphQLObjectType({
     },
     updatedAt: {
       type: new GraphQLNonNull(GraphQLDate),
+    },
+    user: {
+      type: new GraphQLNonNull(User),
+      resolve: notification => notification.user || getNotificationUser({notification}),
     },
   },
 });

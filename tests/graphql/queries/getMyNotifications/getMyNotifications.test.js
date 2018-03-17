@@ -1,4 +1,5 @@
 import Chance from "chance";
+import faker from "faker";
 import {find} from "lodash";
 import db from "../../../../src/db/index";
 import initializeDb from "../../../../src/db/initialize";
@@ -9,6 +10,7 @@ import gql from "../../../libs/gql";
 import CREATE_BUY_REQUEST from "../../mutations/createBuyRequest/createBuyRequest.graphql";
 import CREATE_TEXTBOOK from "../../mutations/createTextbook/createTextbook.graphql";
 import GET_MY_NOTIFICATIONS from "./getMyNotifications.graphql";
+import UPDATE_PROFILE from "../../mutations/updateProfile/updateProfile.graphql";
 import {FAIR} from "../../../../src/db/models/Textbook/TextbookConditionConsts";
 
 beforeAll((done) => initializeDb({ db })
@@ -21,7 +23,7 @@ test("should create buy request successfully", (done) => {
   registerAndSignInWithEmail({ email: email1 })
     .then(user1 => {
       const textbook = {
-        title: "math apple",
+        title: "Pointless Meetings",
         description: "Book for sale",
         industryIdentifiers: [
           {
@@ -30,7 +32,7 @@ test("should create buy request successfully", (done) => {
           }],
         authors: ["John Smith"],
         images: [{
-          thumbnail: "https://abc/def"
+          thumbnail: "https://i0.wp.com/cdn.makezine.com/uploads/2008/01/screen-capture-2.jpg?resize=500%2C604"
         }],
         condition: FAIR,
         price: 10.99
@@ -47,17 +49,27 @@ test("should create buy request successfully", (done) => {
         .then(() => {
           registerAndSignInWithEmail({ email: email2 })
           .then(user2 => {
-            const buyRequest = {
-              textbookId: createdTextbook.id,
-              recipientId: user1.id,
-              message: "test buy request message",
-            }
-
             return gql({
-              query: CREATE_BUY_REQUEST,
+              query: UPDATE_PROFILE,
               variables: {
-                buyRequest
+                displayName: chance.name(),
+                photoURL: faker.image.avatar(),
               }
+            })
+            .then(() => {
+              // change textbookId to the textbook you want to have an offer made to
+              const buyRequest = {
+                textbookId: "d5e53ac447af",
+                recipientId: 1,
+                message: chance.paragraph({sentences: Math.floor(Math.random() * 3) + 1}).substring(0, 255),
+              }
+
+              return gql({
+                query: CREATE_BUY_REQUEST,
+                variables: {
+                  buyRequest
+                }
+              })
             })
             .then(createdBuyRequest => {
               signOut()

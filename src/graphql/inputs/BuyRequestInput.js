@@ -27,6 +27,12 @@ export default new GraphQLInputObjectType({
     isAccepted: {
       type: GraphQLBoolean,
     },
+    isActive: {
+      type: GraphQLBoolean,
+    },
+    isDeleted: {
+      type: GraphQLBoolean,
+    },
     message: {
       type: new GraphQLNonNull(GraphQLString),
     },

@@ -37,12 +37,23 @@ export default {
     pushNotificationToken: {
       type: GraphQLString,
     },
+    photoURL: {
+      type: GraphQLString,
+    },
   },
   resolve: (req, args) => {
     const {models: {User, UserFacebook, UserGoogle}} = db;
     const {session} = req;
     const {
-      schoolId, email, displayName, phoneNumber, password, facebook, google, pushNotificationToken,
+      schoolId,
+      email,
+      displayName,
+      phoneNumber,
+      password,
+      facebook,
+      google,
+      pushNotificationToken,
+      photoURL,
     } = args;
 
     return acl(req, args, requireAuthenticated)
@@ -77,6 +88,10 @@ export default {
 
           if (!isEmpty(schoolId)) {
             values.schoolId = schoolId;
+          }
+
+          if (!isEmpty(photoURL)) {
+            values.photoURL = photoURL;
           }
 
           if (!isEmpty(pushNotificationToken)) {

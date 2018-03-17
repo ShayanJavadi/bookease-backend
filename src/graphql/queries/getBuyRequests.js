@@ -25,6 +25,7 @@ export default {
         return BuyRequest.findAll({
           where: {
             recipientId,
+            isActive: true,
           },
         });
       }

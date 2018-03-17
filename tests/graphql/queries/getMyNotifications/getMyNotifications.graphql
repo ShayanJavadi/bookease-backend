@@ -2,8 +2,22 @@ query getMyNotifications($limit:Int){
     getMyNotifications(limit:$limit){
         userId,
     		textbookId,
-  		  senderId
-  		  message
-    		type
+  		  senderId,
+  		  message,
+    		type,
+        buyRequest {
+          id,
+          userId,
+          textbookId,
+          textbook {
+            id,
+            title,
+            price
+          },
+          notificationId,
+          recipientId,
+          isAccepted,
+          message,
+        }
     }
 }
