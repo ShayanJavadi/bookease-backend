@@ -8,10 +8,11 @@ import defineTextbook from "./models/defineTextbook";
 import defineTextbookIndustryIdentifier from "./models/defineTextbookIndustryIdentifier";
 import defineTextbookAuthor from "./models/defineTextbookAuthor";
 import defineTextbookImage from "./models/defineTextbookImage";
+import defineTextbookSale from "./models/defineTextbookSale";
 import defineBuyRequest from "./models/defineBuyRequest";
 import defineNotification from "./models/defineNotification";
 
-export default ({db, sync = false}) => {
+export default ({db, sync}) => {
   /* eslint-disable */
   db.models = {};
   db.models.School = defineSchool(db);
@@ -19,6 +20,7 @@ export default ({db, sync = false}) => {
   db.models.UserFacebook = defineUserFacebook(db);
   db.models.UserGoogle = defineUserGoogle(db);
   db.models.Textbook = defineTextbook(db);
+  db.models.TextbookSale = defineTextbookSale(db)
   db.models.TextbookAuthor = defineTextbookAuthor(db);
   db.models.TextbookImage = defineTextbookImage(db);
   db.models.TextbookIndustryIdentifier = defineTextbookIndustryIdentifier(db);

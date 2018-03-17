@@ -6,18 +6,24 @@ import {
   GraphQLNonNull,
   GraphQLObjectType,
   GraphQLString,
+  GraphQLBoolean,
 } from "graphql";
 import GraphQLDate from "graphql-date";
 import map from "lodash/map";
 import TextbookIndustryIdentifier from "./TextbookIndustryIdentifier";
 import TextbookImage from "./TextbookImage";
+import TextbookSale from "./TextbookSale";
 import getImages from "../../db/models/Textbook/getImages";
 import getAuthors from "../../db/models/Textbook/getAuthors";
 import getIndustryIdentifiers from "../../db/models/Textbook/getIndustryIdentifiers";
+import getBuyRequestNotifications from "../../db/models/Textbook/getBuyRequestNotifications";
+import getTextbookSchoolId from "../../db/models/Textbook/getTextbookSchoolId";
+import getTextbookSale from "../../db/models/Textbook/getTextbookSale";
+import getIsTextbookSold from "../../db/models/Textbook/getIsTextbookSold";
 
 export default new GraphQLObjectType({
   name: "Textbook",
-  fields: {
+  fields: () => ({
     id: {
       type: new GraphQLNonNull(GraphQLID),
     },
@@ -26,6 +32,10 @@ export default new GraphQLObjectType({
     },
     uid: {
       type: new GraphQLNonNull(GraphQLID),
+    },
+    schoolId: {
+      type: new GraphQLNonNull(GraphQLID),
+      resolve: textbook => textbook.schoolId || getTextbookSchoolId({textbook}),
     },
     description: {
       type: GraphQLString,
@@ -38,7 +48,6 @@ export default new GraphQLObjectType({
       type: new GraphQLNonNull(new GraphQLList(GraphQLString)),
       resolve: textbook => textbook.authors || getAuthors({textbook})
         .then(authors => map(authors, "name")),
-
     },
     edition: {
       type: GraphQLString,
@@ -65,5 +74,27 @@ export default new GraphQLObjectType({
     price: {
       type: new GraphQLNonNull(GraphQLFloat),
     },
-  },
+    isSold: {
+      type: new GraphQLNonNull(GraphQLBoolean),
+      resolve: textbook => textbook.isSold || getIsTextbookSold({textbook}),
+    },
+    sale: {
+      type: TextbookSale,
+      resolve: textbook => textbook.sale || getTextbookSale({textbook}),
+    },
+    buyerId: {
+      type: GraphQLID,
+    },
+    isArchived: {
+      type: new GraphQLNonNull(GraphQLBoolean),
+    },
+    isDeleted: {
+      type: new GraphQLNonNull(GraphQLBoolean),
+    },
+    buyRequestNotifications: {
+      type: new GraphQLList(require("./Notification").default), // eslint-disable-line
+      resolve: textbook => textbook.BuyRequestNotifications ||
+      getBuyRequestNotifications({textbook}),
+    },
+  }),
 });

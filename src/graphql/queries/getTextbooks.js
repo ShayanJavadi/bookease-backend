@@ -68,6 +68,9 @@ export default {
           title: {
             $ilike: `%${trim(query)}%`,
           },
+          isArchived: false,
+          isSold: false,
+          isDeleted: false,
         };
 
         const getOrder = () => {

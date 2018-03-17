@@ -81,6 +81,7 @@ export default {
         },
         limit,
         offset,
+        order: [["updatedAt", "DESC"]],
       });
     }),
 };

@@ -16,11 +16,13 @@ export default {
     .then(() => {
       const {models: {Notification}} = db;
       const {limit = 10} = args;
+
       return Notification.findAll({
         where: {
           userId: req.session.userId,
         },
         limit,
+        order: [["createdAt", "DESC"]],
       });
     }),
 };

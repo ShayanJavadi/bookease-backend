@@ -7,7 +7,12 @@ import {
 } from "graphql";
 import GraphQLDate from "graphql-date";
 import Textbook from "./Textbook";
+import User from "./User";
 import getBuyRequestTextbook from "../../db/models/BuyRequest/getBuyRequestTextbook";
+import getBuyRequestIsActive from "../../db/models/BuyRequest/getBuyRequestIsActive";
+import getBuyRequestIsDeleted from "../../db/models/BuyRequest/getBuyRequestIsDeleted";
+import getBuyRequestUser from "../../db/models/BuyRequest/getBuyRequestUser";
+import getBuyRequestIsTextbookSold from "../../db/models/BuyRequest/getBuyRequestIsTextbookSold";
 
 export default new GraphQLObjectType({
   name: "BuyRequest",
@@ -34,6 +39,18 @@ export default new GraphQLObjectType({
     isAccepted: {
       type: new GraphQLNonNull(GraphQLBoolean),
     },
+    isActive: {
+      type: new GraphQLNonNull(GraphQLBoolean),
+      resolve: buyRequest => buyRequest.isActive || getBuyRequestIsActive({buyRequest}),
+    },
+    isDeleted: {
+      type: new GraphQLNonNull(GraphQLBoolean),
+      resolve: buyRequest => buyRequest.isDeleted || getBuyRequestIsDeleted({buyRequest}),
+    },
+    isTextbookSold: {
+      type: new GraphQLNonNull(GraphQLBoolean),
+      resolve: buyRequest => buyRequest.isSold || getBuyRequestIsTextbookSold({buyRequest}),
+    },
     message: {
       type: new GraphQLNonNull(GraphQLString),
     },
@@ -42,6 +59,10 @@ export default new GraphQLObjectType({
     },
     updatedAt: {
       type: new GraphQLNonNull(GraphQLDate),
+    },
+    user: {
+      type: new GraphQLNonNull(User),
+      resolve: buyRequest => buyRequest.user || getBuyRequestUser({buyRequest}),
     },
   },
 });

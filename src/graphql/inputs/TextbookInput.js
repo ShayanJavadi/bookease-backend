@@ -6,9 +6,11 @@ import {
   GraphQLList,
   GraphQLNonNull,
   GraphQLString,
+  GraphQLBoolean,
 } from "graphql";
 import TextbookIndustryIdentifier from "./TextbookIndustryIdentifierInput";
 import TextbookImage from "./TextbookImageInput";
+import TextbookSaleInput from "./TextbookSaleInput";
 
 export default new GraphQLInputObjectType({
   name: "TextbookInput",
@@ -42,6 +44,18 @@ export default new GraphQLInputObjectType({
     },
     price: {
       type: new GraphQLNonNull(GraphQLFloat),
+    },
+    isSold: {
+      type: GraphQLBoolean,
+    },
+    sale: {
+      type: TextbookSaleInput,
+    },
+    isArchived: {
+      type: GraphQLBoolean,
+    },
+    isDeleted: {
+      type: GraphQLBoolean,
     },
   },
 });

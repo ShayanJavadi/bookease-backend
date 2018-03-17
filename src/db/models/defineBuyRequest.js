@@ -28,6 +28,16 @@ export default (db) => {
       required: true,
       defaultValue: false,
     },
+    isActive: {
+      type: BOOLEAN,
+      required: true,
+      defaultValue: true,
+    },
+    isDeleted: {
+      type: BOOLEAN,
+      required: true,
+      defaultValue: false,
+    },
     message: {
       type: STRING,
       required: true,
