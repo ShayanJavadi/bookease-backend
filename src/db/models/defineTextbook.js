@@ -1,4 +1,4 @@
-import {BIGINT, DATE, DECIMAL, INTEGER, STRING} from "sequelize";
+import {BIGINT, DATE, DECIMAL, INTEGER, STRING, BOOLEAN} from "sequelize";
 import {GOOD} from "./Textbook/TextbookConditionConsts";
 
 export default (db) => {
@@ -38,6 +38,24 @@ export default (db) => {
       type: DECIMAL(10, 2),
       required: true,
       defaultValue: 0,
+    },
+    isSold: {
+      type: BOOLEAN,
+      required: true,
+      defaultValue: false,
+    },
+    buyerId: {
+      type: STRING,
+    },
+    isArchived: {
+      type: BOOLEAN,
+      required: true,
+      defaultValue: false,
+    },
+    isDeleted: {
+      type: BOOLEAN,
+      required: true,
+      defaultValue: false,
     },
   });
 
