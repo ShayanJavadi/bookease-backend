@@ -1,6 +1,6 @@
 {
   "name": "@bookease/backend",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "The backend of Bookease using GraphQL",
   "main": "src/index.js",
   "scripts": {
