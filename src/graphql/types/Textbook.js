@@ -13,20 +13,14 @@ import map from "lodash/map";
 import TextbookIndustryIdentifier from "./TextbookIndustryIdentifier";
 import TextbookImage from "./TextbookImage";
 import TextbookSale from "./TextbookSale";
-<<<<<<< HEAD
 import User from "./User";
-=======
->>>>>>> 47c70d548c24ffd8d5f03761d9dc7b8cccc7335d
 import getImages from "../../db/models/Textbook/getImages";
 import getAuthors from "../../db/models/Textbook/getAuthors";
 import getIndustryIdentifiers from "../../db/models/Textbook/getIndustryIdentifiers";
 import getBuyRequestNotifications from "../../db/models/Textbook/getBuyRequestNotifications";
 import getTextbookSchoolId from "../../db/models/Textbook/getTextbookSchoolId";
 import getTextbookSale from "../../db/models/Textbook/getTextbookSale";
-<<<<<<< HEAD
 import getTextbookUser from "../../db/models/Textbook/getTextbookUser";
-=======
->>>>>>> 47c70d548c24ffd8d5f03761d9dc7b8cccc7335d
 import getIsTextbookSold from "../../db/models/Textbook/getIsTextbookSold";
 
 export default new GraphQLObjectType({
