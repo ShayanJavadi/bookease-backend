@@ -20,8 +20,8 @@ import getIndustryIdentifiers from "../../db/models/Textbook/getIndustryIdentifi
 import getBuyRequestNotifications from "../../db/models/Textbook/getBuyRequestNotifications";
 import getTextbookSchoolId from "../../db/models/Textbook/getTextbookSchoolId";
 import getTextbookSale from "../../db/models/Textbook/getTextbookSale";
-import getIsTextbookSold from "../../db/models/Textbook/getIsTextbookSold";
 import getTextbookUser from "../../db/models/Textbook/getTextbookUser";
+import getIsTextbookSold from "../../db/models/Textbook/getIsTextbookSold";
 
 export default new GraphQLObjectType({
   name: "Textbook",

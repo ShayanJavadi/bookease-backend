@@ -72,8 +72,7 @@ export default {
                         body: `${message.substring(0, 50)}...`,
                         notificationId: notification.id,
                       },
-                    }])
-                      .then(() => buyRequest);
+                    }]).then(() => buyRequest);
                   }
 
                   return buyRequest;
