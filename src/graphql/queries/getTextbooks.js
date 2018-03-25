@@ -33,6 +33,20 @@ export default {
         query, limit = 10, offset = 0, orderBy = "relevance",
       } = args;
       const {models: {Textbook, TextbookIndustryIdentifier}} = db;
+      const getOrder = () => {
+        switch (orderBy) {
+          case "condition":
+            return [["condition", "DESC"]];
+          case "price-high-to-low":
+            return [["price", "DESC"]];
+          case "price-low-to-high":
+            return [["price", "ASC"]];
+          default:
+            return [];
+        }
+      };
+      const order = getOrder();
+
 
       if (!isEmpty(query)) {
         if (isISBN(query)) {
@@ -73,21 +87,6 @@ export default {
           isDeleted: false,
         };
 
-        const getOrder = () => {
-          switch (orderBy) {
-            case "condition":
-              return [["condition", "DESC"]];
-            case "price-high-to-low":
-              return [["price", "DESC"]];
-            case "price-low-to-high":
-              return [["price", "ASC"]];
-            default:
-              return [];
-          }
-        };
-
-        const order = getOrder();
-
         return Textbook.findAll({
           where,
           limit,
@@ -97,9 +96,10 @@ export default {
       }
 
       return Textbook.findAll({
-        where: {
-          publishedAt: {[Op.ne]: null},
-        },
-      });
+        limit: 10,
+        where: {},
+        order,
+      })
+        .then(textbook => textbook);
     }),
 };

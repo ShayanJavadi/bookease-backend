@@ -53,14 +53,25 @@ export default {
                   id: recipientId,
                 },
               })
-                .then((recipient) => {
+                .then(async (recipient) => {
+                  const sender = await User.findOne({
+                    where: {
+                      id: req.session.userId,
+                    },
+                  });
+
                   if (recipient.pushNotificationToken) {
-                  // TODO: handle sending data for routing
-                  // TODO: create message template for buy request
                     return sendPushNotifications([{
                       to: recipient.pushNotificationToken,
                       sound: "default",
-                      body: message,
+                      title: `${sender.displayName} has requested to purchase ${textbook.title}`,
+                      body: `${message.substring(0, 50)}...`,
+                      data: {
+                        notificationType: BUY_REQUEST,
+                        title: `${sender.displayName} has requested to purchase ${textbook.title}`,
+                        body: `${message.substring(0, 50)}...`,
+                        notificationId: notification.id,
+                      },
                     }])
                       .then(() => buyRequest);
                   }

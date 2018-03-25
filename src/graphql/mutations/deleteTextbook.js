@@ -24,7 +24,6 @@ export default {
       return Textbook.findOne({
         where: {
           id,
-          userId: req.session.userId,
         },
       })
         .then((textbookToDelete) => {

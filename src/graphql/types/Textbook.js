@@ -13,6 +13,7 @@ import map from "lodash/map";
 import TextbookIndustryIdentifier from "./TextbookIndustryIdentifier";
 import TextbookImage from "./TextbookImage";
 import TextbookSale from "./TextbookSale";
+import User from "./User";
 import getImages from "../../db/models/Textbook/getImages";
 import getAuthors from "../../db/models/Textbook/getAuthors";
 import getIndustryIdentifiers from "../../db/models/Textbook/getIndustryIdentifiers";
@@ -20,6 +21,7 @@ import getBuyRequestNotifications from "../../db/models/Textbook/getBuyRequestNo
 import getTextbookSchoolId from "../../db/models/Textbook/getTextbookSchoolId";
 import getTextbookSale from "../../db/models/Textbook/getTextbookSale";
 import getIsTextbookSold from "../../db/models/Textbook/getIsTextbookSold";
+import getTextbookUser from "../../db/models/Textbook/getTextbookUser";
 
 export default new GraphQLObjectType({
   name: "Textbook",
@@ -58,6 +60,10 @@ export default new GraphQLObjectType({
     },
     userId: {
       type: new GraphQLNonNull(GraphQLID),
+    },
+    user: {
+      type: new GraphQLNonNull(User),
+      resolve: textbook => textbook.user || getTextbookUser({textbook}),
     },
     createdAt: {
       type: new GraphQLNonNull(GraphQLDate),

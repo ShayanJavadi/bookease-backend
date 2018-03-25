@@ -30,5 +30,8 @@ export default new GraphQLInputObjectType({
     schoolId: {
       type: GraphQLID,
     },
+    pushNotificationToken: {
+      type: GraphQLString,
+    },
   },
 });
