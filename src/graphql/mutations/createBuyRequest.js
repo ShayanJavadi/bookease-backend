@@ -73,7 +73,7 @@ export default {
                         notificationId: notification.id,
                       },
                     }]).then(() => buyRequest);
-
+                  }
                   return buyRequest;
                 })));
         });
