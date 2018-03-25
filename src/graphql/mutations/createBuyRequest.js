@@ -53,6 +53,7 @@ export default {
                   id: recipientId,
                 },
               })
+<<<<<<< HEAD
                 .then(async (recipient) => {
                   const sender = await User.findOne({
                     where: {
@@ -73,6 +74,18 @@ export default {
                         notificationId: notification.id,
                       },
                     }]).then(() => buyRequest);
+=======
+                .then((recipient) => {
+                  if (recipient.pushNotificationToken) {
+                  // TODO: handle sending data for routing
+                  // TODO: create message template for buy request
+                    return sendPushNotifications([{
+                      to: recipient.pushNotificationToken,
+                      sound: "default",
+                      body: message,
+                    }])
+                      .then(() => buyRequest);
+>>>>>>> 47c70d548c24ffd8d5f03761d9dc7b8cccc7335d
                   }
 
                   return buyRequest;
