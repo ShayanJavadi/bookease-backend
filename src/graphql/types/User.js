@@ -38,5 +38,8 @@ export default new GraphQLObjectType({
       type: UserGoogle,
       resolve: user => getGoogle({user}),
     },
+    pushNotificationToken: {
+      type: GraphQLString,
+    },
   },
 });
