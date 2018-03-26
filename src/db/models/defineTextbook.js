@@ -39,11 +39,6 @@ export default (db) => {
       required: true,
       defaultValue: 0,
     },
-    isSold: {
-      type: BOOLEAN,
-      required: true,
-      defaultValue: false,
-    },
     buyerId: {
       type: STRING,
     },
