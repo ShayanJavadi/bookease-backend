@@ -25,11 +25,19 @@ export default (db) => {
     },
   });
 
-  const {models: {Textbook}} = db;
+  const {models: {Textbook, User}} = db;
 
   TextbookSale.belongsTo(Textbook, {
     as: "Textbook",
     foreignKey: "textbookId",
+    targetKey: "id",
+    onUpdate: "CASCADE",
+    onDelete: "CASCADE",
+  });
+
+  TextbookSale.belongsTo(User, {
+    as: "User",
+    foreignKey: "userId",
     targetKey: "id",
     onUpdate: "CASCADE",
     onDelete: "CASCADE",
