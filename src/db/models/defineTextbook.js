@@ -41,12 +41,10 @@ export default (db) => {
     },
     isArchived: {
       type: BOOLEAN,
-      required: true,
       defaultValue: false,
     },
     isDeleted: {
       type: BOOLEAN,
-      required: true,
       defaultValue: false,
     },
   });

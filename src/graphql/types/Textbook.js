@@ -89,10 +89,10 @@ export default new GraphQLObjectType({
       resolve: textbook => textbook.sale || getTextbookSale({textbook}),
     },
     isArchived: {
-      type: new GraphQLNonNull(GraphQLBoolean),
+      type: GraphQLBoolean,
     },
     isDeleted: {
-      type: new GraphQLNonNull(GraphQLBoolean),
+      type: GraphQLBoolean,
     },
     buyRequestNotifications: {
       type: new GraphQLList(require("./Notification").default), // eslint-disable-line
