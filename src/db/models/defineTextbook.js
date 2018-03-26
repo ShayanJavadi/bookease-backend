@@ -39,9 +39,6 @@ export default (db) => {
       required: true,
       defaultValue: 0,
     },
-    buyerId: {
-      type: STRING,
-    },
     isArchived: {
       type: BOOLEAN,
       required: true,

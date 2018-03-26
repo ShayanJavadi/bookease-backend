@@ -88,9 +88,6 @@ export default new GraphQLObjectType({
       type: TextbookSale,
       resolve: textbook => textbook.sale || getTextbookSale({textbook}),
     },
-    buyerId: {
-      type: GraphQLID,
-    },
     isArchived: {
       type: new GraphQLNonNull(GraphQLBoolean),
     },
