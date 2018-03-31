@@ -26,6 +26,10 @@ export default (db) => {
       type: BIGINT,
       required: true,
     },
+    schoolId: {
+      type: BIGINT,
+      required: true,
+    },
     publishedAt: {
       type: DATE,
     },

@@ -31,51 +31,50 @@ export default {
           id: textbookId,
         },
       })
-        .then((textbook) => {
-          Notification.create({
-            userId: recipientId,
-            senderId: req.session.userId,
-            textbookId,
-            message,
-            isRead: false,
-            type: BUY_REQUEST,
-          })
+        .then(textbook => Notification.create({
+          userId: recipientId,
+          senderId: req.session.userId,
+          textbookId,
+          message,
+          isRead: false,
+          type: BUY_REQUEST,
+        })
           .then((notification) => BuyRequest.create({ // eslint-disable-line
-              userId: req.session.userId,
-              textbookId: textbook.id,
-              recipientId,
-              isAccepted: false,
-              message,
-              notificationId: notification.id,
+            userId: req.session.userId,
+            textbookId: textbook.id,
+            recipientId,
+            isAccepted: false,
+            message,
+            notificationId: notification.id,
+          })
+            .then(buyRequest => User.findOne({
+              where: {
+                id: recipientId,
+              },
             })
-              .then(buyRequest => User.findOne({
-                where: {
-                  id: recipientId,
-                },
-              })
-                .then(async (recipient) => {
-                  const sender = await User.findOne({
-                    where: {
-                      id: req.session.userId,
-                    },
-                  });
+              .then(async (recipient) => {
+                const sender = await User.findOne({
+                  where: {
+                    id: req.session.userId,
+                  },
+                });
 
-                  if (recipient.pushNotificationToken) {
-                    return sendPushNotifications([{
-                      to: recipient.pushNotificationToken,
-                      sound: "default",
+                if (recipient.pushNotificationToken) {
+                  return sendPushNotifications([{
+                    to: recipient.pushNotificationToken,
+                    sound: "default",
+                    title: `${sender.displayName} has requested to purchase ${textbook.title}`,
+                    body: `${message.substring(0, 50)}...`,
+                    data: {
+                      notificationType: BUY_REQUEST,
                       title: `${sender.displayName} has requested to purchase ${textbook.title}`,
                       body: `${message.substring(0, 50)}...`,
-                      data: {
-                        notificationType: BUY_REQUEST,
-                        title: `${sender.displayName} has requested to purchase ${textbook.title}`,
-                        body: `${message.substring(0, 50)}...`,
-                        notificationId: notification.id,
-                      },
-                    }]).then(() => buyRequest);
-                  }
-                  return buyRequest;
-                })));
-        });
+                      notificationId: notification.id,
+                    },
+                  }]).then(() => buyRequest);
+                }
+
+                return buyRequest;
+              }))));
     }),
 };

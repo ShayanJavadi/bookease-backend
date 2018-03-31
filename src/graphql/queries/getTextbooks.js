@@ -33,6 +33,17 @@ export default {
         query, limit = 10, offset = 0, orderBy = "relevance",
       } = args;
       const {models: {Textbook, TextbookIndustryIdentifier}} = db;
+      const schoolIdWhereClause = req.session.schoolId ? {schoolId: req.session.schoolId} : {};
+      const where = {
+        title: {
+          $ilike: `%${trim(query)}%`,
+        },
+        isArchived: false,
+        isSold: false,
+        isDeleted: false,
+        ...schoolIdWhereClause,
+      };
+
       const getOrder = () => {
         switch (orderBy) {
           case "condition":
@@ -66,26 +77,17 @@ export default {
                 return [];
               }
 
-              const where = {
+              const textbookIdentifiersWhere = {
                 id: {[Op.in]: textbookIds},
               };
 
               return Textbook.findAll({
-                where,
+                where: textbookIdentifiersWhere,
                 limit,
                 offset,
               });
             });
         }
-
-        const where = {
-          title: {
-            $ilike: `%${trim(query)}%`,
-          },
-          isArchived: false,
-          isSold: false,
-          isDeleted: false,
-        };
 
         return Textbook.findAll({
           where,
@@ -97,7 +99,7 @@ export default {
 
       return Textbook.findAll({
         limit: 10,
-        where: {},
+        where,
         order,
       })
         .then(textbook => textbook);

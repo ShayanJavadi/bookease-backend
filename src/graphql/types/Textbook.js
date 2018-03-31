@@ -18,7 +18,6 @@ import getImages from "../../db/models/Textbook/getImages";
 import getAuthors from "../../db/models/Textbook/getAuthors";
 import getIndustryIdentifiers from "../../db/models/Textbook/getIndustryIdentifiers";
 import getBuyRequestNotifications from "../../db/models/Textbook/getBuyRequestNotifications";
-import getTextbookSchoolId from "../../db/models/Textbook/getTextbookSchoolId";
 import getTextbookSale from "../../db/models/Textbook/getTextbookSale";
 import getTextbookUser from "../../db/models/Textbook/getTextbookUser";
 import getIsTextbookSold from "../../db/models/Textbook/getIsTextbookSold";
@@ -37,7 +36,6 @@ export default new GraphQLObjectType({
     },
     schoolId: {
       type: new GraphQLNonNull(GraphQLID),
-      resolve: textbook => textbook.schoolId || getTextbookSchoolId({textbook}),
     },
     description: {
       type: GraphQLString,

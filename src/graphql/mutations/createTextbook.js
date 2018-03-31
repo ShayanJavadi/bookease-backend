@@ -29,7 +29,7 @@ export default {
       return db.transaction(transaction => Textbook.build(extend({
         id: generateRandomUID(),
         uid: generateRandomUID(),
-      }, args.textbook, {userId: req.session.userId}))
+      }, args.textbook, {userId: req.session.userId, schoolId: req.session.schoolId}))
         .save({transaction})
         .then((textbook) => {
           if (isEmpty(args.textbook.authors)) {
