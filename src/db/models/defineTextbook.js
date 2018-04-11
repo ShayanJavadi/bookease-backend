@@ -26,6 +26,10 @@ export default (db) => {
       type: BIGINT,
       required: true,
     },
+    schoolId: {
+      type: BIGINT,
+      required: true,
+    },
     publishedAt: {
       type: DATE,
     },
@@ -39,22 +43,12 @@ export default (db) => {
       required: true,
       defaultValue: 0,
     },
-    isSold: {
-      type: BOOLEAN,
-      required: true,
-      defaultValue: false,
-    },
-    buyerId: {
-      type: STRING,
-    },
     isArchived: {
       type: BOOLEAN,
-      required: true,
       defaultValue: false,
     },
     isDeleted: {
       type: BOOLEAN,
-      required: true,
       defaultValue: false,
     },
   });

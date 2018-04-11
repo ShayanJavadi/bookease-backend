@@ -10,7 +10,7 @@ export default new GraphQLInputObjectType({
   name: "NotificationInput",
   fields: {
     id: {
-      type: new GraphQLNonNull(GraphQLID),
+      type: GraphQLID,
     },
     userId: {
       type: new GraphQLNonNull(GraphQLID),

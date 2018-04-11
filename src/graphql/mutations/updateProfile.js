@@ -42,7 +42,11 @@ export default {
     },
   },
   resolve: (req, args) => {
-    const {models: {User, UserFacebook, UserGoogle}} = db;
+    const {
+      models: {
+        User, UserFacebook, UserGoogle, Textbook,
+      },
+    } = db;
     const {session} = req;
     const {
       schoolId,
@@ -101,6 +105,13 @@ export default {
           return user.update(values, {transaction})
             .then(() => {
               const promises = [];
+              if (!isEmpty(schoolId)) {
+                promises.push(Textbook.update(
+                  {schoolId},
+                  {where: {userId: session.userId}},
+                ));
+              }
+
               if (!isEmpty(facebook)) {
                 promises.push(UserFacebook.find({
                   where: {
@@ -144,11 +155,18 @@ export default {
               return B.all(promises);
             });
         })
-          .then(() => User.find({
-            where: {
-              id: session.userId,
-            },
-          }));
+          .then(() => {
+            return User.find({
+              where: {
+                id: session.userId,
+              },
+            })
+            .then((updatedUser) => {
+              session.userId = updatedUser.id;
+              session.schoolId = updatedUser.schoolId;
+              return updatedUser;
+            });
+          });
       });
   },
 };

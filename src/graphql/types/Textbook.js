@@ -13,12 +13,13 @@ import map from "lodash/map";
 import TextbookIndustryIdentifier from "./TextbookIndustryIdentifier";
 import TextbookImage from "./TextbookImage";
 import TextbookSale from "./TextbookSale";
+import User from "./User";
 import getImages from "../../db/models/Textbook/getImages";
 import getAuthors from "../../db/models/Textbook/getAuthors";
 import getIndustryIdentifiers from "../../db/models/Textbook/getIndustryIdentifiers";
 import getBuyRequestNotifications from "../../db/models/Textbook/getBuyRequestNotifications";
-import getTextbookSchoolId from "../../db/models/Textbook/getTextbookSchoolId";
 import getTextbookSale from "../../db/models/Textbook/getTextbookSale";
+import getTextbookUser from "../../db/models/Textbook/getTextbookUser";
 import getIsTextbookSold from "../../db/models/Textbook/getIsTextbookSold";
 
 export default new GraphQLObjectType({
@@ -35,7 +36,6 @@ export default new GraphQLObjectType({
     },
     schoolId: {
       type: new GraphQLNonNull(GraphQLID),
-      resolve: textbook => textbook.schoolId || getTextbookSchoolId({textbook}),
     },
     description: {
       type: GraphQLString,
@@ -58,6 +58,10 @@ export default new GraphQLObjectType({
     },
     userId: {
       type: new GraphQLNonNull(GraphQLID),
+    },
+    user: {
+      type: new GraphQLNonNull(User),
+      resolve: textbook => textbook.user || getTextbookUser({textbook}),
     },
     createdAt: {
       type: new GraphQLNonNull(GraphQLDate),
@@ -82,14 +86,11 @@ export default new GraphQLObjectType({
       type: TextbookSale,
       resolve: textbook => textbook.sale || getTextbookSale({textbook}),
     },
-    buyerId: {
-      type: GraphQLID,
-    },
     isArchived: {
-      type: new GraphQLNonNull(GraphQLBoolean),
+      type: GraphQLBoolean,
     },
     isDeleted: {
-      type: new GraphQLNonNull(GraphQLBoolean),
+      type: GraphQLBoolean,
     },
     buyRequestNotifications: {
       type: new GraphQLList(require("./Notification").default), // eslint-disable-line

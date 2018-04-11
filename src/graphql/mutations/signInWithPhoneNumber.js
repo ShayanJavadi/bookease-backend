@@ -29,6 +29,14 @@ export default {
           throw new Error("Phone number or password is not valid!", 400);
         }
 
+        if (session.pushNotificationToken) {
+          return user.update({pushNotificationToken: session.pushNotificationToken})
+            .then(() => {
+            session.userId = user.id; // eslint-disable-line
+              return user;
+            });
+        }
+
         session.userId = user.id; // eslint-disable-line
         return user;
       });

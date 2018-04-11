@@ -1,6 +1,6 @@
 {
   "name": "@bookease/backend",
-  "version": "1.0.17",
+  "version": "1.0.16",
   "description": "The backend of Bookease using GraphQL",
   "main": "src/index.js",
   "scripts": {
@@ -17,6 +17,9 @@
     "docker:postgres": "docker run -p 5432:5432 -v `pwd`/tmp/postgres:/var/lib/postgresql/data -e POSTGRES_PASSWORD=mysecretpassword postgres:9.6",
     "docker:redis": "docker run -p 6379:6379 -v `pwd`/tmp/redis:/data redis:3.2.9",
     "docker:es": "docker run -p 9200:9200 -p 9300:9300 elasticsearch:2.4.5"
+  },
+  "engines": {
+    "node": "9.11.1"
   },
   "repository": {
     "type": "git",

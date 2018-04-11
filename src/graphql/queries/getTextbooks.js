@@ -33,6 +33,31 @@ export default {
         query, limit = 10, offset = 0, orderBy = "relevance",
       } = args;
       const {models: {Textbook, TextbookIndustryIdentifier}} = db;
+      const schoolIdWhereClause = req.session.schoolId ? {schoolId: req.session.schoolId} : {};
+      const where = {
+        title: {
+          $ilike: `%${trim(query)}%`,
+        },
+        isArchived: false,
+        isSold: false,
+        isDeleted: false,
+        ...schoolIdWhereClause,
+      };
+
+      const getOrder = () => {
+        switch (orderBy) {
+          case "condition":
+            return [["condition", "DESC"]];
+          case "price-high-to-low":
+            return [["price", "DESC"]];
+          case "price-low-to-high":
+            return [["price", "ASC"]];
+          default:
+            return [];
+        }
+      };
+      const order = getOrder();
+
 
       if (!isEmpty(query)) {
         if (isISBN(query)) {
@@ -52,41 +77,17 @@ export default {
                 return [];
               }
 
-              const where = {
+              const textbookIdentifiersWhere = {
                 id: {[Op.in]: textbookIds},
               };
 
               return Textbook.findAll({
-                where,
+                where: textbookIdentifiersWhere,
                 limit,
                 offset,
               });
             });
         }
-
-        const where = {
-          title: {
-            $ilike: `%${trim(query)}%`,
-          },
-          isArchived: false,
-          isSold: false,
-          isDeleted: false,
-        };
-
-        const getOrder = () => {
-          switch (orderBy) {
-            case "condition":
-              return [["condition", "DESC"]];
-            case "price-high-to-low":
-              return [["price", "DESC"]];
-            case "price-low-to-high":
-              return [["price", "ASC"]];
-            default:
-              return [];
-          }
-        };
-
-        const order = getOrder();
 
         return Textbook.findAll({
           where,
@@ -97,9 +98,10 @@ export default {
       }
 
       return Textbook.findAll({
-        where: {
-          publishedAt: {[Op.ne]: null},
-        },
-      });
+        limit: 10,
+        where,
+        order,
+      })
+        .then(textbook => textbook);
     }),
 };

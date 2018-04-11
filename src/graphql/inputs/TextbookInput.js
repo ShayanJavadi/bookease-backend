@@ -24,6 +24,9 @@ export default new GraphQLInputObjectType({
     uid: {
       type: GraphQLID,
     },
+    schoolId: {
+      type: GraphQLID,
+    },
     description: {
       type: GraphQLString,
     },
