@@ -18,6 +18,9 @@
     "docker:redis": "docker run -p 6379:6379 -v `pwd`/tmp/redis:/data redis:3.2.9",
     "docker:es": "docker run -p 9200:9200 -p 9300:9300 elasticsearch:2.4.5"
   },
+  "engines": {
+    "node": "9.11.1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://aduyng@bitbucket.org/bookease/backend.git"

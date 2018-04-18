@@ -52,7 +52,6 @@ export default (db) => {
     onDelete: "CASCADE",
   });
 
-
   Notification.belongsTo(BuyRequest, {
     as: "Notification",
     foreignKey: "notificationId",
