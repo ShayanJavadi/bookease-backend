@@ -51,6 +51,14 @@ export default (db) => {
       type: BOOLEAN,
       defaultValue: false,
     },
+    isSold: {
+      type: BOOLEAN,
+      defaultValue: false,
+    },
+    bookmarkCount: {
+      type: INTEGER,
+      defaultValue: 0,
+    },
   });
 
   const {models: {User}} = db;

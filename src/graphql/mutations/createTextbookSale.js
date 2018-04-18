@@ -12,7 +12,7 @@ export default {
     },
   },
   resolve: (req, args) => acl(req, args, requireAuthenticated)
-    .then(async () => {
+    .then(() => {
       const {
         models: {
           TextbookSale,
@@ -21,13 +21,11 @@ export default {
 
       const {textbookId, buyRequestId, buyerId} = args.textbookSale;
 
-      const createdTextbookSale = await TextbookSale.create({
+      return TextbookSale.create({
         textbookId,
         sellerId: req.session.userId,
         buyerId,
         buyRequestId,
       });
-
-      return createdTextbookSale;
     }),
 };

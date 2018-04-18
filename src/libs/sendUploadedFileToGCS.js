@@ -29,7 +29,14 @@ export default (req, res, next) => {
   const bucketName = getVariable("FIREBASE_STORAGE_BUCKET");
   const bucket = gcs.bucket(bucketName);
   const dateIdentifier = Date.now().valueOf();
-  const fileNameInGCS = `${dateIdentifier}-${req.file.originalname}`;
+  const matchFileExtension = /(\.[\w\d_-]+)$/i;
+  const enforceFileExtension = imageName => (
+    matchFileExtension.test(imageName) ?
+      imageName :
+      `${imageName}.jpg`
+  );
+
+  const fileNameInGCS = `${dateIdentifier}-${enforceFileExtension(req.file.originalname)}`;
   const file = bucket.file(fileNameInGCS);
 
   const stream = file.createWriteStream({
@@ -42,7 +49,7 @@ export default (req, res, next) => {
     jimp.read(buffer, (readError, image) => {
       const thumbnail = image.resize(10, 10);
       thumbnail.getBuffer("image/png", (bufferError, base64) => {
-        const base64File = gcsBucket.file(`${fileNameInGCS.replace(/(\.[\w\d_-]+)$/i, "-thumbnail$1")}`);
+        const base64File = gcsBucket.file(`${fileNameInGCS.replace(matchFileExtension, "-thumbnail$1")}`);
         base64File.save(base64, {
           public: true,
           validation: "md5",

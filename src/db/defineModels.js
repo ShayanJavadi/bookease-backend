@@ -11,6 +11,7 @@ import defineTextbookImage from "./models/defineTextbookImage";
 import defineTextbookSale from "./models/defineTextbookSale";
 import defineBuyRequest from "./models/defineBuyRequest";
 import defineNotification from "./models/defineNotification";
+import defineBookmarks from "./models/defineBookmarks";
 
 export default ({db, sync}) => {
   /* eslint-disable */
@@ -20,12 +21,13 @@ export default ({db, sync}) => {
   db.models.UserFacebook = defineUserFacebook(db);
   db.models.UserGoogle = defineUserGoogle(db);
   db.models.Textbook = defineTextbook(db);
-  db.models.TextbookSale = defineTextbookSale(db)
   db.models.TextbookAuthor = defineTextbookAuthor(db);
   db.models.TextbookImage = defineTextbookImage(db);
   db.models.TextbookIndustryIdentifier = defineTextbookIndustryIdentifier(db);
-  db.models.Notification = defineNotification(db);
   db.models.BuyRequest = defineBuyRequest(db);
+  db.models.Bookmark = defineBookmarks(db);
+  db.models.Notification = defineNotification(db);
+  db.models.TextbookSale = defineTextbookSale(db)
 
   if (sync) {
     return B.each(values(db.models), model => model.sync({ force: true }))
