@@ -26,7 +26,7 @@ export default {
           textbookId,
         },
       })
-        .then(BookmarkToDelete => BookmarkToDelete.destroy())
+        .then(bookmarkToDelete => bookmarkToDelete.destroy())
         .then(() => 200);
     }),
 };
