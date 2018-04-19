@@ -1,0 +1,23 @@
+mutation createTextbook($textbook: TextbookInput){
+    createTextbook(textbook: $textbook) {
+        id,
+        title,
+        uid,
+        description,
+        edition,
+        industryIdentifiers{
+            type,
+            identifier
+        },
+        images{
+            thumbnail
+        },
+        authors,
+        userId,
+        createdAt,
+        updatedAt,
+        publishedAt,
+        condition,
+        price
+    }
+}

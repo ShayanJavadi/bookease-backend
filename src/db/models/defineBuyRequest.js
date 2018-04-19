@@ -44,15 +44,7 @@ export default (db) => {
     },
   });
 
-  const {models: {User, Textbook}} = db;
-
-  Textbook.hasMany(BuyRequest, {
-    as: "BuyRequests",
-    foreignKey: "textbookId",
-    targetKey: "id",
-    onUpdate: "CASCADE",
-    onDelete: "CASCADE",
-  });
+  const {models: {User}} = db;
 
   BuyRequest.belongsTo(User, {
     as: "User",

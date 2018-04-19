@@ -14,8 +14,14 @@ export default {
   },
   resolve: (req, args) => acl(req, args, requireAuthenticated)
     .then(() => {
-      const {models: {Textbook}} = db;
+      const {models: {Textbook, Bookmark}} = db;
       return Textbook.find({
+        include: [{
+          model: Bookmark,
+          as: "Bookmarks",
+          where: {textbookId: args.textbookId, userId: req.session.userId},
+          required: false,
+        }],
         where: {
           id: args.textbookId,
         },

@@ -15,17 +15,13 @@ export default (db) => {
       type: STRING,
       required: true,
     },
-    buyRequestId: {
-      type: STRING,
-      required: true,
-    },
     sellerId: {
       type: STRING,
       required: true,
     },
   });
 
-  const {models: {Textbook, User}} = db;
+  const {models: {Textbook, User, BuyRequest}} = db;
 
   TextbookSale.belongsTo(Textbook, {
     as: "Textbook",
@@ -35,9 +31,25 @@ export default (db) => {
     onDelete: "CASCADE",
   });
 
+  Textbook.hasOne(TextbookSale, {
+    as: "TextbookSale",
+    foreignKey: "textbookSaleId",
+    targetKey: "id",
+    onUpdate: "CASCADE",
+    onDelete: "CASCADE",
+  });
+
   TextbookSale.belongsTo(User, {
     as: "User",
     foreignKey: "userId",
+    targetKey: "id",
+    onUpdate: "CASCADE",
+    onDelete: "CASCADE",
+  });
+
+  TextbookSale.hasOne(BuyRequest, {
+    as: "BuyRequest",
+    foreignKey: "BuyRequestId",
     targetKey: "id",
     onUpdate: "CASCADE",
     onDelete: "CASCADE",

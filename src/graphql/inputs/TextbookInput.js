@@ -60,5 +60,8 @@ export default new GraphQLInputObjectType({
     isDeleted: {
       type: GraphQLBoolean,
     },
+    bookmarkCount: {
+      type: GraphQLInt,
+    },
   },
 });

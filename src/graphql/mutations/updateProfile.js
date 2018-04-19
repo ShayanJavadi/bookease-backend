@@ -155,18 +155,16 @@ export default {
               return B.all(promises);
             });
         })
-          .then(() => {
-            return User.find({
-              where: {
-                id: session.userId,
-              },
-            })
+          .then(() => User.find({
+            where: {
+              id: session.userId,
+            },
+          })
             .then((updatedUser) => {
               session.userId = updatedUser.id;
               session.schoolId = updatedUser.schoolId;
               return updatedUser;
-            });
-          });
+            }));
       });
   },
 };

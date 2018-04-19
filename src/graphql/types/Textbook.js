@@ -9,7 +9,7 @@ import {
   GraphQLBoolean,
 } from "graphql";
 import GraphQLDate from "graphql-date";
-import map from "lodash/map";
+import {map, isEmpty} from "lodash";
 import TextbookIndustryIdentifier from "./TextbookIndustryIdentifier";
 import TextbookImage from "./TextbookImage";
 import TextbookSale from "./TextbookSale";
@@ -21,6 +21,7 @@ import getBuyRequestNotifications from "../../db/models/Textbook/getBuyRequestNo
 import getTextbookSale from "../../db/models/Textbook/getTextbookSale";
 import getTextbookUser from "../../db/models/Textbook/getTextbookUser";
 import getIsTextbookSold from "../../db/models/Textbook/getIsTextbookSold";
+import getBookmarkCount from "../../db/models/Textbook/getBookmarkCount";
 
 export default new GraphQLObjectType({
   name: "Textbook",
@@ -96,6 +97,14 @@ export default new GraphQLObjectType({
       type: new GraphQLList(require("./Notification").default), // eslint-disable-line
       resolve: textbook => textbook.BuyRequestNotifications ||
       getBuyRequestNotifications({textbook}),
+    },
+    bookmarkCount: {
+      type: GraphQLInt,
+      resolve: textbook => textbook.bookmarkCount || getBookmarkCount({textbook}),
+    },
+    isBookmarkedByCurrentUser: {
+      type: GraphQLBoolean,
+      resolve: textbook => textbook.isBookmarkedByCurrentUser || !isEmpty(textbook.Bookmarks),
     },
   }),
 });

@@ -53,8 +53,8 @@ export default (db) => {
   });
 
   Notification.belongsTo(BuyRequest, {
-    as: "BuyRequest",
-    foreignKey: "buyRequestId",
+    as: "Notification",
+    foreignKey: "notificationId",
     targetKey: "id",
     onUpdate: "CASCADE",
     onDelete: "CASCADE",
