@@ -1,8 +1,6 @@
 import {GraphQLID, GraphQLNonNull} from "graphql";
 import TextbookType from "../types/Textbook";
-import requireAuthenticated from "../acl/requireAuthenticated";
 import db from "../../db";
-import acl from "../acl";
 
 export default {
   type: TextbookType,
@@ -12,19 +10,26 @@ export default {
       type: new GraphQLNonNull(GraphQLID),
     },
   },
-  resolve: (req, args) => acl(req, args, requireAuthenticated)
-    .then(() => {
-      const {models: {Textbook, Bookmark}} = db;
-      return Textbook.find({
-        include: [{
+  resolve: (req, args) => {
+    const {models: {Textbook, Bookmark, BuyRequest}} = db;
+    return Textbook.find({
+      include: [
+        {
           model: Bookmark,
           as: "Bookmarks",
           where: {textbookId: args.textbookId, userId: req.session.userId},
           required: false,
-        }],
-        where: {
-          id: args.textbookId,
         },
-      });
-    }),
+        {
+          model: BuyRequest,
+          as: "BuyRequests",
+          where: {textbookId: args.textbookId, userId: req.session.userId},
+          required: false,
+        },
+      ],
+      where: {
+        id: args.textbookId,
+      },
+    });
+  },
 };

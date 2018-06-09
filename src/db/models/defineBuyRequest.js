@@ -19,8 +19,16 @@ export default (db) => {
       type: BIGINT,
       required: true,
     },
+    userPhoneNumber: {
+      type: STRING,
+      required: true,
+    },
     recipientId: {
       type: BIGINT,
+      required: true,
+    },
+    recipientPhoneNumber: {
+      type: STRING,
       required: true,
     },
     isAccepted: {
@@ -44,11 +52,19 @@ export default (db) => {
     },
   });
 
-  const {models: {User}} = db;
+  const {models: {Textbook, User}} = db;
 
   BuyRequest.belongsTo(User, {
     as: "User",
     foreignKey: "userId",
+    targetKey: "id",
+    onUpdate: "CASCADE",
+    onDelete: "CASCADE",
+  });
+
+  Textbook.hasMany(BuyRequest, {
+    as: "BuyRequests",
+    foreignKey: "textbookId",
     targetKey: "id",
     onUpdate: "CASCADE",
     onDelete: "CASCADE",

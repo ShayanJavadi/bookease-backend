@@ -30,7 +30,7 @@ export default {
       query, limit = 10, offset = 0, orderBy = "relevance",
     } = args;
     const {models: {Textbook, TextbookIndustryIdentifier}} = db;
-    const schoolIdWhereClause = req.session.schoolId ? {schoolId: req.session.schoolId} : {};
+    const schoolIdWhereClause = req.session ? {schoolId: req.session.schoolId} : {};
     const where = {
       title: {
         $ilike: `%${trim(query)}%`,

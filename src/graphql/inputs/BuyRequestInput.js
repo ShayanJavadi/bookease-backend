@@ -5,6 +5,7 @@ import {
   GraphQLBoolean,
   GraphQLString,
 } from "graphql";
+import User from "./User";
 
 export default new GraphQLInputObjectType({
   name: "BuyRequestInput",
@@ -12,13 +13,13 @@ export default new GraphQLInputObjectType({
     id: {
       type: GraphQLID,
     },
-    userId: {
-      type: GraphQLID,
-    },
     textbookId: {
       type: new GraphQLNonNull(GraphQLID),
     },
     notificationId: {
+      type: GraphQLID,
+    },
+    userId: {
       type: GraphQLID,
     },
     recipientId: {
@@ -35,6 +36,18 @@ export default new GraphQLInputObjectType({
     },
     message: {
       type: new GraphQLNonNull(GraphQLString),
+    },
+    userPhoneNumber: {
+      type: GraphQLString,
+    },
+    recipientPhoneNumber: {
+      type: GraphQLString,
+    },
+    recipientUser: {
+      type: User,
+    },
+    isUserRequester: {
+      type: GraphQLBoolean,
     },
   },
 });

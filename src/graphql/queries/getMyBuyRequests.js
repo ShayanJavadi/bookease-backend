@@ -1,22 +1,22 @@
 import {GraphQLInt, GraphQLList} from "graphql";
-import NotificationType from "../types/Notification";
+import BuyRequestType from "../types/BuyRequest";
 import db from "../../db";
 
 export default {
-  type: new GraphQLList(NotificationType),
-  description: "Get the user's notifications.",
+  type: new GraphQLList(BuyRequestType),
+  description: "Get the user's buy request (textbooks the user is buying).",
   args: {
     limit: {
       type: GraphQLInt,
     },
   },
   resolve: (req, args) => {
-    const {models: {Notification}} = db;
+    const {models: {BuyRequest}} = db;
     const {limit = 10} = args;
 
-    return Notification.findAll({
+    return BuyRequest.findAll({
       where: {
-        userId: req.session && req.session.userId,
+        userId: req.session.userId,
       },
       limit,
       order: [["createdAt", "DESC"]],

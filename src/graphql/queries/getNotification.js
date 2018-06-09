@@ -19,6 +19,13 @@ export default {
         where: {
           id: args.id,
         },
-      });
+      })
+        .then((notificiation) => {
+          if (notificiation) {
+            notificiation.session = req.session; // eslint-disable-line
+          }
+
+          return notificiation;
+        });
     }),
 };
