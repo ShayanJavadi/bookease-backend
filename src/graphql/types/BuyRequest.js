@@ -13,6 +13,7 @@ import getBuyRequestIsActive from "../../db/models/BuyRequest/getBuyRequestIsAct
 import getBuyRequestIsDeleted from "../../db/models/BuyRequest/getBuyRequestIsDeleted";
 import getBuyRequestUser from "../../db/models/BuyRequest/getBuyRequestUser";
 import getBuyRequestIsTextbookSold from "../../db/models/BuyRequest/getBuyRequestIsTextbookSold";
+import db from "../../db";
 
 export default new GraphQLObjectType({
   name: "BuyRequest",
@@ -20,21 +21,23 @@ export default new GraphQLObjectType({
     id: {
       type: new GraphQLNonNull(GraphQLID),
     },
-    userId: {
-      type: new GraphQLNonNull(GraphQLID),
-    },
     textbookId: {
       type: new GraphQLNonNull(GraphQLID),
     },
-    textbook: {
-      type: new GraphQLNonNull(Textbook),
-      resolve: buyRequest => buyRequest.textbook || getBuyRequestTextbook({buyRequest}),
+    userId: {
+      type: new GraphQLNonNull(GraphQLID),
+    },
+    userPhoneNumber: {
+      type: new GraphQLNonNull(GraphQLString),
     },
     notificationId: {
       type: new GraphQLNonNull(GraphQLID),
     },
     recipientId: {
       type: new GraphQLNonNull(GraphQLID),
+    },
+    recipientPhoneNumber: {
+      type: new GraphQLNonNull(GraphQLString),
     },
     isAccepted: {
       type: new GraphQLNonNull(GraphQLBoolean),
@@ -63,6 +66,22 @@ export default new GraphQLObjectType({
     user: {
       type: new GraphQLNonNull(User),
       resolve: buyRequest => buyRequest.user || getBuyRequestUser({buyRequest}),
+    },
+    recipientUser: {
+      type: new GraphQLNonNull(User),
+      resolve: buyRequest => buyRequest.recipientUser || db.models.User.findOne({
+        where: {
+          id: buyRequest.recipientId,
+        },
+      }),
+    },
+    isUserRequester: {
+      type: GraphQLBoolean,
+      resolve: buyRequest => buyRequest.isUserRequester || false,
+    },
+    textbook: {
+      type: new GraphQLNonNull(Textbook),
+      resolve: buyRequest => buyRequest.textbook || getBuyRequestTextbook({buyRequest}),
     },
   },
 });

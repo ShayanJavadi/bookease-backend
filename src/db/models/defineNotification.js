@@ -52,7 +52,7 @@ export default (db) => {
     onDelete: "CASCADE",
   });
 
-  Notification.belongsTo(BuyRequest, {
+  BuyRequest.hasMany(Notification, {
     as: "Notification",
     foreignKey: "notificationId",
     targetKey: "id",

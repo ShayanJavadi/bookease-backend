@@ -37,6 +37,7 @@ export default new GraphQLObjectType({
     },
     schoolId: {
       type: new GraphQLNonNull(GraphQLID),
+      resolve: textbook => textbook.schoolId || 2,
     },
     description: {
       type: GraphQLString,
@@ -105,6 +106,10 @@ export default new GraphQLObjectType({
     isBookmarkedByCurrentUser: {
       type: GraphQLBoolean,
       resolve: textbook => textbook.isBookmarkedByCurrentUser || !isEmpty(textbook.Bookmarks),
+    },
+    isRequestedByCurrentUser: {
+      type: GraphQLBoolean,
+      resolve: textbook => textbook.isRequestedByCurrentUser || !isEmpty(textbook.BuyRequests),
     },
   }),
 });
