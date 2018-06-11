@@ -1,4 +1,4 @@
-import {GraphQLID, GraphQLNonNull} from "graphql";
+import { GraphQLID, GraphQLNonNull } from "graphql";
 import TextbookType from "../types/Textbook";
 import requireAuthenticated from "../acl/requireAuthenticated";
 import db from "../../db";
@@ -14,7 +14,7 @@ export default {
   },
   resolve: (req, args) => acl(req, args, requireAuthenticated)
     .then(() => {
-      const {models: {Textbook}} = db;
+      const { models: { Textbook } } = db;
       return Textbook.find({
         where: {
           id: args.textbookId,

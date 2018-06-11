@@ -1,8 +1,8 @@
-import {isEmpty} from "lodash";
+import { isEmpty } from "lodash";
 import db from "../../connection";
 
-export default ({buyRequest}) => {
-  const {models: {TextbookSale}} = db;
+export default ({ buyRequest }) => {
+  const { models: { TextbookSale } } = db;
 
   return TextbookSale.find({
     where: {

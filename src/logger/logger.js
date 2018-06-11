@@ -1,4 +1,4 @@
-import {Logger, transports} from "winston";
+import { Logger, transports } from "winston";
 import isDevelopment from "../config/isDevelopment";
 import getVariable from "../config/getVariable";
 

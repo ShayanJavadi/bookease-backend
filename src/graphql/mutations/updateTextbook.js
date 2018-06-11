@@ -1,4 +1,4 @@
-import {isEmpty, reduce, map, extend} from "lodash";
+import { isEmpty, reduce, map, extend } from "lodash";
 import B from "bluebird";
 import db from "../../db";
 import TextbookType from "../types/Textbook";
@@ -24,7 +24,7 @@ export default {
         },
       } = db;
 
-      const {textbook} = args;
+      const { textbook } = args;
       return Textbook.findOne({
         where: {
           id: textbook.id,
@@ -43,7 +43,7 @@ export default {
               return result;
             }, {});
 
-            return textbookToUpdate.update(values, {transaction})
+            return textbookToUpdate.update(values, { transaction })
               .then(() => {
                 const promises = [];
                 const {
@@ -60,7 +60,7 @@ export default {
                       textbookId: textbook.id,
                       userId: req.session.userId,
                       name: author,
-                    })), {transaction})));
+                    })), { transaction })));
                 }
 
                 if (!isEmpty(images)) {
@@ -78,7 +78,7 @@ export default {
                           priority: image.priority || index,
                         }),
                       );
-                      return TextbookImage.bulkCreate(updatedImages, {transaction});
+                      return TextbookImage.bulkCreate(updatedImages, { transaction });
                     }));
                 }
 
@@ -99,7 +99,7 @@ export default {
 
                       return TextbookIndustryIdentifier.bulkCreate(
                         updatedIndustryIdentifiers,
-                        {transaction},
+                        { transaction },
                       );
                     }));
                 }

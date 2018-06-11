@@ -1,4 +1,4 @@
-import {GraphQLID, GraphQLInputObjectType, GraphQLString, GraphQLInt} from "graphql";
+import { GraphQLID, GraphQLInputObjectType, GraphQLString, GraphQLInt } from "graphql";
 
 export default new GraphQLInputObjectType({
   name: "TextbookImageInput",

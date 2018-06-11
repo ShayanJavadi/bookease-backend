@@ -1,7 +1,7 @@
 import db from "../../connection";
 
-export default ({user}) => {
-  const {models: {School}} = db;
+export default ({ user }) => {
+  const { models: { School } } = db;
 
   return School.find({
     where: {

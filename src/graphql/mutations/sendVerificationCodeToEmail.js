@@ -1,4 +1,4 @@
-import {GraphQLInt, GraphQLNonNull, GraphQLString} from "graphql";
+import { GraphQLInt, GraphQLNonNull, GraphQLString } from "graphql";
 import isEmpty from "lodash/isEmpty";
 import db from "../../db";
 import generateRandomVerificationCode from "../../db/models/User/generateRandomVerificationCode";
@@ -12,8 +12,8 @@ export default {
     },
   },
   resolve: (req, args) => {
-    const {models: {User}} = db;
-    const {email} = args;
+    const { models: { User } } = db;
+    const { email } = args;
 
     return User.findOne({
       where: {

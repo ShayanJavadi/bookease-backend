@@ -1,4 +1,4 @@
-import {GraphQLFloat, GraphQLInputObjectType} from "graphql";
+import { GraphQLFloat, GraphQLInputObjectType } from "graphql";
 
 export default new GraphQLInputObjectType({
   name: "CoordinatesInput",

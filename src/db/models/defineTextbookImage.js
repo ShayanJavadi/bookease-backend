@@ -1,4 +1,4 @@
-import {BIGINT, TEXT, STRING, INTEGER} from "sequelize";
+import { BIGINT, TEXT, STRING, INTEGER } from "sequelize";
 
 export default (db) => {
   const TextbookImage = db.define("TextbookImage", {
@@ -28,7 +28,7 @@ export default (db) => {
     },
   });
 
-  const {models: {Textbook, User}} = db;
+  const { models: { Textbook, User } } = db;
   Textbook.hasMany(TextbookImage, {
     as: "Textbook",
     foreignKey: "textbookId",

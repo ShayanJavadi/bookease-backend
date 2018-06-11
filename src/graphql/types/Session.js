@@ -1,4 +1,4 @@
-import {GraphQLObjectType} from "graphql";
+import { GraphQLObjectType } from "graphql";
 import isEmpty from "lodash/isEmpty";
 import UserType from "./User";
 import db from "../../db";
@@ -9,7 +9,7 @@ export default new GraphQLObjectType({
     user: {
       type: UserType,
       resolve: (source) => {
-        const {models: {User}} = db;
+        const { models: { User } } = db;
 
         if (isEmpty(source.userId)) {
           return null;

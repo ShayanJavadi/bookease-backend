@@ -1,4 +1,4 @@
-import {GraphQLInt, GraphQLString} from "graphql";
+import { GraphQLInt, GraphQLString } from "graphql";
 
 export default {
   type: GraphQLInt,
@@ -8,7 +8,7 @@ export default {
     },
   },
   resolve: (req, args) => {
-    const {token} = args;
+    const { token } = args;
 
     req.session.pushNotificationToken = token; // eslint-disable-line
     return 200;

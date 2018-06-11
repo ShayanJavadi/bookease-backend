@@ -1,4 +1,4 @@
-import {BIGINT, STRING, INTEGER} from "sequelize";
+import { BIGINT, STRING, INTEGER } from "sequelize";
 
 export default db => db.define("School", {
   id: {

@@ -9,7 +9,7 @@ import {
   GraphQLBoolean,
 } from "graphql";
 import GraphQLDate from "graphql-date";
-import {map, isEmpty} from "lodash";
+import { map, isEmpty } from "lodash";
 import TextbookIndustryIdentifier from "./TextbookIndustryIdentifier";
 import TextbookImage from "./TextbookImage";
 import TextbookSale from "./TextbookSale";
@@ -44,11 +44,11 @@ export default new GraphQLObjectType({
     },
     industryIdentifiers: {
       type: new GraphQLList(TextbookIndustryIdentifier),
-      resolve: textbook => textbook.industryIdentifiers || getIndustryIdentifiers({textbook}),
+      resolve: textbook => textbook.industryIdentifiers || getIndustryIdentifiers({ textbook }),
     },
     authors: {
       type: new GraphQLNonNull(new GraphQLList(GraphQLString)),
-      resolve: textbook => textbook.authors || getAuthors({textbook})
+      resolve: textbook => textbook.authors || getAuthors({ textbook })
         .then(authors => map(authors, "name")),
     },
     edition: {
@@ -56,14 +56,14 @@ export default new GraphQLObjectType({
     },
     images: {
       type: new GraphQLNonNull(new GraphQLList(TextbookImage)),
-      resolve: textbook => textbook.images || getImages({textbook}),
+      resolve: textbook => textbook.images || getImages({ textbook }),
     },
     userId: {
       type: new GraphQLNonNull(GraphQLID),
     },
     user: {
       type: new GraphQLNonNull(User),
-      resolve: textbook => textbook.user || getTextbookUser({textbook}),
+      resolve: textbook => textbook.user || getTextbookUser({ textbook }),
     },
     createdAt: {
       type: new GraphQLNonNull(GraphQLDate),
@@ -82,11 +82,11 @@ export default new GraphQLObjectType({
     },
     isSold: {
       type: new GraphQLNonNull(GraphQLBoolean),
-      resolve: textbook => textbook.isSold || getIsTextbookSold({textbook}),
+      resolve: textbook => textbook.isSold || getIsTextbookSold({ textbook }),
     },
     sale: {
       type: TextbookSale,
-      resolve: textbook => textbook.sale || getTextbookSale({textbook}),
+      resolve: textbook => textbook.sale || getTextbookSale({ textbook }),
     },
     isArchived: {
       type: GraphQLBoolean,
@@ -97,11 +97,11 @@ export default new GraphQLObjectType({
     buyRequestNotifications: {
       type: new GraphQLList(require("./Notification").default), // eslint-disable-line
       resolve: textbook => textbook.BuyRequestNotifications ||
-      getBuyRequestNotifications({textbook}),
+      getBuyRequestNotifications({ textbook }),
     },
     bookmarkCount: {
       type: GraphQLInt,
-      resolve: textbook => textbook.bookmarkCount || getBookmarkCount({textbook}),
+      resolve: textbook => textbook.bookmarkCount || getBookmarkCount({ textbook }),
     },
     isBookmarkedByCurrentUser: {
       type: GraphQLBoolean,

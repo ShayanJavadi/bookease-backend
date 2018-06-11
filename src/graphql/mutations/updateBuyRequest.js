@@ -1,4 +1,4 @@
-import {isEmpty, reduce} from "lodash";
+import { isEmpty, reduce } from "lodash";
 import db from "../../db";
 import acl from "../acl";
 import requireAuthenticated from "../acl/requireAuthenticated";
@@ -21,7 +21,7 @@ export default {
         },
       } = db;
 
-      const {buyRequest} = args;
+      const { buyRequest } = args;
 
       return BuyRequest.findOne({
         where: {
@@ -41,7 +41,7 @@ export default {
               return result;
             }, {});
 
-            return buyRequestToUpdate.update(values, {transaction});
+            return buyRequestToUpdate.update(values, { transaction });
           })
             .then(() => BuyRequest.findOne({
               where: {

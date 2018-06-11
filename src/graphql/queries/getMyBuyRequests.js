@@ -1,4 +1,4 @@
-import {GraphQLInt, GraphQLList} from "graphql";
+import { GraphQLInt, GraphQLList } from "graphql";
 import BuyRequestType from "../types/BuyRequest";
 import db from "../../db";
 
@@ -11,8 +11,8 @@ export default {
     },
   },
   resolve: (req, args) => {
-    const {models: {BuyRequest}} = db;
-    const {limit = 10} = args;
+    const { models: { BuyRequest } } = db;
+    const { limit = 10 } = args;
 
     return BuyRequest.findAll({
       where: {

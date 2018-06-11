@@ -1,5 +1,5 @@
 import isEmpty from "lodash/isEmpty";
-import {GraphQLBoolean, GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLString} from "graphql";
+import { GraphQLBoolean, GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
 import getFacebook from "../../db/models/User/getFacebook";
 import getGoogle from "../../db/models/User/getGoogle";
 import getSchool from "../../db/models/User/getSchool";
@@ -34,15 +34,15 @@ export default new GraphQLObjectType({
     },
     school: {
       type: new GraphQLNonNull(School),
-      resolve: user => getSchool({user}),
+      resolve: user => getSchool({ user }),
     },
     facebook: {
       type: UserFacebook,
-      resolve: user => getFacebook({user}),
+      resolve: user => getFacebook({ user }),
     },
     google: {
       type: UserGoogle,
-      resolve: user => getGoogle({user}),
+      resolve: user => getGoogle({ user }),
     },
     pushNotificationToken: {
       type: GraphQLString,

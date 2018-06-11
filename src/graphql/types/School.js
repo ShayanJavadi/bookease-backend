@@ -1,4 +1,4 @@
-import {GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLString, GraphQLInt} from "graphql";
+import { GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLString, GraphQLInt } from "graphql";
 
 export default new GraphQLObjectType({
   name: "School",

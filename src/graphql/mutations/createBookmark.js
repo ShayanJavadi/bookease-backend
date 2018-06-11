@@ -19,7 +19,7 @@ export default {
         },
       } = db;
 
-      const {textbookId} = args.bookmark;
+      const { textbookId } = args.bookmark;
 
       return Bookmark.create({
         userId: req.session.userId,

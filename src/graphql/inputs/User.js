@@ -1,4 +1,4 @@
-import {GraphQLID, GraphQLInputObjectType, GraphQLNonNull, GraphQLString} from "graphql";
+import { GraphQLID, GraphQLInputObjectType, GraphQLNonNull, GraphQLString } from "graphql";
 
 export default new GraphQLInputObjectType({
   name: "UserInput",

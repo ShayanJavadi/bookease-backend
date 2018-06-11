@@ -3,16 +3,16 @@ import difference from "lodash/difference";
 import isEmpty from "lodash/isEmpty";
 import filter from "lodash/filter";
 import includes from "lodash/includes";
-import {Op} from "sequelize";
+import { Op } from "sequelize";
 import db from "../../../db";
 
-export default ({schools}) => {
+export default ({ schools }) => {
   const ids = map(schools, "id");
-  const {models: {School}} = db;
+  const { models: { School } } = db;
 
   return School.findAll({
     where: {
-      id: {[Op.in]: ids},
+      id: { [Op.in]: ids },
     },
     attributes: ["id"],
   })

@@ -1,5 +1,5 @@
-import {isEmpty} from "lodash";
-import {GraphQLInt, GraphQLID, GraphQLNonNull} from "graphql";
+import { isEmpty } from "lodash";
+import { GraphQLInt, GraphQLID, GraphQLNonNull } from "graphql";
 import db from "../../db";
 import acl from "../acl";
 import requireAuthenticated from "../acl/requireAuthenticated";
@@ -19,7 +19,7 @@ export default {
         },
       } = db;
 
-      const {id} = args;
+      const { id } = args;
 
       return BuyRequest.findOne({
         where: {

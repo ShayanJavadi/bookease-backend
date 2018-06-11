@@ -2,7 +2,7 @@ import db from "../db";
 import initializeDb from "../db/initialize";
 import runDataLoader from "../db/runDataLoader";
 
-initializeDb({db})
+initializeDb({ db })
   .then(() => runDataLoader(db.models))
   .then(() => {
     console.log("Database has been reloaded."); // eslint-disable-line

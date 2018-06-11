@@ -1,8 +1,8 @@
-import {GraphQLInt, GraphQLList, GraphQLString} from "graphql";
+import { GraphQLInt, GraphQLList, GraphQLString } from "graphql";
 import reduce from "lodash/reduce";
 import isEmpty from "lodash/isEmpty";
 import trim from "lodash/trim";
-import {Op} from "sequelize";
+import { Op } from "sequelize";
 import isISBN from "validator/lib/isISBN";
 import TextbookType from "../types/Textbook";
 import requireAuthenticated from "../acl/requireAuthenticated";
@@ -26,8 +26,8 @@ export default {
   },
   resolve: (req, args) => acl(req, args, requireAuthenticated)
     .then(() => {
-      const {query, limit = 10, offset = 0} = args;
-      const {models: {Textbook, TextbookIndustryIdentifier}} = db;
+      const { query, limit = 10, offset = 0 } = args;
+      const { models: { Textbook, TextbookIndustryIdentifier } } = db;
 
       if (!isEmpty(query)) {
         if (isISBN(query)) {
@@ -50,7 +50,7 @@ export default {
 
               const where = {
                 userId: req.session.userId,
-                id: {[Op.in]: textbookIds},
+                id: { [Op.in]: textbookIds },
               };
 
               return Textbook.findAll({

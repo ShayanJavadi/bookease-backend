@@ -9,7 +9,7 @@ import B from "bluebird";
 import values from "lodash/values";
 import L from "../logger/logger";
 
-export default ({School}) => {
+export default ({ School }) => {
   L.info("Start loading schools...");
 
   return School.destroy({

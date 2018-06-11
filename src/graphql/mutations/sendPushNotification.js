@@ -1,4 +1,4 @@
-import {GraphQLInt, GraphQLNonNull, GraphQLString} from "graphql";
+import { GraphQLInt, GraphQLNonNull, GraphQLString } from "graphql";
 import sendPushNotifications from "../../libs/sendPushNotifications";
 
 export default {

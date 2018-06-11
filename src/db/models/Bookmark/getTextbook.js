@@ -1,7 +1,7 @@
 import db from "../../connection";
 
-export default ({bookmark}) => {
-  const {models: {Textbook}} = db;
+export default ({ bookmark }) => {
+  const { models: { Textbook } } = db;
 
   return Textbook.find({
     where: {
