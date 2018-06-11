@@ -9,7 +9,15 @@
   ],
   "verbose": true,
   "watch": [
-    "src",
+    "src/config",
+    "src/db",
+    "src/graphql",
+    "src/libs",
+    "src/logger",
+    "src/public",
+    "src/scheduler",
+    "src/start.js",
+    "src/web.js",
     "config.json",
     "package.json"
   ]
