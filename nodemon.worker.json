@@ -9,9 +9,13 @@
   ],
   "verbose": true,
   "watch": [
-    "src",
-    "package.json",
+    "src/config",
+    "src/db",
+    "src/libs",
+    "src/logger",
+    "src/scheduler",
+    "src/worker.js",
     "config.json",
-    "worker.js"
+    "package.json"
   ]
 }
