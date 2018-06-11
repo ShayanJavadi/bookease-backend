@@ -14,7 +14,7 @@
   "SESSION_MAX_AGE": 86400000,
   "REDIS_URL": "redis://h:p56cfc4a3743d93185e424c2736826e907119aae75b80048835e9d8cd3479bc26@ec2-18-205-217-206.compute-1.amazonaws.com:10509",
   "WEB_CONCURRENCY": 1,
-  "DATABASE_URL": "postgres://hyuqtjtsrxifss:73400d5896cb4db5b1a36a494529d00cc43292aa29766d9e054764f81899ec83@ec2-184-73-247-240.compute-1.amazonaws.com:5432/db079s47vjgibg",
+  "DATABASE_URL": "postgres://mkkefzogfwbgrq:26f4bf2a6fe451e9cc9c93120e6c354d8da825402c733c62073b26c9b58aba19@ec2-54-227-252-202.compute-1.amazonaws.com:5432/dd81ikff8jda5i",
   "CONNECT_DATABASE_USING_SSL": true,
   "FIREBASE_API_KEY": "AIzaSyD13UcT91LpU-XLE6nPPsP_5iIsT75lb54",
   "FIREBASE_AUTH_DOMAIN": "bookease-workspace.firebaseapp.com",
