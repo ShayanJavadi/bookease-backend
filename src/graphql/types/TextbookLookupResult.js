@@ -1,4 +1,4 @@
-import {GraphQLInt, GraphQLList, GraphQLNonNull, GraphQLObjectType} from "graphql";
+import { GraphQLInt, GraphQLList, GraphQLNonNull, GraphQLObjectType } from "graphql";
 import Textbook from "./Textbook";
 
 export default new GraphQLObjectType({

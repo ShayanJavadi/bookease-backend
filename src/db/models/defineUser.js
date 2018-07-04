@@ -1,7 +1,7 @@
-import {BIGINT, BOOLEAN, STRING, TEXT} from "sequelize";
+import { BIGINT, BOOLEAN, STRING, TEXT } from "sequelize";
 
 export default (db) => {
-  const {models: {School}} = db;
+  const { models: { School } } = db;
 
   const User = db.define("User", {
     id: {

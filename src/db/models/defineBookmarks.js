@@ -1,7 +1,7 @@
-import {BIGINT, STRING} from "sequelize";
+import { BIGINT, STRING } from "sequelize";
 
 export default (db) => {
-  const {models: {User, Textbook}} = db;
+  const { models: { User, Textbook } } = db;
 
   const Bookmark = db.define("Bookmark", {
     id: {

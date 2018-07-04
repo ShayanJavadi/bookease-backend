@@ -1,5 +1,5 @@
-import {BIGINT, DATE, DECIMAL, INTEGER, STRING, BOOLEAN} from "sequelize";
-import {GOOD} from "./Textbook/TextbookConditionConsts";
+import { BIGINT, DATE, DECIMAL, INTEGER, STRING, BOOLEAN } from "sequelize";
+import { GOOD } from "./Textbook/TextbookConditionConsts";
 
 export default (db) => {
   const Textbook = db.define("Textbook", {
@@ -61,7 +61,7 @@ export default (db) => {
     },
   });
 
-  const {models: {User}} = db;
+  const { models: { User } } = db;
 
   Textbook.belongsTo(User, {
     as: "User",

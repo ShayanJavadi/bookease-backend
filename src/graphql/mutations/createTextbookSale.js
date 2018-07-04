@@ -19,7 +19,7 @@ export default {
         },
       } = db;
 
-      const {textbookId, buyRequestId, buyerId} = args.textbookSale;
+      const { textbookId, buyRequestId, buyerId } = args.textbookSale;
 
       return TextbookSale.create({
         textbookId,

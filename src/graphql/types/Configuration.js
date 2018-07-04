@@ -1,4 +1,4 @@
-import {GraphQLNonNull, GraphQLObjectType, GraphQLString} from "graphql";
+import { GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
 import pkg from "../../../package.json";
 import getVariable from "../../config/getVariable";
 

@@ -1,4 +1,4 @@
-import {GraphQLID, GraphQLNonNull} from "graphql";
+import { GraphQLID, GraphQLNonNull } from "graphql";
 import NotificationType from "../types/Notification";
 import requireAuthenticated from "../acl/requireAuthenticated";
 import db from "../../db";
@@ -14,7 +14,7 @@ export default {
   },
   resolve: (req, args) => acl(req, args, requireAuthenticated)
     .then(() => {
-      const {models: {Notification}} = db;
+      const { models: { Notification } } = db;
       return Notification.findOne({
         where: {
           id: args.id,

@@ -3,7 +3,7 @@ import BuyRequestType from "../types/BuyRequest";
 import BuyRequestInput from "../inputs/BuyRequestInput";
 import acl from "../acl";
 import requireAuthenticated from "../acl/requireAuthenticated";
-import {BUY_REQUEST} from "../../db/models/Notification/NotificationTypeConsts";
+import { BUY_REQUEST } from "../../db/models/Notification/NotificationTypeConsts";
 import sendPushNotifications from "../../libs/sendPushNotifications";
 
 export default {
@@ -24,7 +24,7 @@ export default {
         },
       } = db;
 
-      const {textbookId, recipientId, message} = args.buyRequest;
+      const { textbookId, recipientId, message } = args.buyRequest;
 
       return Textbook.findOne({
         where: {

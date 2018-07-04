@@ -1,8 +1,8 @@
 import db from "../../connection";
 
-export default ({notification}) => {
-  const {session} = notification;
-  const {models: {BuyRequest}} = db;
+export default ({ notification }) => {
+  const { session } = notification;
+  const { models: { BuyRequest } } = db;
 
   return BuyRequest.findOne({
     where: {

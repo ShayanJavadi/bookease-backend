@@ -1,4 +1,4 @@
-import {GraphQLID, GraphQLString} from "graphql";
+import { GraphQLID, GraphQLString } from "graphql";
 import isEmpty from "lodash/isEmpty";
 import extend from "lodash/extend";
 import B from "bluebird";
@@ -47,7 +47,7 @@ export default {
         User, UserFacebook, UserGoogle, Textbook,
       },
     } = db;
-    const {session} = req;
+    const { session } = req;
     const {
       schoolId,
       email,
@@ -102,13 +102,13 @@ export default {
             values.pushNotificationToken = pushNotificationToken;
           }
 
-          return user.update(values, {transaction})
+          return user.update(values, { transaction })
             .then(() => {
               const promises = [];
               if (!isEmpty(schoolId)) {
                 promises.push(Textbook.update(
-                  {schoolId},
-                  {where: {userId: session.userId}},
+                  { schoolId },
+                  { where: { userId: session.userId } },
                 ));
               }
 
@@ -125,10 +125,10 @@ export default {
 
                     if (isEmpty(userFacebook)) {
                       return UserFacebook.build(valuesToUpdate)
-                        .save({transaction});
+                        .save({ transaction });
                     }
 
-                    return userFacebook.update(valuesToUpdate, {transaction});
+                    return userFacebook.update(valuesToUpdate, { transaction });
                   }));
               }
 
@@ -145,10 +145,10 @@ export default {
 
                     if (isEmpty(userGoogle)) {
                       return UserGoogle.build(valuesToUpdate)
-                        .save({transaction});
+                        .save({ transaction });
                     }
 
-                    return userGoogle.update(valuesToUpdate, {transaction});
+                    return userGoogle.update(valuesToUpdate, { transaction });
                   }));
               }
 

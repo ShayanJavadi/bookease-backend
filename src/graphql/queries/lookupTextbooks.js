@@ -1,7 +1,7 @@
-import {GraphQLInt, GraphQLString} from "graphql";
+import { GraphQLInt, GraphQLString } from "graphql";
 import google from "googleapis";
 import B from "bluebird";
-import {extend, get, map} from "lodash";
+import { extend, get, map } from "lodash";
 import isISBN from "validator/lib/isISBN";
 import TextbookLookupResult from "../types/TextbookLookupResult";
 
@@ -19,12 +19,12 @@ export default {
       type: GraphQLInt,
     },
   },
-  resolve: (req, {query, limit = 10, offset = 0}) => {
+  resolve: (req, { query, limit = 10, offset = 0 }) => {
     const books = google.books("v1");
-    const {volumes: {list}} = books;
+    const { volumes: { list } } = books;
     const q = isISBN(query) ? `isbn:${query}` : query;
 
-    return B.promisify(list, {context: books, multiArgs: true})({
+    return B.promisify(list, { context: books, multiArgs: true })({
       q,
       maxResults: limit,
       startIndex: offset,
@@ -38,7 +38,7 @@ export default {
           title: get(item, "volumeInfo.title"),
           authors: get(item, "volumeInfo.authors", []),
           industryIdentifiers: get(item, "volumeInfo.industryIdentifiers", []),
-          images: [extend({priority: 0}, get(item, "volumeInfo.imageLinks", {}))],
+          images: [extend({ priority: 0 }, get(item, "volumeInfo.imageLinks", {}))],
           createdAt: new Date(),
           updatedAt: new Date(),
         })),

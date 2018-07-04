@@ -1,4 +1,4 @@
-import {GraphQLNonNull, GraphQLString} from "graphql";
+import { GraphQLNonNull, GraphQLString } from "graphql";
 import isEmpty from "lodash/isEmpty";
 import db from "../../db";
 import UserType from "../types/User";
@@ -15,8 +15,8 @@ export default {
     },
   },
   resolve: (req, args) => {
-    const {models: {User}} = db;
-    const {session} = req;
+    const { models: { User } } = db;
+    const { session } = req;
 
     return User.findOne({
       where: {
@@ -29,7 +29,7 @@ export default {
           throw new Error("Phone number or password is not valid!", 400);
         }
 
-        return user.update({pushNotificationToken: session.pushNotificationToken})
+        return user.update({ pushNotificationToken: session.pushNotificationToken })
           .then(() => {
           session.userId = user.id; // eslint-disable-line
             return user;

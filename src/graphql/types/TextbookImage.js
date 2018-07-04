@@ -1,4 +1,4 @@
-import {GraphQLObjectType, GraphQLString, GraphQLInt} from "graphql";
+import { GraphQLObjectType, GraphQLString, GraphQLInt } from "graphql";
 
 export default new GraphQLObjectType({
   name: "TextbookImage",

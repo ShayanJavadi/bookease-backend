@@ -1,4 +1,4 @@
-import {GraphQLInt, GraphQLList} from "graphql";
+import { GraphQLInt, GraphQLList } from "graphql";
 import NotificationType from "../types/Notification";
 import db from "../../db";
 
@@ -11,8 +11,8 @@ export default {
     },
   },
   resolve: (req, args) => {
-    const {models: {Notification}} = db;
-    const {limit = 10} = args;
+    const { models: { Notification } } = db;
+    const { limit = 10 } = args;
 
     return Notification.findAll({
       where: {

@@ -1,4 +1,4 @@
-import {GraphQLInt, GraphQLList} from "graphql";
+import { GraphQLInt, GraphQLList } from "graphql";
 import BookmarkType from "../types/Bookmark";
 import requireAuthenticated from "../acl/requireAuthenticated";
 import db from "../../db";
@@ -14,7 +14,7 @@ export default {
   },
   resolve: (req, args) => acl(req, args, requireAuthenticated)
     .then(() => {
-      const {models: {Bookmark}} = db;
+      const { models: { Bookmark } } = db;
       return Bookmark.findAll({
         where: {
           userId: req.session.userId,

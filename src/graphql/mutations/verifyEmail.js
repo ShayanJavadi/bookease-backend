@@ -1,4 +1,4 @@
-import {GraphQLInt, GraphQLNonNull, GraphQLString} from "graphql";
+import { GraphQLInt, GraphQLNonNull, GraphQLString } from "graphql";
 import isEmpty from "lodash/isEmpty";
 import db from "../../db";
 import encryptPassword from "../../db/models/User/encryptPassword";
@@ -14,8 +14,8 @@ export default {
     },
   },
   resolve: (req, args) => {
-    const {models: {User}} = db;
-    const {email, verificationCode} = args;
+    const { models: { User } } = db;
+    const { email, verificationCode } = args;
 
     return User.findOne({
       where: {

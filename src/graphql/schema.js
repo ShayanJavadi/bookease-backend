@@ -1,8 +1,8 @@
-import {GraphQLObjectType, GraphQLSchema} from "graphql";
+import { GraphQLObjectType, GraphQLSchema } from "graphql";
 import requireFiles from "./requireFiles";
 
-const queries = requireFiles({folderName: "queries"});
-const mutations = requireFiles({folderName: "mutations"});
+const queries = requireFiles({ folderName: "queries" });
+const mutations = requireFiles({ folderName: "mutations" });
 
 const schema = new GraphQLSchema({
   query: new GraphQLObjectType({

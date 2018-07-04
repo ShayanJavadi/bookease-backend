@@ -1,4 +1,4 @@
-import {BIGINT, STRING} from "sequelize";
+import { BIGINT, STRING } from "sequelize";
 
 export default (db) => {
   const TextbookAuthor = db.define("TextbookAuthor", {
@@ -26,7 +26,7 @@ export default (db) => {
     }],
   });
 
-  const {models: {Textbook, User}} = db;
+  const { models: { Textbook, User } } = db;
   TextbookAuthor.belongsTo(Textbook, {
     as: "Textbook",
     foreignKey: "textbookId",

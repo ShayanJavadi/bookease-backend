@@ -1,8 +1,8 @@
-import {GraphQLInt, GraphQLList, GraphQLString} from "graphql";
+import { GraphQLInt, GraphQLList, GraphQLString } from "graphql";
 import reduce from "lodash/reduce";
 import isEmpty from "lodash/isEmpty";
 import trim from "lodash/trim";
-import {Op} from "sequelize";
+import { Op } from "sequelize";
 import isISBN from "validator/lib/isISBN";
 import TextbookType from "../types/Textbook";
 import db from "../../db";
@@ -29,8 +29,8 @@ export default {
     const {
       query, limit = 10, offset = 0, orderBy = "relevance",
     } = args;
-    const {models: {Textbook, TextbookIndustryIdentifier}} = db;
-    const schoolIdWhereClause = req.session ? {schoolId: req.session.schoolId} : {};
+    const { models: { Textbook, TextbookIndustryIdentifier } } = db;
+    const schoolIdWhereClause = req.session ? { schoolId: req.session.schoolId } : {};
     const where = {
       title: {
         $ilike: `%${trim(query)}%`,
@@ -73,7 +73,7 @@ export default {
             }
 
             const textbookIdentifiersWhere = {
-              id: {[Op.in]: textbookIds},
+              id: { [Op.in]: textbookIds },
             };
 
             return Textbook.findAll({

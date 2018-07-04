@@ -2,6 +2,7 @@ import extend from "lodash/extend";
 import map from "lodash/map";
 import isEmpty from "lodash/isEmpty";
 import db from "../../db";
+import publishNotifyInterestedBuyers from "../../scheduler/jobs/notifyInterestedBuyer/publish";
 import TextbookType from "../types/Textbook";
 import TextbookInput from "../inputs/TextbookInput";
 import acl from "../acl";
@@ -29,8 +30,8 @@ export default {
       return db.transaction(transaction => Textbook.build(extend({
         id: generateRandomUID(),
         uid: generateRandomUID(),
-      }, args.textbook, {userId: req.session.userId, schoolId: req.session.schoolId}))
-        .save({transaction})
+      }, args.textbook, { userId: req.session.userId, schoolId: req.session.schoolId }))
+        .save({ transaction })
         .then((textbook) => {
           if (isEmpty(args.textbook.authors)) {
             return textbook;
@@ -40,7 +41,7 @@ export default {
             textbookId: textbook.id,
             userId: req.session.userId,
             name: author,
-          })), {transaction})
+          })), { transaction })
             .then(() => textbook);
         })
         .then((textbook) => {
@@ -56,7 +57,7 @@ export default {
             }),
           );
 
-          return TextbookIndustryIdentifier.bulkCreate(industryIdentifiers, {transaction})
+          return TextbookIndustryIdentifier.bulkCreate(industryIdentifiers, { transaction })
             .then(() => textbook);
         })
 
@@ -71,8 +72,10 @@ export default {
             priority: image.priority || index,
           }));
 
-          return TextbookImage.bulkCreate(images, {transaction})
+          return TextbookImage.bulkCreate(images, { transaction })
             .then(() => textbook);
-        }));
+        }))
+        .then(textbook => publishNotifyInterestedBuyers({ textbook })
+          .then(() => textbook));
     }),
 };

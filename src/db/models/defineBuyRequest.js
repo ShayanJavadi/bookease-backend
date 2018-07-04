@@ -1,4 +1,4 @@
-import {BIGINT, STRING, BOOLEAN} from "sequelize";
+import { BIGINT, STRING, BOOLEAN } from "sequelize";
 
 export default (db) => {
   const BuyRequest = db.define("BuyRequest", {
@@ -52,7 +52,7 @@ export default (db) => {
     },
   });
 
-  const {models: {Textbook, User}} = db;
+  const { models: { Textbook, User } } = db;
 
   BuyRequest.belongsTo(User, {
     as: "User",

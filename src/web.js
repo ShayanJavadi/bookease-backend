@@ -1,10 +1,10 @@
 import express from "express";
-import {json, urlencoded} from "body-parser";
-import {graphiqlExpress, graphqlExpress} from "apollo-server-express";
+import { json, urlencoded } from "body-parser";
+import { graphiqlExpress, graphqlExpress } from "apollo-server-express";
 import compression from "compression";
 import methodOverride from "method-override";
 import cookieParser from "cookie-parser";
-import {HTTPS} from "express-sslify";
+import { HTTPS } from "express-sslify";
 import path from "path";
 import getVariable from "./config/getVariable";
 import getPort from "./config/getPort";
@@ -14,15 +14,16 @@ import isDevelopment from "./config/isDevelopment";
 import L from "./logger/logger";
 import db from "./db";
 import initializeDb from "./db/initialize";
+import initializeScheduler from "./scheduler/initializeScheduler";
 import configureSession from "./libs/configureSession";
 import configureCors from "./libs/configureCors";
 import configureAuth from "./libs/configureAuth";
 import sendUploadedFileToGCS from "./libs/sendUploadedFileToGCS";
 import configureMulter from "./libs/configureMulter";
 import requireAuthenticated from "./libs/requireAuthenticated";
+import scheduler from "./scheduler";
 
 const multer = configureMulter();
-
 const isDev = isDevelopment();
 
 const app = express();
@@ -37,7 +38,7 @@ app.use(compression());
 app.use(json({
   limit: getVariable("BODY_PARSER_LIMIT"),
 }));
-app.use(urlencoded({extended: true}));
+app.use(urlencoded({ extended: true }));
 app.use(methodOverride("X-HTTP-Method-Override"));
 app.use(cookieParser());
 app.disable("etag");
@@ -56,6 +57,7 @@ app.use("/graphql", graphqlExpress(request => ({
     session: request.session,
     db,
     request,
+    scheduler,
   },
 })));
 
@@ -81,7 +83,8 @@ app.post(
 );
 
 let server;
-app.start = () => initializeDb({db})
+app.start = () => initializeDb({ db })
+  .then(() => initializeScheduler({ scheduler }))
   .then(() => {
     const PORT = getPort();
     const HOST = getHost();

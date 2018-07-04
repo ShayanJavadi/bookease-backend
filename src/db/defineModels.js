@@ -13,7 +13,7 @@ import defineBuyRequest from "./models/defineBuyRequest";
 import defineNotification from "./models/defineNotification";
 import defineBookmarks from "./models/defineBookmarks";
 
-export default ({db, sync}) => {
+export default ({ db, sync }) => {
   /* eslint-disable */
   db.models = {};
   db.models.School = defineSchool(db);

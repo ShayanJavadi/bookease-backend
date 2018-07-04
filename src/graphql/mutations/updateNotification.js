@@ -1,4 +1,4 @@
-import {reduce, isEmpty} from "lodash";
+import { reduce, isEmpty } from "lodash";
 import db from "../../db";
 import acl from "../acl";
 import requireAuthenticated from "../acl/requireAuthenticated";
@@ -21,7 +21,7 @@ export default {
         },
       } = db;
 
-      const {notification} = args;
+      const { notification } = args;
 
       return Notification.findOne({
         where: {
@@ -41,7 +41,7 @@ export default {
               return result;
             }, {});
 
-            return notificationToUpdate.update(values, {transaction});
+            return notificationToUpdate.update(values, { transaction });
           })
             .then(() => Notification.findOne({
               where: {

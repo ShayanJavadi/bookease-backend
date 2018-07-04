@@ -1,7 +1,7 @@
-import {BIGINT, STRING} from "sequelize";
+import { BIGINT, STRING } from "sequelize";
 
 export default (db) => {
-  const {models: {User}} = db;
+  const { models: { User } } = db;
 
   const UserGoogle = db.define("UserGoogle", {
     id: {

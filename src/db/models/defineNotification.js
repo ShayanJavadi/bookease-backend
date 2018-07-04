@@ -1,8 +1,8 @@
-import {BIGINT, STRING, BOOLEAN} from "sequelize";
-import {NOTIFY} from "./Notification/NotificationTypeConsts";
+import { BIGINT, STRING, BOOLEAN } from "sequelize";
+import { NOTIFY } from "./Notification/NotificationTypeConsts";
 
 export default (db) => {
-  const {models: {User, Textbook, BuyRequest}} = db;
+  const { models: { User, Textbook, BuyRequest } } = db;
   const Notification = db.define("Notification", {
     id: {
       type: BIGINT,

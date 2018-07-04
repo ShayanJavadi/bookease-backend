@@ -1,4 +1,4 @@
-import {GraphQLInt} from "graphql";
+import { GraphQLInt } from "graphql";
 import db from "../../db";
 import BookmarkInput from "../inputs/BookmarkInput";
 import acl from "../acl";
@@ -19,7 +19,7 @@ export default {
         },
       } = db;
 
-      const {textbookId} = args.bookmark;
+      const { textbookId } = args.bookmark;
       Bookmark.findOne({
         where: {
           userId: req.session.userId,

@@ -1,4 +1,4 @@
-import {BIGINT, STRING} from "sequelize";
+import { BIGINT, STRING } from "sequelize";
 
 export default (db) => {
   const TextbookIndustryIdentifier = db.define("TextbookIndustryIdentifier", {
@@ -30,7 +30,7 @@ export default (db) => {
     }],
   });
 
-  const {models: {Textbook, User}} = db;
+  const { models: { Textbook, User } } = db;
 
   TextbookIndustryIdentifier.belongsTo(Textbook, {
     as: "Textbook",

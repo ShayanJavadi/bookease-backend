@@ -1,4 +1,4 @@
-import {GraphQLNonNull, GraphQLInputObjectType, GraphQLString} from "graphql";
+import { GraphQLNonNull, GraphQLInputObjectType, GraphQLString } from "graphql";
 
 export default new GraphQLInputObjectType({
   name: "TextbookIndustryIdentifierInput",

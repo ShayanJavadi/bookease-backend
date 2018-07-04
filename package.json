@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "web": "./node_modules/.bin/nodemon --config ./nodemon.web.json --inspect=5858 --expose_debug_as=v8debug src/start.js",
+    "worker": "./node_modules/.bin/nodemon --config ./nodemon.worker.json --inspect=5859 --expose_debug_as=v8debug src/worker.js",
     "start": "npm run web",
     "test": "jest --runInBand",
     "test:watch": "jest  --runInBand --onlyChanged --watch tests/**/*.test.js",
@@ -60,6 +61,7 @@
     "nodemailer": "^4.1.0",
     "nodemailer-mailgun-transport": "^1.3.5",
     "pg": "^7.1.2",
+    "pg-boss": "^2.5.1",
     "pg-hstore": "^2.3.2",
     "redis": "^2.1.0",
     "sequelize": "^4.6.0",
@@ -110,7 +112,7 @@
     "rules": {
       "object-curly-spacing": [
         "error",
-        "never"
+        "always"
       ],
       "quotes": [
         "error",

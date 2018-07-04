@@ -37,7 +37,7 @@ export default new GraphQLObjectType({
     },
     buyRequest: {
       type: BuyRequest,
-      resolve: notification => notification.buyRequest || getBuyRequest({notification}),
+      resolve: notification => notification.buyRequest || getBuyRequest({ notification }),
     },
     createdAt: {
       type: new GraphQLNonNull(GraphQLDate),
@@ -47,7 +47,7 @@ export default new GraphQLObjectType({
     },
     user: {
       type: new GraphQLNonNull(User),
-      resolve: notification => notification.user || getNotificationUser({notification}),
+      resolve: notification => notification.user || getNotificationUser({ notification }),
     },
   },
 });

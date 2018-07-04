@@ -1,4 +1,4 @@
-import {GraphQLID, GraphQLList} from "graphql";
+import { GraphQLID, GraphQLList } from "graphql";
 import BuyRequestType from "../types/BuyRequest";
 import requireAuthenticated from "../acl/requireAuthenticated";
 import db from "../../db";
@@ -18,8 +18,8 @@ export default {
   },
   resolve: (req, args) => acl(req, args, requireAuthenticated)
     .then(() => {
-      const {models: {BuyRequest}} = db;
-      const {textbookId, recipientId} = args;
+      const { models: { BuyRequest } } = db;
+      const { textbookId, recipientId } = args;
 
       if (recipientId) {
         return BuyRequest.findAll({

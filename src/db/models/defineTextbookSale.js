@@ -1,4 +1,4 @@
-import {BIGINT, STRING} from "sequelize";
+import { BIGINT, STRING } from "sequelize";
 
 export default (db) => {
   const TextbookSale = db.define("TextbookSale", {
@@ -21,7 +21,7 @@ export default (db) => {
     },
   });
 
-  const {models: {Textbook, User, BuyRequest}} = db;
+  const { models: { Textbook, User, BuyRequest } } = db;
 
   TextbookSale.belongsTo(Textbook, {
     as: "Textbook",
