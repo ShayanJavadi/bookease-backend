@@ -1,24 +1,5 @@
-# Setup the app locally 
-1. Clone the repository
-1. Install dependencies
-    ```bash
-    npm install
-    ```
-1. Run data loader
-    ```bash
-    npm run init:run-dataloader
-    ```
+The back end repo for Bookease. Bookease is an upcoming college textbook trading iOS/Android app staged to release this fall.
 
-# Run data loader in heroku
-1. login to heroku
-    ```bash
-    heroku login
-    ```
-1. access to bash shell on heroku
-    ```bash
-    heroku run bash
-    ``` 
-1. Run data loader
-    ```bash
-    npm run heroku:dataloader
-    ```
+tools we use: Node.js, Express, Graphql, Sequalize, Jest
+
+Backend repo: https://github.com/ShayanJavadi/bookease-frontend
